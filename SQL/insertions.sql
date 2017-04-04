@@ -1,3 +1,4 @@
+-- TEST !
 --INSERTION
 
 ALTER SESSION SET nls_date_format = 'dd/MM/yyyy';
