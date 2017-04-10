@@ -5,8 +5,12 @@
  */
 package interfaces;
 
-import java.awt.Image;
 import java.io.*;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import oracle.jdbc.OraclePreparedStatement;
+import utils.ConnexionUtils;
 
 /**
  *
@@ -31,8 +35,6 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     private void initComponents() {
 
         Ajouter = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Ajouter.setText("jButton1");
         Ajouter.addActionListener(new java.awt.event.ActionListener() {
@@ -63,8 +65,21 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
 
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
         //https://www.developpez.net/forums/d40018/java/general-java/jdbc/java-sql-transformer-image-blob/
-        /*Image im = new Image("/home2/ag092850/Documents/Test/Strange_3.jpg");
-        ByteArrayInputStream imageBlobStream = getBlobByImage(p.getImage());*/
+        try 
+        {
+            File monImage = new File("../Strange_2.jpg");
+            FileInputStream istreamImage = new FileInputStream(monImage);
+            PreparedStatement stmt = ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enqueteur SET photo=new ORDSYS.SI_StillImage(?) WHERE id=3");
+            stmt.setBlob(1, istreamImage);
+            System.out.println(monImage.length());
+            stmt.executeUpdate();
+            stmt.close();
+            System.out.println("UPDATE");
+        } 
+        catch (FileNotFoundException | SQLException ex) 
+        {
+            Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_AjouterActionPerformed
 
     /**

@@ -56,6 +56,8 @@ public class DlgCommissariat extends javax.swing.JFrame {
             this.Rue.setText(this.rue);
             this.Ville.setText(this.ville);
             this.Telephone.setText(this.telephone);
+            rs.close();
+            stmt.close();
         } 
         catch (SQLException ex) 
         {
@@ -156,6 +158,7 @@ public class DlgCommissariat extends javax.swing.JFrame {
                 stmt.setSTRUCT(2, telC);
                 stmt.setInt(3, idC);
                 stmt.executeQuery();
+                stmt.close();
                 System.out.println("Mise à jour effectuée !");
                 JOptionPane jop = new JOptionPane();
                 jop.showMessageDialog(null, "Mise à jour effectuée !", "Mise à jour du commissariat", JOptionPane.INFORMATION_MESSAGE);

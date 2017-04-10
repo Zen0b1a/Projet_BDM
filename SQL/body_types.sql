@@ -6,15 +6,15 @@
 
 CREATE OR REPLACE TYPE BODY bdm_personne_type AS
 	MEMBER PROCEDURE ajoutPhoto(chemin_photo IN VARCHAR2) IS
-		bl BLOB;
-		bf BFILE := BFILENAME('repPhoto', chemin_photo);
+		bl BLOB := FILE_READ(chemin_phot);
+		--bf BFILE := BFILENAME('repPhoto', chemin_photo);
 	BEGIN
-		DBMS_LOB.CREATETEMPORARY(bl, TRUE);
-		DBMS_LOB.FILEOPEN(bf, DBMS_LOB.FILE_READONLY);
-		DBMS_LOB.LOADFROMFILE(bl, bf, DBMS_LOB.GETLENGTH(bf));
-		DBMS_LOB.FILECLOSE(bf);
+		--DBMS_LOB.CREATETEMPORARY(bl, TRUE);
+		--DBMS_LOB.FILEOPEN(bf, DBMS_LOB.FILE_READONLY);
+		--DBMS_LOB.LOADFROMFILE(bl, bf, DBMS_LOB.GETLENGTH(bf));
+		--DBMS_LOB.FILECLOSE(bf);
 		UPDATE bdm_enqueteur SET photo=new ORDSYS.SI_StillImage(bl) WHERE id=self.id;
-		DBMS_LOB.FREETEMPORARY(bl);
+		--DBMS_LOB.FREETEMPORARY(bl);
 		COMMIT;
 	END ajoutPhoto;
 END;
@@ -28,7 +28,7 @@ DECLARE
 	e bdm_enqueteur_type;
 BEGIN
 	SELECT VALUE(e1) INTO e FROM bdm_enqueteur e1 WHERE id=3;
-	e.ajoutPhoto('Strange_3.jpg');
+	e.ajoutPhoto('Strange_2.jpg');
 END;
 /
 	

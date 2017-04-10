@@ -74,6 +74,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                         afficherEnqueteur(evt);
                     }
                 });
+                
+                this.PanelEnqueteurs.add(button);
             }
         } 
         catch (SQLException ex) 
@@ -108,15 +110,25 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         jPanel1.add(NbEnqueteurs);
 
         Ajouter.setText("Ajouter");
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterActionPerformed(evt);
+            }
+        });
         jPanel1.add(Ajouter);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        PanelEnqueteurs.setLayout(new java.awt.GridLayout());
+        PanelEnqueteurs.setLayout(new java.awt.GridLayout(1, 0));
         getContentPane().add(PanelEnqueteurs, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
+        DlgAjoutEnqueteur dlgAjoutEnqueteur = new DlgAjoutEnqueteur();
+        dlgAjoutEnqueteur.setVisible(true);
+    }//GEN-LAST:event_AjouterActionPerformed
 
     /**
      * @param args the command line arguments
