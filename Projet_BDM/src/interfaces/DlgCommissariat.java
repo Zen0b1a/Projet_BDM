@@ -7,6 +7,7 @@ package interfaces;
 
 import java.sql.*;
 import java.util.logging.*;
+import javax.swing.JOptionPane;
 import oracle.jdbc.*;
 import oracle.sql.*;
 import utils.ConnexionUtils;
@@ -136,10 +137,9 @@ public class DlgCommissariat extends javax.swing.JFrame {
         if(!modifNumeroRue.equals(this.numeroRue) || !modifRue.equals(this.rue) || 
                 !modifVille.equals(this.ville) || !modifTelephone.equals(this.telephone))
         {
-            //TODO: appel d'une procédure SQL pour la MAJ
-            /*
             try 
             {
+                int idC = 1;
                 //Construction du STRUCT adresse
                 Object[] adresse_attributs = new Object[3];
                 adresse_attributs[0] = modifNumeroRue;
@@ -148,20 +148,23 @@ public class DlgCommissariat extends javax.swing.JFrame {
                 STRUCT adresse = new STRUCT(this.dscrAdresse, ConnexionUtils.getInstance(), adresse_attributs);
                 //Construction du STRUCT telephone
                 Object[] telephone_attributs = new Object[1];
-                adresse_attributs[0] = modifTelephone;
+                telephone_attributs[0] = modifTelephone;
                 STRUCT telC = new STRUCT(this.dscrTelephone, ConnexionUtils.getInstance(), telephone_attributs);
                 //Construction de la requête
-                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_commissariat SET adresse =?, telC=? WHERE numeroCo=?");
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_commissariat SET adresse=?, telC=? WHERE numeroCo=?");
                 stmt.setSTRUCT(1, adresse);
                 stmt.setSTRUCT(2, telC);
+                stmt.setInt(3, idC);
                 stmt.executeQuery();
                 System.out.println("Mise à jour effectuée !");
+                JOptionPane jop = new JOptionPane();
+                jop.showMessageDialog(null, "Mise à jour effectuée !", "Mise à jour du commissariat", JOptionPane.INFORMATION_MESSAGE);
             } 
             catch (SQLException ex) 
             {
                 Logger.getLogger(DlgCommissariat.class.getName()).log(Level.SEVERE, null, ex);
             }
-            */
+            
         }
         this.setVisible(false);
     }//GEN-LAST:event_ValiderActionPerformed

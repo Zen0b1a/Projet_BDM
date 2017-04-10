@@ -48,7 +48,10 @@ public class ConnexionUtils {
     public static Connection getInstance()
     {
         if(single==null)
+        {
             single = new ConnexionUtils();
+            System.out.println("Création d'instance.");
+        }
         return connect;
     }
 }

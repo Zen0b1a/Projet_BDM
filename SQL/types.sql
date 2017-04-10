@@ -34,10 +34,7 @@ CREATE TYPE bdm_telephones_type AS VARRAY(2) OF bdm_telephone_type;
 
 CREATE TYPE bdm_personne_type AS OBJECT 
 (id INTEGER, nom VARCHAR2(50), prenom VARCHAR2(50), adresse bdm_adresse_type, telP bdm_telephones_type, 
-photo SI_StillImage,
-MEMBER PROCEDURE majAdresse(a in bdm_adresse_type),
-NOT FINAL MEMBER PROCEDURE affiche,
-MEMBER PROCEDURE affichePersonne)
+photo SI_StillImage)
 NOT INSTANTIABLE NOT FINAL;
 / 
 
@@ -45,8 +42,7 @@ CREATE TYPE bdm_commissariat_type;
 /
 
 CREATE TYPE bdm_enqueteur_type UNDER bdm_personne_type
-(badge INTEGER, commissariatE REF bdm_commissariat_type,
-OVERRIDING MEMBER PROCEDURE affiche);
+(badge INTEGER, commissariatE REF bdm_commissariat_type);
 /
 
 CREATE TYPE bdm_enqueteur_ref_type AS OBJECT (enqueteurR REF bdm_enqueteur_type);
@@ -56,8 +52,7 @@ CREATE TYPE bdm_enqueteurs_type AS TABLE OF bdm_enqueteur_ref_type;
 /
 
 CREATE TYPE bdm_suspect_type UNDER bdm_personne_type
-(alibi VARCHAR2(500), etatS VARCHAR2(50),
-OVERRIDING MEMBER PROCEDURE affiche);
+(alibi VARCHAR2(500), etatS VARCHAR2(50));
 /
 
 CREATE TYPE bdm_suspect_ref_type AS OBJECT (suspectR REF bdm_suspect_type);
@@ -67,8 +62,7 @@ CREATE TYPE bdm_suspects_type AS TABLE OF bdm_suspect_ref_type;
 /
 
 CREATE TYPE bdm_victime_type UNDER bdm_personne_type
-(etatV VARCHAR2(50),
-OVERRIDING MEMBER PROCEDURE affiche);
+(etatV VARCHAR2(50));
 /
 
 CREATE TYPE bdm_victime_ref_type AS OBJECT (victimeR REF bdm_victime_type);
@@ -89,25 +83,20 @@ CREATE TYPE bdm_enquetes_type AS TABLE OF bdm_enquete_ref_type;
 /
 
 CREATE TYPE bdm_preuve_type AS OBJECT 
-(numeroP INTEGER, descr VARCHAR2(500), enqueteP REF bdm_enquete_type,
-NOT FINAL MEMBER PROCEDURE affiche,
-MEMBER PROCEDURE affichePreuve)
+(numeroP INTEGER, descr VARCHAR2(500), enqueteP REF bdm_enquete_type)
 NOT INSTANTIABLE NOT FINAL;
 / 
 
 CREATE TYPE bdm_preuve_image_type UNDER bdm_preuve_type
-(image ORDImage,
-OVERRIDING MEMBER PROCEDURE affiche);
+(image ORDImage);
 /
 
 CREATE TYPE bdm_preuve_audio_type UNDER bdm_preuve_type
-(audio ORDAudio,
-OVERRIDING MEMBER PROCEDURE affiche);
+(audio ORDAudio);
 /
 
 CREATE TYPE bdm_preuve_video_type UNDER bdm_preuve_type
-(video ORDVideo,
-OVERRIDING MEMBER PROCEDURE affiche);
+(video ORDVideo);
 /
 
 CREATE TYPE bdm_crime_type AS OBJECT

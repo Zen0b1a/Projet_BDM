@@ -28,9 +28,10 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         Commissariat = new javax.swing.JButton();
+        Enqueteurs = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 
         Commissariat.setText("Commissariat");
         Commissariat.addActionListener(new java.awt.event.ActionListener() {
@@ -40,6 +41,14 @@ public class Menu extends javax.swing.JFrame {
         });
         getContentPane().add(Commissariat);
 
+        Enqueteurs.setText("Voir les enquêteurs");
+        Enqueteurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EnqueteursActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Enqueteurs);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -47,6 +56,11 @@ public class Menu extends javax.swing.JFrame {
         DlgCommissariat dlgCommissariat = new DlgCommissariat();
         dlgCommissariat.setVisible(true);
     }//GEN-LAST:event_CommissariatActionPerformed
+
+    private void EnqueteursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnqueteursActionPerformed
+        DlgEnqueteurs dlgEnqueteurs = new DlgEnqueteurs();
+        dlgEnqueteurs.setVisible(true);
+    }//GEN-LAST:event_EnqueteursActionPerformed
 
     /**
      * @param args the command line arguments
@@ -85,5 +99,6 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Commissariat;
+    private javax.swing.JButton Enqueteurs;
     // End of variables declaration//GEN-END:variables
 }

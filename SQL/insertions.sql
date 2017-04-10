@@ -1,15 +1,14 @@
--- TEST !
---INSERTION
+--INSERTIONS
 
-ALTER SESSION SET nls_date_format = 'dd/MM/yyyy';
+--ALTER SESSION SET nls_date_format = 'dd/MM/yyyy';
 
-INSERT INTO bdm_suspect VALUES(1, 'nom2', 'prenom2', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(),'alibi', 'innocent');
+--INSERT INTO bdm_suspect VALUES(1, 'nom2', 'prenom2', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(),'alibi', 'innocent');
 
-INSERT INTO bdm_victime VALUES(2, 'nom2', 'prenom2', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(), 'vivant');
+--INSERT INTO bdm_victime VALUES(2, 'nom2', 'prenom2', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(), 'vivant');
 
---INSERT INTO bdm_commissariat VALUES(1, bdm_adresse_type(1, 'rue', 'ville'), bdm_telephone_type(0123456789), bdm_enquetes_type(), bdm_enquetes_type());
+INSERT INTO bdm_commissariat VALUES(1, bdm_adresse_type(1, 'rue', 'ville'), bdm_telephone_type(0123456789), bdm_enquetes_type(), bdm_enquetes_type());
 
-INSERT INTO bdm_enqueteur VALUES(3, 'nom3', 'prenom3', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(), 1, (SELECT REF(c) FROM bdm_commissariat c WHERE c.numeroCo=1));
+--INSERT INTO bdm_enqueteur VALUES(3, 'nom3', 'prenom3', bdm_adresse_type(1, 'rue', 'ville'), bdm_telephones_type(bdm_telephone_type(0123456789), bdm_telephone_type(1234567890)), new ORDSYS.SI_StillImage(), 1, (SELECT REF(c) FROM bdm_commissariat c WHERE c.numeroCo=1));
 
 --INSERT INTO bdm_temoignage VALUES(1, '01/01/2017', 'contenu', (SELECT REF(v) FROM bdm_victime v WHERE v.id=1), (SELECT REF(c) FROM bdm_crime c WHERE c.numeroCr=1));
 
