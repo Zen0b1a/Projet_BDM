@@ -1,4 +1,4 @@
-DROP TABLE bdm_commissariat CASCADE CONSTRAINTS;
+DROP TABLE bdm_personne CASCADE CONSTRAINTS;
 DROP TABLE bdm_enqueteur CASCADE CONSTRAINTS;
 DROP TABLE bdm_suspect CASCADE CONSTRAINTS;
 DROP TABLE bdm_victime CASCADE CONSTRAINTS;
@@ -6,24 +6,19 @@ DROP TABLE bdm_enquete CASCADE CONSTRAINTS;
 DROP TABLE bdm_preuve CASCADE CONSTRAINTS;
 DROP TABLE bdm_crime CASCADE CONSTRAINTS;
 DROP TABLE bdm_temoignage CASCADE CONSTRAINTS;
+DROP TABLE bdm_enqueteur_enquete CASCADE CONSTRAINTS;
+
+CREATE TABLE bdm_personne OF bdm_personne_type
+(PRIMARY KEY(id));
 
 CREATE TABLE bdm_enqueteur OF bdm_enqueteur_type
 (PRIMARY KEY(id));
 
-CREATE TABLE bdm_suspect OF bdm_suspect_type
-(PRIMARY KEY(id),
-CHECK(etat IN ('coupable', 'disculpé', 'non défini'));
-
-CREATE TABLE bdm_victime OF bdm_victime_type
-(PRIMARY KEY(id),
-CHECK(etat IN ('vivant', 'mort'));
-
 CREATE TABLE bdm_enquete OF bdm_enquete_type
 (PRIMARY KEY(id),
-CHECK(etat IN ('en-cours', 'résolue'))
-NESTED TABLE enqueteurs STORE AS tab_enqueteurs,
-NESTED TABLE suspects STORE AS tab_suspects,
-NESTED TABLE coupables STORE AS tab_coupables;
+CHECK(etat IN ('en-cours', 'résolue')))
+NESTED TABLE crimes STORE AS tab_crimes,
+NESTED TABLE preuves STORE AS tab_preuves;
 
 CREATE TABLE bdm_preuve OF bdm_preuve_type
 (PRIMARY KEY(id),
@@ -31,10 +26,26 @@ enqueteP SCOPE IS bdm_enquete);
 
 CREATE TABLE bdm_crime OF bdm_crime_type
 (PRIMARY KEY(id),
-enqueteC SCOPE IS bdm_enquete)
-NESTED TABLE victimes STORE AS tab_victimes;
+enqueteC SCOPE IS bdm_enquete);
+
+CREATE TABLE bdm_suspect OF bdm_suspect_type
+(PRIMARY KEY(id),
+CHECK(etat IN ('coupable', 'disculpé', 'non défini')),
+personneS SCOPE IS bdm_personne,
+enqueteS SCOPE IS bdm_enquete);
+
+CREATE TABLE bdm_victime OF bdm_victime_type
+(PRIMARY KEY(id),
+CHECK(etat IN ('vivant', 'mort')),
+personneV SCOPE IS bdm_personne,
+crimeV SCOPE IS bdm_crime);
 
 CREATE TABLE bdm_temoignage OF bdm_temoignage_type
 (PRIMARY KEY(id),
-crimeT SCOPE IS bdm_crime);
+crimeT SCOPE IS bdm_crime,
+personneT SCOPE IS bdm_personne);
+
+CREATE TABLE bdm_enqueteur_enquete OF bdm_enqueteur_enquete_type
+(enqueteurEE SCOPE IS bdm_enqueteur,
+enqueteEE SCOPE IS bdm_enquete);
 
