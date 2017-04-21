@@ -101,7 +101,10 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         NbEnqueteurs = new javax.swing.JLabel();
         Ajouter = new javax.swing.JButton();
+        jScrollPane = new javax.swing.JScrollPane();
         PanelEnqueteurs = new javax.swing.JPanel();
+
+        setMinimumSize(new java.awt.Dimension(500, 500));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -120,7 +123,9 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
         PanelEnqueteurs.setLayout(new java.awt.GridLayout(1, 0));
-        getContentPane().add(PanelEnqueteurs, java.awt.BorderLayout.CENTER);
+        jScrollPane.setViewportView(PanelEnqueteurs);
+
+        getContentPane().add(jScrollPane, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -171,5 +176,6 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     private javax.swing.JPanel PanelEnqueteurs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane;
     // End of variables declaration//GEN-END:variables
 }

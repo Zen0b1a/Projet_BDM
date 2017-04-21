@@ -26,14 +26,6 @@
     <Property name="rows" type="int" value="1"/>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="Commissariat">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Commissariat"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CommissariatActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="Enqueteurs">
       <Properties>
         <Property name="text" type="java.lang.String" value="Voir les enqu&#xea;teurs"/>

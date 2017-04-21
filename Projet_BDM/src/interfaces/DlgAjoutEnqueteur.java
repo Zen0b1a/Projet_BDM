@@ -34,52 +34,140 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        Badge = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        Nom = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Prenom = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        NumeroRue = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        NomRue = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        Ville = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        Telephone1 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        Telephone2 = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        Photo = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        Annuler = new javax.swing.JButton();
         Ajouter = new javax.swing.JButton();
 
-        Ajouter.setText("jButton1");
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel2.setLayout(new java.awt.GridLayout(9, 2));
+
+        jLabel7.setText("Numéro de badge :");
+        jPanel2.add(jLabel7);
+        jPanel2.add(Badge);
+
+        jLabel1.setText("Nom :");
+        jPanel2.add(jLabel1);
+        jPanel2.add(Nom);
+
+        jLabel2.setText("Prénom :");
+        jPanel2.add(jLabel2);
+        jPanel2.add(Prenom);
+
+        jLabel8.setText("Adresse");
+        jPanel2.add(jLabel8);
+        jPanel2.add(jLabel9);
+
+        jLabel3.setText("Numéro de rue :");
+        jPanel2.add(jLabel3);
+        jPanel2.add(NumeroRue);
+
+        jLabel4.setText("Rue :");
+        jPanel2.add(jLabel4);
+        jPanel2.add(NomRue);
+
+        jLabel5.setText("Ville :");
+        jPanel2.add(jLabel5);
+        jPanel2.add(Ville);
+
+        jLabel6.setText("Téléphone 1 :");
+        jPanel2.add(jLabel6);
+        jPanel2.add(Telephone1);
+
+        jLabel10.setText("Téléphone 2 :");
+        jPanel2.add(jLabel10);
+        jPanel2.add(Telephone2);
+
+        jPanel1.add(jPanel2);
+
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Photo");
+        jPanel3.add(jLabel11, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout PhotoLayout = new javax.swing.GroupLayout(Photo);
+        Photo.setLayout(PhotoLayout);
+        PhotoLayout.setHorizontalGroup(
+            PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 254, Short.MAX_VALUE)
+        );
+        PhotoLayout.setVerticalGroup(
+            PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 259, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(Photo, java.awt.BorderLayout.CENTER);
+
+        jButton1.setText("Pacourir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, java.awt.BorderLayout.LINE_START);
+
+        jPanel1.add(jPanel3);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setLayout(new java.awt.GridLayout());
+
+        Annuler.setText("Annuler");
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnnulerActionPerformed(evt);
+            }
+        });
+        jPanel4.add(Annuler);
+
+        Ajouter.setText("Ajouter");
         Ajouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
+        jPanel4.add(Ajouter);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(167, Short.MAX_VALUE)
-                .addComponent(Ajouter)
-                .addGap(139, 139, 139))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(Ajouter)
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnulerActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
-        //https://www.developpez.net/forums/d40018/java/general-java/jdbc/java-sql-transformer-image-blob/
-        try 
-        {
-            File monImage = new File("../Strange_2.jpg");
-            FileInputStream istreamImage = new FileInputStream(monImage);
-            PreparedStatement stmt = ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enqueteur SET photo=new ORDSYS.SI_StillImage(?) WHERE id=3");
-            stmt.setBlob(1, istreamImage);
-            System.out.println(monImage.length());
-            stmt.executeUpdate();
-            stmt.close();
-            System.out.println("UPDATE");
-        } 
-        catch (FileNotFoundException | SQLException ex) 
-        {
-            Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_AjouterActionPerformed
 
     /**
@@ -119,5 +207,31 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ajouter;
+    private javax.swing.JButton Annuler;
+    private javax.swing.JTextField Badge;
+    private javax.swing.JTextField Nom;
+    private javax.swing.JTextField NomRue;
+    private javax.swing.JSpinner NumeroRue;
+    private javax.swing.JPanel Photo;
+    private javax.swing.JTextField Prenom;
+    private javax.swing.JTextField Telephone1;
+    private javax.swing.JTextField Telephone2;
+    private javax.swing.JTextField Ville;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }
