@@ -82,7 +82,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        System.out.println(id);
+        DlgAfficheEnqueteur dlg = new DlgAfficheEnqueteur(id);
+        dlg.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.

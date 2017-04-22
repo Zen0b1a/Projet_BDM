@@ -286,8 +286,8 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
                 stmt.setInt(4, numRue);
                 stmt.setString(5, nomRue);
                 stmt.setString(6, ville);
-                stmt.setInt(7, tel1);
-                stmt.setInt(8, tel2);
+                stmt.setString(7, telephone1);
+                stmt.setString(8, telephone2);
                 stmt.setInt(9, numBadge);
                 stmt.executeQuery();
                 //Ajout de la photo
@@ -311,7 +311,7 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
             {
                 Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+            this.setVisible(false);
         }
     }//GEN-LAST:event_AjouterActionPerformed
 

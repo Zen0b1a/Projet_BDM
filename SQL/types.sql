@@ -22,7 +22,7 @@ DROP TYPE bdm_enqueteur_enquete_type FORCE;
 CREATE TYPE bdm_adresse_type AS OBJECT (numero INTEGER, rue VARCHAR2(50), ville VARCHAR2(50));
 /
 
-CREATE TYPE bdm_telephone_type AS OBJECT (tel INTEGER);
+CREATE TYPE bdm_telephone_type AS OBJECT (tel VARCHAR2(10));
 /
 
 CREATE TYPE bdm_telephones_type AS VARRAY(2) OF bdm_telephone_type;
