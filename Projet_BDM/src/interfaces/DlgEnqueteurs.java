@@ -6,11 +6,13 @@
 package interfaces;
 
 import java.awt.*;
+import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import oracle.jdbc.*;
+import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
 /**
@@ -41,7 +43,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
             this.NbEnqueteurs.setText(""+nbEnqueteurs);
             //Création de l'interface
             this.PanelEnqueteurs.setLayout(new GridLayout((int)Math.ceil(nbEnqueteurs/5), 5));
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT * FROM bdm_enqueteur");
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur");
             rs = (OracleResultSet)stmt.executeQuery();
             int idEnqueteur;
             while(rs.next())
@@ -50,22 +52,14 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 JButton button = new JButton();
                 button.setLayout(new GridLayout(2, 1));
                 button.setName(""+idEnqueteur);
-                JPanel image = new JPanel();
-                //Ajout de l'image dans le panel
-                Image im = (Image)rs.getObject("PHOTO");
-                JPanel pan_im = new JPanel();
-                //TODO
-                //Ajout des informations (numéro badge, nom, prénom)
-                JLabel j_badge = new JLabel(rs.getString("BADGE"));
-                JLabel j_nom = new JLabel(rs.getString("NOM"));
-                JLabel j_prenom = new JLabel(rs.getString("PRENOM"));
-                JPanel pan_informations = new JPanel();
-                pan_informations.add(j_badge);
-                pan_informations.add(j_nom);
-                pan_informations.add(j_prenom);
-                //Ajout de l'image et des informations dans le bouton
-                button.add(pan_im);
-                button.add(pan_informations);
+                //Ajout des informations dans le bouton
+                OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
+                String fichier = "temp";
+                img.getDataInFile(fichier);
+                button.setIcon(new ImageIcon(fichier));
+                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 
                 //Ajout du listener
                 button.addActionListener(new java.awt.event.ActionListener() 
@@ -78,7 +72,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 this.PanelEnqueteurs.add(button);
             }
         } 
-        catch (SQLException ex) 
+        catch (SQLException | IOException ex) 
         {
             Logger.getLogger(DlgEnqueteurs.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +80,9 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     
     private void afficherEnqueteur(java.awt.event.ActionEvent evt)
     {
-        int id = Integer.parseInt(this.getName());
+        JButton jb = (JButton)evt.getSource();
+        int id = Integer.parseInt(jb.getName());
+        System.out.println(id);
     }
     /**
      * This method is called from within the constructor to initialize the form.

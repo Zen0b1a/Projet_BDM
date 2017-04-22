@@ -5,11 +5,15 @@
  */
 package interfaces;
 
-import java.io.*;
+import java.awt.*;
+import java.io.IOException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import oracle.jdbc.OraclePreparedStatement;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import oracle.jdbc.*;
+import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
 /**
@@ -17,14 +21,29 @@ import utils.ConnexionUtils;
  * @author ag092850
  */
 public class DlgAjoutEnqueteur extends javax.swing.JFrame {
-
-    /**
-     * Creates new form DlgAjoutEnqueteur
-     */
-    public DlgAjoutEnqueteur() {
+    
+    private Image photo;
+    private String cheminPhoto;
+    
+    public DlgAjoutEnqueteur() 
+    {
+        this.photo = null;
         initComponents();
     }
 
+    private void affichePhoto()
+    {
+        Graphics g = this.Photo.getGraphics();
+        g.drawImage(this.photo, 0, 0, this.Photo.getWidth(), this.Photo.getHeight(), this);
+    }
+    
+    public void paint(Graphics g)
+    {
+        super.paint(g);
+        if(this.photo!=null)
+            this.affichePhoto();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,7 +76,7 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         Photo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        Parcourir = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         Annuler = new javax.swing.JButton();
         Ajouter = new javax.swing.JButton();
@@ -123,19 +142,19 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
 
         jPanel3.add(Photo, java.awt.BorderLayout.CENTER);
 
-        jButton1.setText("Pacourir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Parcourir.setText("Pacourir");
+        Parcourir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ParcourirActionPerformed(evt);
             }
         });
-        jPanel3.add(jButton1, java.awt.BorderLayout.LINE_START);
+        jPanel3.add(Parcourir, java.awt.BorderLayout.LINE_START);
 
         jPanel1.add(jPanel3);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
         Annuler.setText("Annuler");
         Annuler.addActionListener(new java.awt.event.ActionListener() {
@@ -162,12 +181,138 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_AnnulerActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void ParcourirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParcourirActionPerformed
+        //Fenêtre de sélection
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Choisir une photo");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "bmp", "jpg", "jpeg", "png");
+        fileChooser.addChoosableFileFilter(filter);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setFileFilter(filter);
+        if(fileChooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION)
+        {
+            //Récupération de l'image
+            this.cheminPhoto = fileChooser.getSelectedFile().getAbsolutePath();
+            this.photo = Toolkit.getDefaultToolkit().getImage(this.cheminPhoto);
+            this.affichePhoto();
+        }
+    }//GEN-LAST:event_ParcourirActionPerformed
 
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
-        // TODO add your handling code here:
+        String nom = this.Nom.getText();
+        String prenom = this.Prenom.getText();
+        String badge = this.Badge.getText();
+        int numBadge = 0;
+        String numeroRue = this.NumeroRue.getValue().toString();
+        int numRue = 0;
+        String nomRue = this.NomRue.getText();
+        String ville = this.Ville.getText();
+        String telephone1 = this.Telephone1.getText();
+        int tel1 = 0;
+        String telephone2 = this.Telephone2.getText();
+        int tel2 = 0;
+        boolean valide = true;
+        JOptionPane jop = new JOptionPane();
+        //Vérification du contenu des champs
+        if(nom.equals("") || prenom.equals("") || badge.equals("") || numeroRue.equals("") || nomRue.equals("") ||
+                ville.equals("") || telephone1.equals("") || telephone2.equals(""))
+        {
+            valide = false;
+            jop.showMessageDialog(null, "Toutes les informations doivent être fournies.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+        //Vérification de la sélection de la photo
+        if(valide && this.photo==null)
+        {
+            valide = false;
+            jop.showMessageDialog(null, "Une photo doit être sélectionnée.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+        }
+        //Vérification que le badge est bien un nombre
+        if(valide)
+        {
+            try
+            {
+                numBadge = Integer.parseInt(badge);
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Le numéro de badge doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }
+        //Vérification que le numéro de rue est bien un nombre
+        if(valide)
+        {
+            try
+            {
+                numRue = Integer.parseInt(numeroRue);
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Le numéro de rue doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }
+        //Vérification que les numéros de téléphone sont bien des nombres
+        if(valide)
+        {
+            try
+            {
+                tel1 = Integer.parseInt(telephone1);
+                tel2 = Integer.parseInt(telephone2);
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Les numéros de téléphone doivent être des nombres.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }
+        //Si tout est valide, on fait l'ajout dans la base de données
+        if(valide)
+        {
+            try 
+            {
+                //Récupération de l'id
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_enqueteur");
+                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                rs.next();
+                int id = rs.getInt(1)+1;
+                ConnexionUtils.getInstance().setAutoCommit(false);
+                //Insertion
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enqueteur VALUES(?, ?, ?, "
+                        + "bdm_adresse_type(?, ?, ?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init(), ?)");
+                stmt.setInt(1, id);
+                stmt.setString(2, nom);
+                stmt.setString(3, prenom);
+                stmt.setInt(4, numRue);
+                stmt.setString(5, nomRue);
+                stmt.setString(6, ville);
+                stmt.setInt(7, tel1);
+                stmt.setInt(8, tel2);
+                stmt.setInt(9, numBadge);
+                stmt.executeQuery();
+                //Ajout de la photo
+                Statement ps = (Statement)ConnexionUtils.getInstance().createStatement();
+                rs = (OracleResultSet)ps.executeQuery("SELECT photo FROM bdm_enqueteur WHERE id="+id+" FOR UPDATE");
+                rs.next();
+                OrdImage imgObj = (OrdImage)rs.getORAData(1, OrdImage.getORADataFactory());
+                imgObj.loadDataFromFile(this.cheminPhoto);
+                imgObj.setProperties();
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enqueteur SET photo=? WHERE id=?");
+                stmt.setORAData(1, imgObj);
+                stmt.setInt(2, id);
+                stmt.execute();
+                ConnexionUtils.getInstance().commit();
+                ps.close();
+                rs.close();
+                stmt.close();
+                ConnexionUtils.getInstance().setAutoCommit(true);
+            } 
+            catch (SQLException | IOException ex) 
+            {
+                Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
     }//GEN-LAST:event_AjouterActionPerformed
 
     /**
@@ -212,12 +357,12 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     private javax.swing.JTextField Nom;
     private javax.swing.JTextField NomRue;
     private javax.swing.JSpinner NumeroRue;
+    private javax.swing.JButton Parcourir;
     private javax.swing.JPanel Photo;
     private javax.swing.JTextField Prenom;
     private javax.swing.JTextField Telephone1;
     private javax.swing.JTextField Telephone2;
     private javax.swing.JTextField Ville;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
