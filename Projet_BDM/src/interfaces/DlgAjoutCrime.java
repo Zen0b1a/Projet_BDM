@@ -18,6 +18,10 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     public DlgAjoutCrime()
     {
         initComponents();
+        /*
+        remplissage combobox enquetes et victimes
+        Dans panel Victimes : jlabel nom victime, combobox pour choix état, bouton supprimer
+        */
     }
 
     /**
@@ -47,9 +51,10 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         CreerEnquete = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        ChoixVictime = new javax.swing.JButton();
+        Victimes = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        ListeVictimes = new javax.swing.JComboBox();
+        AjouterVictime = new javax.swing.JButton();
         NouvelleVictime = new javax.swing.JButton();
 
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
@@ -110,15 +115,27 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         jLabel6.setText("Victime(s) :");
         jPanel4.add(jLabel6);
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setEnabled(false);
-        jScrollPane1.setViewportView(jTextArea1);
+        javax.swing.GroupLayout VictimesLayout = new javax.swing.GroupLayout(Victimes);
+        Victimes.setLayout(VictimesLayout);
+        VictimesLayout.setHorizontalGroup(
+            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 292, Short.MAX_VALUE)
+        );
+        VictimesLayout.setVerticalGroup(
+            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
 
-        jPanel4.add(jScrollPane1);
+        jPanel4.add(Victimes);
 
-        ChoixVictime.setText("Choisir une victime existante");
-        jPanel4.add(ChoixVictime);
+        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel5.add(ListeVictimes);
+
+        AjouterVictime.setText("Ajouter victime");
+        jPanel5.add(AjouterVictime);
+
+        jPanel4.add(jPanel5);
 
         NouvelleVictime.setText("Ajouter une nouvelle victime");
         jPanel4.add(NouvelleVictime);
@@ -187,14 +204,16 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ajouter;
+    private javax.swing.JButton AjouterVictime;
     private javax.swing.JButton Annuler;
-    private javax.swing.JButton ChoixVictime;
     private javax.swing.JButton CreerEnquete;
     private javax.swing.JTextField Date;
     private javax.swing.JTextField Fait;
     private javax.swing.JTextField Lieu;
     private javax.swing.JComboBox ListeEnquetes;
+    private javax.swing.JComboBox ListeVictimes;
     private javax.swing.JButton NouvelleVictime;
+    private javax.swing.JPanel Victimes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -205,7 +224,6 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JPanel jPanel5;
     // End of variables declaration//GEN-END:variables
 }

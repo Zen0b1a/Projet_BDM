@@ -18,14 +18,18 @@ import utils.ConnexionUtils;
 
 /**
  *
- * @author ag092850
+ * @author Annabelle
  */
-public class DlgAjoutEnqueteur extends javax.swing.JFrame {
-    
+public class DlgAjoutPersonne extends javax.swing.JFrame
+{
+
     private Image photo;
     private String cheminPhoto;
     
-    public DlgAjoutEnqueteur() 
+    /**
+     * Creates new form DlgAjoutPersonne
+     */
+    public DlgAjoutPersonne()
     {
         this.photo = null;
         initComponents();
@@ -51,12 +55,11 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        Badge = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Nom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -83,11 +86,7 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel2.setLayout(new java.awt.GridLayout(9, 2));
-
-        jLabel7.setText("Numéro de badge :");
-        jPanel2.add(jLabel7);
-        jPanel2.add(Badge);
+        jPanel2.setLayout(new java.awt.GridLayout(8, 2));
 
         jLabel1.setText("Nom :");
         jPanel2.add(jLabel1);
@@ -133,7 +132,7 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         Photo.setLayout(PhotoLayout);
         PhotoLayout.setHorizontalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 254, Short.MAX_VALUE)
+            .addGap(0, 143, Short.MAX_VALUE)
         );
         PhotoLayout.setVerticalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,8 +142,10 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         jPanel3.add(Photo, java.awt.BorderLayout.CENTER);
 
         Parcourir.setText("Pacourir");
-        Parcourir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Parcourir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ParcourirActionPerformed(evt);
             }
         });
@@ -154,19 +155,23 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel4.setLayout(new java.awt.GridLayout());
 
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Annuler.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel4.add(Annuler);
 
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Ajouter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjouterActionPerformed(evt);
             }
         });
@@ -177,11 +182,8 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnulerActionPerformed
-        this.setVisible(false);
-    }//GEN-LAST:event_AnnulerActionPerformed
-
-    private void ParcourirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ParcourirActionPerformed
+    private void ParcourirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ParcourirActionPerformed
+    {//GEN-HEADEREND:event_ParcourirActionPerformed
         //Fenêtre de sélection
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Choisir une photo");
@@ -198,11 +200,15 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ParcourirActionPerformed
 
-    private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
+    private void AnnulerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AnnulerActionPerformed
+    {//GEN-HEADEREND:event_AnnulerActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void AjouterActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjouterActionPerformed
+    {//GEN-HEADEREND:event_AjouterActionPerformed
         String nom = this.Nom.getText();
         String prenom = this.Prenom.getText();
-        String badge = this.Badge.getText();
-        int numBadge = 0;
         String numeroRue = this.NumeroRue.getValue().toString();
         int numRue = 0;
         String nomRue = this.NomRue.getText();
@@ -212,8 +218,8 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         boolean valide = true;
         JOptionPane jop = new JOptionPane();
         //Vérification du contenu des champs
-        if(nom.equals("") || prenom.equals("") || badge.equals("") || numeroRue.equals("") || nomRue.equals("") ||
-                ville.equals("") || telephone1.equals("") || telephone2.equals(""))
+        if(nom.equals("") || prenom.equals("") || numeroRue.equals("") || nomRue.equals("") ||
+            ville.equals("") || telephone1.equals("") || telephone2.equals(""))
         {
             valide = false;
             jop.showMessageDialog(null, "Toutes les informations doivent être fournies.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
@@ -223,19 +229,6 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         {
             valide = false;
             jop.showMessageDialog(null, "Une photo doit être sélectionnée.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
-        }
-        //Vérification que le badge est bien un nombre
-        if(valide)
-        {
-            try
-            {
-                numBadge = Integer.parseInt(badge);
-            }
-            catch(NumberFormatException e)
-            {
-                valide = false;
-                jop.showMessageDialog(null, "Le numéro de badge doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
-            }
         }
         //Vérification que le numéro de rue est bien un nombre
         if(valide)
@@ -267,17 +260,17 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         //Si tout est valide, on fait l'ajout dans la base de données
         if(valide)
         {
-            try 
+            try
             {
                 //Récupération de l'id
-                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_enqueteur");
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_personne");
                 OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
                 rs.next();
                 int id = rs.getInt(1)+1;
                 ConnexionUtils.getInstance().setAutoCommit(false);
                 //Insertion
-                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enqueteur VALUES(?, ?, ?, "
-                        + "bdm_adresse_type(?, ?, ?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init(), ?)");
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_personne VALUES(?, ?, ?, "
+                    + "bdm_adresse_type(?, ?, ?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
                 stmt.setInt(1, id);
                 stmt.setString(2, nom);
                 stmt.setString(3, prenom);
@@ -286,16 +279,15 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
                 stmt.setString(6, ville);
                 stmt.setString(7, telephone1);
                 stmt.setString(8, telephone2);
-                stmt.setInt(9, numBadge);
                 stmt.executeQuery();
                 //Ajout de la photo
                 Statement ps = (Statement)ConnexionUtils.getInstance().createStatement();
-                rs = (OracleResultSet)ps.executeQuery("SELECT photo FROM bdm_enqueteur WHERE id="+id+" FOR UPDATE");
+                rs = (OracleResultSet)ps.executeQuery("SELECT photo FROM bdm_personne WHERE id="+id+" FOR UPDATE");
                 rs.next();
                 OrdImage imgObj = (OrdImage)rs.getORAData(1, OrdImage.getORADataFactory());
                 imgObj.loadDataFromFile(this.cheminPhoto);
                 imgObj.setProperties();
-                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enqueteur SET photo=? WHERE id=?");
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_personne SET photo=? WHERE id=?");
                 stmt.setORAData(1, imgObj);
                 stmt.setInt(2, id);
                 stmt.execute();
@@ -304,8 +296,8 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
                 rs.close();
                 stmt.close();
                 ConnexionUtils.getInstance().setAutoCommit(true);
-            } 
-            catch (SQLException | IOException ex) 
+            }
+            catch (SQLException | IOException ex)
             {
                 Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -316,34 +308,44 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[])
+    {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+        try
+        {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
+            {
+                if ("Nimbus".equals(info.getName()))
+                {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex)
+        {
+            java.util.logging.Logger.getLogger(DlgAjoutPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex)
+        {
+            java.util.logging.Logger.getLogger(DlgAjoutPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex)
+        {
+            java.util.logging.Logger.getLogger(DlgAjoutPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex)
+        {
+            java.util.logging.Logger.getLogger(DlgAjoutPersonne.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DlgAjoutEnqueteur().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                new DlgAjoutPersonne().setVisible(true);
             }
         });
     }
@@ -351,7 +353,6 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ajouter;
     private javax.swing.JButton Annuler;
-    private javax.swing.JTextField Badge;
     private javax.swing.JTextField Nom;
     private javax.swing.JTextField NomRue;
     private javax.swing.JSpinner NumeroRue;
@@ -369,7 +370,6 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
