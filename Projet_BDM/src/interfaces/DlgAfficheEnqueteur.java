@@ -210,24 +210,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
-        /*
-        //Construction du STRUCT adresse
-        Object[] adresse_attributs = new Object[3];
-        adresse_attributs[0] = modifNumeroRue;
-        adresse_attributs[1] = modifRue;
-        adresse_attributs[2] = modifVille;
-        STRUCT adresse = new STRUCT(this.dscrAdresse, ConnexionUtils.getInstance(), adresse_attributs);
-        //Construction du STRUCT telephone
-        Object[] telephone_attributs = new Object[1];
-        adresse_attributs[0] = modifTelephone;
-        STRUCT telC = new STRUCT(this.dscrTelephone, ConnexionUtils.getInstance(), telephone_attributs);
-        //Construction de la requête
-        OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_commissariat SET adresse =?, telC=? WHERE numeroCo=?");
-        stmt.setSTRUCT(1, adresse);
-        stmt.setSTRUCT(2, telC);
-        stmt.executeQuery();
-        System.out.println("Mise à jour effectuée !");
-        */
+        
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
     private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed

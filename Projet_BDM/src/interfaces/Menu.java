@@ -5,6 +5,8 @@
  */
 package interfaces;
 
+import mapping.Personne;
+
 /**
  *
  * @author Annabelle
@@ -16,6 +18,8 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
+        Personne p = new Personne().chargerPersonne(1);
+        System.out.println(p.getNumeroRue()+" "+p.getNomRue()+" "+p.getVille()+" "+p.getTelephone1()+" "+p.getTelephone2());
     }
 
     /**
