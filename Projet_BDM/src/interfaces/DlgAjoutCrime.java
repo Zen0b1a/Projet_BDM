@@ -5,25 +5,130 @@
  */
 package interfaces;
 
+import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.*;
+import oracle.jdbc.*;
+import utils.ConnexionUtils;
+
 /**
  *
  * @author Annabelle
  */
 public class DlgAjoutCrime extends javax.swing.JFrame
 {
-
+    private List<String> personnesVictimes; //Format : id - Nom Prenom
     /**
      * Creates new form DlgAjoutCrime
      */
     public DlgAjoutCrime()
     {
         initComponents();
-        /*
-        remplissage combobox enquetes et victimes
-        Dans panel Victimes : jlabel nom victime, combobox pour choix état, bouton supprimer
-        */
+        this.initialisationCbEnquetes();
+        this.initialisationCbVictimes();
     }
 
+    private void remplirPanelVictimes()
+    {
+        String id;
+        String nom;
+        String[] split;
+        this.Victimes.removeAll();
+        this.Victimes.setLayout(new GridLayout(this.personnesVictimes.size(), 3));
+        for(int i=0; i<this.personnesVictimes.size(); i++)
+        {
+            //Récupération de l'id et du nom/prénom
+            split = this.personnesVictimes.get(i).split(" - ");
+            id = split[0];
+            nom = split[1];
+            //Ajout des informations dans le panel
+            JLabel jl = new JLabel();
+            jl.setText(id+" - "+nom);
+            JComboBox jcb = new JComboBox();
+            jcb.setName("jcb "+id);
+            jcb.removeAllItems();
+            jcb.addItem("vivant");
+            jcb.addItem("mort");
+            JButton jb = new JButton();
+            jb.setText("Supprimer cette victime.");
+            jb.setName(this.personnesVictimes.get(i));
+            //Ajout du listener
+            jb.addActionListener(new java.awt.event.ActionListener() 
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    supprimerVictime(evt);
+                }
+            });
+            this.Victimes.add(jl);
+            this.Victimes.add(jcb);
+            this.Victimes.add(jb);
+        }
+        this.setSize(this.getWidth()+1, this.getHeight()+1);
+        this.setSize(this.getWidth()-1, this.getHeight()-1);
+    }
+    
+    private void initialisationCbEnquetes()
+    {
+        try 
+        {
+            //Remplissage de la combobox
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom FROM bdm_enquete ORDER BY id");
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idEnquete;
+            String nomEnquete;
+            this.ListeEnquetes.removeAllItems();
+            this.ListeEnquetes.setSelectedIndex(-1);
+            while(rs.next())
+            {
+                idEnquete = rs.getInt("ID");
+                nomEnquete = rs.getString("NOM");
+                this.ListeEnquetes.addItem(idEnquete+" - "+nomEnquete);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialisationCbVictimes()
+    {
+        try 
+        {
+            //Remplissage de la combobox
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom FROM bdm_personne ORDER BY id");
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idPersonne;
+            String nomPersonne;
+            String prenomPersonne;
+            this.ListeVictimes.removeAllItems();
+            this.ListeVictimes.setSelectedIndex(-1);
+            while(rs.next())
+            {
+                idPersonne = rs.getInt("ID");
+                nomPersonne = rs.getString("NOM");
+                prenomPersonne = rs.getString("PRENOM");
+                if(!this.personnesVictimes.contains(idPersonne+" - "+nomPersonne+" "+prenomPersonne))
+                    this.ListeVictimes.addItem(idPersonne+" - "+nomPersonne+" "+prenomPersonne);
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void supprimerVictime(java.awt.event.ActionEvent evt)
+    {
+        JButton jb = (JButton)evt.getSource();
+        String victime = jb.getName();
+        this.personnesVictimes.remove(victime);
+        this.ListeVictimes.addItem(victime);
+        this.remplirPanelVictimes();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,6 +211,13 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         jPanel3.add(ListeEnquetes);
 
         CreerEnquete.setText("Créer une nouvelle enquête");
+        CreerEnquete.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                CreerEnqueteActionPerformed(evt);
+            }
+        });
         jPanel3.add(CreerEnquete);
 
         jPanel2.add(jPanel3);
@@ -133,11 +245,25 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         jPanel5.add(ListeVictimes);
 
         AjouterVictime.setText("Ajouter victime");
+        AjouterVictime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjouterVictimeActionPerformed(evt);
+            }
+        });
         jPanel5.add(AjouterVictime);
 
         jPanel4.add(jPanel5);
 
         NouvelleVictime.setText("Ajouter une nouvelle victime");
+        NouvelleVictime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                NouvelleVictimeActionPerformed(evt);
+            }
+        });
         jPanel4.add(NouvelleVictime);
 
         jPanel2.add(jPanel4);
@@ -156,6 +282,26 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     {//GEN-HEADEREND:event_AnnulerActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void CreerEnqueteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CreerEnqueteActionPerformed
+    {//GEN-HEADEREND:event_CreerEnqueteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CreerEnqueteActionPerformed
+
+    private void AjouterVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjouterVictimeActionPerformed
+    {//GEN-HEADEREND:event_AjouterVictimeActionPerformed
+        String victime = this.ListeVictimes.getSelectedItem().toString();
+        this.personnesVictimes.add(victime);
+        this.ListeVictimes.removeItem(victime);
+        this.remplirPanelVictimes();
+    }//GEN-LAST:event_AjouterVictimeActionPerformed
+
+    private void NouvelleVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NouvelleVictimeActionPerformed
+    {//GEN-HEADEREND:event_NouvelleVictimeActionPerformed
+        DlgAjoutPersonne dlg = new DlgAjoutPersonne();
+        dlg.setVisible(true);
+        this.initialisationCbVictimes();
+    }//GEN-LAST:event_NouvelleVictimeActionPerformed
 
     /**
      * @param args the command line arguments

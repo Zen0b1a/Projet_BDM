@@ -101,6 +101,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cr&#xe9;er une nouvelle enqu&#xea;te"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CreerEnqueteActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -149,6 +152,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ajouter victime"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterVictimeActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -156,6 +162,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter une nouvelle victime"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NouvelleVictimeActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -65,7 +65,7 @@ CREATE TYPE bdm_preuve_video_type UNDER bdm_preuve_type
 /
 
 CREATE TYPE bdm_enquete_type AS OBJECT 
-(id INTEGER, etat VARCHAR2(50), crimes bdm_crimes_type, preuves bdm_preuves_type);
+(id INTEGER, nom VARCHAR2(50), etat VARCHAR2(50), crimes bdm_crimes_type, preuves bdm_preuves_type);
 /
 
 CREATE TYPE bdm_personne_type AS OBJECT 
