@@ -34,5 +34,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnqueteursActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JButton" name="AjoutCrime">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enregistrer un crime"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutCrimeActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

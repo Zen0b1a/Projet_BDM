@@ -18,8 +18,6 @@ public class Menu extends javax.swing.JFrame {
      */
     public Menu() {
         initComponents();
-        Personne p = new Personne().chargerPersonne(1);
-        System.out.println(p.getNumeroRue()+" "+p.getNomRue()+" "+p.getVille()+" "+p.getTelephone1()+" "+p.getTelephone2());
     }
 
     /**
@@ -29,20 +27,34 @@ public class Menu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         Enqueteurs = new javax.swing.JButton();
+        AjoutCrime = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 
         Enqueteurs.setText("Voir les enquêteurs");
-        Enqueteurs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Enqueteurs.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 EnqueteursActionPerformed(evt);
             }
         });
         getContentPane().add(Enqueteurs);
+
+        AjoutCrime.setText("Enregistrer un crime");
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutCrimeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AjoutCrime);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -51,6 +63,12 @@ public class Menu extends javax.swing.JFrame {
         DlgEnqueteurs dlgEnqueteurs = new DlgEnqueteurs();
         dlgEnqueteurs.setVisible(true);
     }//GEN-LAST:event_EnqueteursActionPerformed
+
+    private void AjoutCrimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutCrimeActionPerformed
+    {//GEN-HEADEREND:event_AjoutCrimeActionPerformed
+        DlgAjoutCrime dlgAjoutCrime = new DlgAjoutCrime();
+        dlgAjoutCrime.setVisible(true);
+    }//GEN-LAST:event_AjoutCrimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,6 +106,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AjoutCrime;
     private javax.swing.JButton Enqueteurs;
     // End of variables declaration//GEN-END:variables
 }

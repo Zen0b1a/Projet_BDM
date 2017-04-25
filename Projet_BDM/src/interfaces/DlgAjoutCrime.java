@@ -7,9 +7,10 @@ package interfaces;
 
 import java.awt.GridLayout;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.logging.*;
 import javax.swing.*;
 import oracle.jdbc.*;
 import utils.ConnexionUtils;
@@ -27,6 +28,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     public DlgAjoutCrime()
     {
         initComponents();
+        this.personnesVictimes = new ArrayList<>();
         this.initialisationCbEnquetes();
         this.initialisationCbVictimes();
     }
@@ -75,7 +77,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         try 
         {
             //Remplissage de la combobox
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom FROM bdm_enquete ORDER BY id");
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom FROM bdm_enquete WHERE etat='en-cours' ORDER BY id");
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idEnquete;
             String nomEnquete;
@@ -275,7 +277,114 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjouterActionPerformed
     {//GEN-HEADEREND:event_AjouterActionPerformed
-        // TODO add your handling code here:
+        String fait = this.Fait.getText();
+        String lieu = this.Lieu.getText();
+        String date = this.Date.getText();
+        int idEnquete = this.ListeEnquetes.getSelectedIndex();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date dateC;
+        JOptionPane jop = new JOptionPane();
+        String message = "Les problèmes suivants ont été rencontrés :";
+        boolean valide = true;
+        //Vérification du fait
+        if(fait.equals(""))
+        {
+            message += "\nLe fait doit être renseigné.";
+            valide = false;
+        }
+        if(fait.length()>50)
+        {
+            message += "\nLe fait doit faire moins de 50 caractères.";
+            valide = false;
+        }
+        //Vérification du lieu
+        if(lieu.equals(""))
+        {
+            message += "\nLe lieu doit être renseigné.";
+            valide = false;
+        }
+        if(lieu.length()>50)
+        {
+            message += "\nLe lieu doit faire moins de 50 caractères.";
+            valide = false;
+        }
+        //Vérification de la date
+        try
+        {
+            dateC = simpleDateFormat.parse(date);
+        } 
+        catch (ParseException ex)
+        {
+            message += "\nLe format de la date est incorrect (format attendu jj/mm/aaaa).";
+            valide = false;
+        }
+        //Vérification de l'enquête
+        if(idEnquete != -1)
+            idEnquete = Integer.parseInt(this.ListeEnquetes.getSelectedItem().toString().split(" - ")[0]);
+        else
+        {
+            message += "\nIl faut sélectionner une enquête.";
+            valide = false;
+        }
+        
+        if(valide)
+        {
+            try 
+            {
+                //Ajout du crime
+                //Récupération de l'id
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_crime");
+                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                rs.next();
+                int id = rs.getInt(1)+1;
+                //Insertion
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enquete VALUES(?, ?, ?, "
+                    + "?, (SELECT REF(e) FROM bdm_enquete e WHERE e.numeroE=?))");
+                stmt.setInt(1, id);
+                stmt.setString(2, fait);
+                stmt.setString(3, lieu);
+                stmt.setString(4, date);
+                stmt.setInt(5, idEnquete);
+                stmt.executeQuery();
+                
+                //Ajout du crime dans l'enquête
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO THE "
+                        + "(SELECT crimes FROM bdm_enquete WHERE id=?) SELECT REF(c) FROM bdm_crime c WHERE c.id=?");
+                stmt.setInt(1, idEnquete);
+                stmt.setInt(2, id);
+                stmt.executeQuery();
+                
+                //Ajout des victimes
+                int idVictime;
+                String etat;
+                int idPersonne;
+                JComboBox jb;
+                for(int i=0; i<this.personnesVictimes.size(); i++)
+                {
+                    idPersonne = Integer.parseInt(this.personnesVictimes.get(i).split(" - ")[0]);
+                    jb = (JComboBox)this.Victimes.getComponent((i*3)+1);
+                    etat = jb.getSelectedItem().toString();
+                    //Récupération de l'id
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_victime");
+                    rs = (OracleResultSet)stmt.executeQuery();
+                    rs.next();
+                    idVictime = rs.getInt(1)+1;
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_victime VALUES(?, ?, "
+                    + "(SELECT REF(p) FROM bdm_personne p WHERE p.id=?), (SELECT REF(c) FROM bdm_crime c WHERE c.id=?))");
+                    stmt.setInt(1, idVictime);
+                    stmt.setString(2, etat);
+                    stmt.setInt(3, idPersonne);
+                    stmt.setInt(4, id);
+                    stmt.executeQuery();
+                }
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else
+            jop.showMessageDialog(null, message, "Erreur lors de l'ajout", JOptionPane.INFORMATION_MESSAGE, null);
     }//GEN-LAST:event_AjouterActionPerformed
 
     private void AnnulerActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AnnulerActionPerformed
@@ -285,7 +394,9 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
     private void CreerEnqueteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CreerEnqueteActionPerformed
     {//GEN-HEADEREND:event_CreerEnqueteActionPerformed
-        // TODO add your handling code here:
+        DlgAjoutEnquete dlg = new DlgAjoutEnquete();
+        dlg.setVisible(true);
+        this.initialisationCbEnquetes();
     }//GEN-LAST:event_CreerEnqueteActionPerformed
 
     private void AjouterVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjouterVictimeActionPerformed
