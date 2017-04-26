@@ -282,7 +282,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         String date = this.Date.getText();
         int idEnquete = this.ListeEnquetes.getSelectedIndex();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateC;
+        Date dateC = null;
         JOptionPane jop = new JOptionPane();
         String message = "Les problèmes suivants ont été rencontrés :";
         boolean valide = true;
@@ -338,8 +338,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
                 rs.next();
                 int id = rs.getInt(1)+1;
                 //Insertion
-                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enquete VALUES(?, ?, ?, "
-                    + "?, (SELECT REF(e) FROM bdm_enquete e WHERE e.numeroE=?))");
+                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_crime VALUES(?, ?, ?, "
+                    + "TO_DATE(?, 'DD/MM/YYYY'), (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?))");
                 stmt.setInt(1, id);
                 stmt.setString(2, fait);
                 stmt.setString(3, lieu);
@@ -377,6 +377,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
                     stmt.setInt(4, id);
                     stmt.executeQuery();
                 }
+                System.out.println("Crime ajouté !");
+                this.setVisible(false);
             } 
             catch (SQLException ex) 
             {
@@ -394,9 +396,36 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
     private void CreerEnqueteActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CreerEnqueteActionPerformed
     {//GEN-HEADEREND:event_CreerEnqueteActionPerformed
-        DlgAjoutEnquete dlg = new DlgAjoutEnquete();
-        dlg.setVisible(true);
-        this.initialisationCbEnquetes();
+        String nomEnquete;
+        JOptionPane jop = new JOptionPane();
+        nomEnquete = jop.showInputDialog(null, "Veuillez entrer le nom de l'enquête.", "Nouvelle enquête", JOptionPane.QUESTION_MESSAGE);
+        if(nomEnquete != null)
+        {
+            if(nomEnquete.length()<50)
+            {
+                try
+                {
+                    //Récupération de l'id
+                    OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_enquete");
+                    OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                    rs.next();
+                    int id = rs.getInt(1)+1;
+                    //Insertion
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enquete VALUES(?, ?, 'en-cours', "
+                    + "bdm_crimes_type(), bdm_preuves_type())");
+                    stmt.setInt(1, id);
+                    stmt.setString(2, nomEnquete);
+                    stmt.executeQuery();
+                    this.initialisationCbEnquetes();
+                } 
+                catch (SQLException ex)
+                {
+                    Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else
+                jop.showMessageDialog(null, "Le nom de l'enquête doit faire moins de 50 caractères.", "Erreur lors de l'ajout", JOptionPane.INFORMATION_MESSAGE, null);
+        }
     }//GEN-LAST:event_CreerEnqueteActionPerformed
 
     private void AjouterVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjouterVictimeActionPerformed
