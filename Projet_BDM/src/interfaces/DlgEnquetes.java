@@ -6,16 +6,13 @@
 package interfaces;
 
 import java.awt.GridLayout;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
-import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
 /**
@@ -71,6 +68,8 @@ public class DlgEnquetes extends javax.swing.JFrame
                 
                 this.PanelEnquetes.add(button);
             }
+            rs.close();
+            stmt.close();
         } 
         catch (SQLException ex) 
         {

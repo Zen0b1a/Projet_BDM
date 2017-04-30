@@ -42,6 +42,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
             nbEnqueteurs = rs.getInt(1);
             this.NbEnqueteurs.setText(""+nbEnqueteurs);
             //Création de l'interface
+            this.PanelEnqueteurs.removeAll();
             this.PanelEnqueteurs.setLayout(new GridLayout((int)Math.ceil(nbEnqueteurs/5), 5));
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur");
             rs = (OracleResultSet)stmt.executeQuery();
@@ -71,6 +72,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 
                 this.PanelEnqueteurs.add(button);
             }
+            rs.close();
+            stmt.close();
         } 
         catch (SQLException | IOException ex) 
         {
