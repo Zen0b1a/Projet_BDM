@@ -5,6 +5,8 @@
  */
 package interfaces;
 
+import java.io.File;
+
 
 /**
  *
@@ -34,6 +36,16 @@ public class Menu extends javax.swing.JFrame {
         Enquetes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(1, 3));
 
         Enqueteurs.setText("Voir les enquêteurs");
@@ -85,6 +97,17 @@ public class Menu extends javax.swing.JFrame {
         DlgEnquetes dlgEnquetes = new DlgEnquetes();
         dlgEnquetes.setVisible(true);
     }//GEN-LAST:event_EnquetesActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
+    {//GEN-HEADEREND:event_formWindowGainedFocus
+        File path = new File("temp/");
+        if(path.exists())
+        {
+            File[] files = path.listFiles();
+            for(int i=0; i<files.length; i++)
+                files[i].delete();
+        }
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

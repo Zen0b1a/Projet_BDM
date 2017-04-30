@@ -55,7 +55,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             this.Telephone2.setText(((STRUCT)tel[1]).getAttributes()[0].toString());
             //Récupération de la photo
             OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-            String fichier = "temp";
+            String fichier = "temp/"+this.id;
             img.getDataInFile(fichier);
             this.photo = this.Photo.getToolkit().getImage(fichier);
             affichePhoto();

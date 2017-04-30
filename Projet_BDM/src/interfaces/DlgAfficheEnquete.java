@@ -5,6 +5,16 @@
  */
 package interfaces;
 
+import java.awt.GridLayout;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleResultSet;
+import utils.ConnexionUtils;
+
 /**
  *
  * @author Annabelle
@@ -20,8 +30,73 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     {
         initComponents();
         this.id = id;
+        this.initialiserEnquete();
     }
 
+    private void initialiserEnquete()
+    {
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT * FROM bdm_enquete WHERE id=?");
+            stmt.setInt(1, this.id);
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            rs.next();
+            //Récupération des informations de l'enquête
+            this.Nom.setText(rs.getString("NOM"));
+            this.Etat.setText(rs.getString("ETAT"));
+            
+            //Récupération de la liste des suspects
+            
+            //Récupération de la liste des preuves
+            
+            //Récupération de la liste des témoignages
+            
+            //Récupération de la liste des enquêteurs
+            this.Enqueteurs.removeAll();
+            this.Enqueteurs.setLayout(new GridLayout());
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge FROM bdm_enqueteur "
+                    + "WHERE id IN(SELECT DEREF(enqueteurEE).id FROM bdm_enqueteur_enquete WHERE DEREF(enqueteEE).id=?) ORDER BY id");
+            stmt.setInt(1, this.id);
+            rs = (OracleResultSet)stmt.executeQuery();
+            int idEnqueteur;
+            while(rs.next())
+            {
+                idEnqueteur = rs.getInt("ID");
+                JButton button = new JButton();
+                //button.setLayout(new GridLayout(2, 1));
+                button.setName(""+idEnqueteur);
+                //Ajout des informations dans le bouton
+                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setSize(50, 50);
+                
+                //Ajout du listener
+                button.addActionListener(new java.awt.event.ActionListener() 
+                {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        afficherEnqueteur(evt);
+                    }
+                });
+                
+                this.Enqueteurs.add(button);
+            }
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void afficherEnqueteur(java.awt.event.ActionEvent evt)
+    {
+        JButton jb = (JButton)evt.getSource();
+        int id = Integer.parseInt(jb.getName());
+        DlgAfficheEnqueteur dlg = new DlgAfficheEnqueteur(id);
+        dlg.setVisible(true);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,16 +107,189 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private void initComponents()
     {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Nom = new javax.swing.JLabel();
+        ModifierNom = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Etat = new javax.swing.JLabel();
+        ModifierEtat = new javax.swing.JButton();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        AjoutSuspect = new javax.swing.JButton();
+        Suspects = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        AjoutPreuve = new javax.swing.JButton();
+        Preuves = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        AjoutTemoignage = new javax.swing.JButton();
+        Temoignages = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        AjoutEnqueteur = new javax.swing.JButton();
+        Enqueteurs = new javax.swing.JPanel();
+
+        getContentPane().setLayout(new java.awt.GridLayout(5, 1));
+
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel4.setLayout(new java.awt.GridLayout(2, 3));
+
+        jLabel1.setText("Nom :");
+        jPanel4.add(jLabel1);
+        jPanel4.add(Nom);
+
+        ModifierNom.setText("Modifier");
+        jPanel4.add(ModifierNom);
+
+        jLabel3.setText("Etat :");
+        jPanel4.add(jLabel3);
+        jPanel4.add(Etat);
+
+        ModifierEtat.setText("Modifier");
+        jPanel4.add(ModifierEtat);
+
+        jPanel1.add(jPanel4);
+
+        jLabel7.setText("BOUTONS POUR FAIRE DES TRUCS ICI (comparer images...)");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jLabel7)
+                .addContainerGap(116, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(48, 48, 48)
+                .addComponent(jLabel7)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
+
+        jPanel1.add(jPanel5);
+
+        getContentPane().add(jPanel1);
+
+        jPanel10.setLayout(new java.awt.BorderLayout());
+
+        jPanel11.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel5.setText("Suspects");
+        jPanel11.add(jLabel5);
+
+        AjoutSuspect.setText("Ajouter un suspect");
+        jPanel11.add(AjoutSuspect);
+
+        jPanel10.add(jPanel11, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout SuspectsLayout = new javax.swing.GroupLayout(Suspects);
+        Suspects.setLayout(SuspectsLayout);
+        SuspectsLayout.setHorizontalGroup(
+            SuspectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+        );
+        SuspectsLayout.setVerticalGroup(
+            SuspectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 96, Short.MAX_VALUE)
+        );
+
+        jPanel10.add(Suspects, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel10);
+
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jPanel9.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel4.setText("Preuves");
+        jPanel9.add(jLabel4);
+
+        AjoutPreuve.setText("Ajouter une preuve");
+        jPanel9.add(AjoutPreuve);
+
+        jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout PreuvesLayout = new javax.swing.GroupLayout(Preuves);
+        Preuves.setLayout(PreuvesLayout);
+        PreuvesLayout.setHorizontalGroup(
+            PreuvesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+        );
+        PreuvesLayout.setVerticalGroup(
+            PreuvesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 96, Short.MAX_VALUE)
+        );
+
+        jPanel8.add(Preuves, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel8);
+
+        jPanel12.setLayout(new java.awt.BorderLayout());
+
+        jPanel13.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel6.setText("Témoignages");
+        jPanel13.add(jLabel6);
+
+        AjoutTemoignage.setText("Ajouter un témoignage");
+        jPanel13.add(AjoutTemoignage);
+
+        jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout TemoignagesLayout = new javax.swing.GroupLayout(Temoignages);
+        Temoignages.setLayout(TemoignagesLayout);
+        TemoignagesLayout.setHorizontalGroup(
+            TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+        );
+        TemoignagesLayout.setVerticalGroup(
+            TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 96, Short.MAX_VALUE)
+        );
+
+        jPanel12.add(Temoignages, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel12);
+
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel2.setText("Enqueteurs");
+        jPanel7.add(jLabel2);
+
+        AjoutEnqueteur.setText("Ajouter un enquêteur");
+        jPanel7.add(AjoutEnqueteur);
+
+        jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
+
+        javax.swing.GroupLayout EnqueteursLayout = new javax.swing.GroupLayout(Enqueteurs);
+        Enqueteurs.setLayout(EnqueteursLayout);
+        EnqueteursLayout.setHorizontalGroup(
+            EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1076, Short.MAX_VALUE)
+        );
+        EnqueteursLayout.setVerticalGroup(
+            EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 96, Short.MAX_VALUE)
+        );
+
+        jPanel6.add(Enqueteurs, java.awt.BorderLayout.CENTER);
+
+        getContentPane().add(jPanel6);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -83,5 +331,35 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AjoutEnqueteur;
+    private javax.swing.JButton AjoutPreuve;
+    private javax.swing.JButton AjoutSuspect;
+    private javax.swing.JButton AjoutTemoignage;
+    private javax.swing.JPanel Enqueteurs;
+    private javax.swing.JLabel Etat;
+    private javax.swing.JButton ModifierEtat;
+    private javax.swing.JButton ModifierNom;
+    private javax.swing.JLabel Nom;
+    private javax.swing.JPanel Preuves;
+    private javax.swing.JPanel Suspects;
+    private javax.swing.JPanel Temoignages;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }

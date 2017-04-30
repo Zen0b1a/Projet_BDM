@@ -95,7 +95,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DlgAjoutEnquete.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -251,7 +251,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
             } 
             catch (SQLException ex)
             {
-                Logger.getLogger(DlgAjoutCrime.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DlgAjoutEnquete.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         else

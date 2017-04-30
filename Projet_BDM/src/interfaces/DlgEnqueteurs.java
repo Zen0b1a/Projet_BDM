@@ -29,7 +29,6 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         this.initialiserEnqueteurs();
     }
 
-    
     private void initialiserEnqueteurs()
     {
         int nbEnqueteurs;
@@ -44,7 +43,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
             //Création de l'interface
             this.PanelEnqueteurs.removeAll();
             this.PanelEnqueteurs.setLayout(new GridLayout((int)Math.ceil(nbEnqueteurs/5), 5));
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur");
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur ORDER BY id");
             rs = (OracleResultSet)stmt.executeQuery();
             int idEnqueteur;
             while(rs.next())
@@ -55,7 +54,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 button.setName(""+idEnqueteur);
                 //Ajout des informations dans le bouton
                 OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-                String fichier = "temp";
+                String fichier = "temp/"+idEnqueteur;
                 img.getDataInFile(fichier);
                 button.setIcon(new ImageIcon(fichier));
                 button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
@@ -95,7 +94,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -105,6 +105,16 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         PanelEnqueteurs = new javax.swing.JPanel();
 
         setMinimumSize(new java.awt.Dimension(500, 500));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
@@ -113,8 +123,10 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         jPanel1.add(NbEnqueteurs);
 
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Ajouter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjouterActionPerformed(evt);
             }
         });
@@ -134,6 +146,11 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         DlgAjoutEnqueteur dlgAjoutEnqueteur = new DlgAjoutEnqueteur();
         dlgAjoutEnqueteur.setVisible(true);
     }//GEN-LAST:event_AjouterActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
+    {//GEN-HEADEREND:event_formWindowGainedFocus
+        this.initialiserEnqueteurs();
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
