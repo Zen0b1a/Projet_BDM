@@ -88,7 +88,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -116,6 +117,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(450, 474));
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 
         jPanel1.setLayout(new java.awt.GridLayout(2, 2));
@@ -155,8 +157,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jPanel4.add(jLabel2);
 
         ModifierAdresse.setText("Modifier");
-        ModifierAdresse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierAdresse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierAdresseActionPerformed(evt);
             }
         });
@@ -183,8 +187,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jPanel5.add(Telephone1);
 
         ModifierTelephone1.setText("Modifier");
-        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone1ActionPerformed(evt);
             }
         });
@@ -195,8 +201,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jPanel5.add(Telephone2);
 
         ModifierTelephone2.setText("Modifier");
-        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone2ActionPerformed(evt);
             }
         });

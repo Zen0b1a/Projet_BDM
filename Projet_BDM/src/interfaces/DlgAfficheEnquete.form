@@ -48,6 +48,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModifierNomActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
               <Properties>
@@ -60,6 +63,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Modifier"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ModifierEtatActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -120,6 +126,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter un suspect"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutSuspectActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -170,6 +179,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter une preuve"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutPreuveActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -220,6 +232,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter un crime"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutCrimeActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -270,6 +285,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Ajouter un enqu&#xea;teur"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutEnqueteurActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

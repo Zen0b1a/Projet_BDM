@@ -39,14 +39,31 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             this.Fait.setText(rs.getString("FAIT"));
             this.Date.setText(rs.getString("DATEC"));
             this.Lieu.setText(rs.getString("LIEU"));
+            rs.close();
+            stmt.close();
             
             //Récupération de la liste des témoignages
+            this.initialisationTemoignages();
+            
+            //Récupération de la liste des victimes
+            this.initialisationVictimes();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialisationTemoignages()
+    {
+        try
+        {
             this.Temoignages.removeAll();
             this.Temoignages.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneT).nom, DEREF(personneT).prenom, dateT FROM bdm_temoignage "
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneT).nom, DEREF(personneT).prenom, dateT FROM bdm_temoignage "
                     + "WHERE DEREF(crimeT).id=? ORDER BY id");
             stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idTemoignage;
             while(rs.next())
             {
@@ -55,7 +72,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
                 button.setName(""+idTemoignage);
                 //Ajout des informations dans le bouton
                 button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneT).nom")+"<br>Prénom : "+rs.getString("DEREF(personneT).prenom")+"<br>Date : "+rs.getString("DATET")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
                 
@@ -69,14 +86,25 @@ public class DlgAfficheCrime extends javax.swing.JFrame
                 
                 this.Temoignages.add(button);
             }
-            
-            //Récupération de la liste des victimes
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheCrime.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialisationVictimes()
+    {
+        try
+        {
             this.Victimes.removeAll();
             this.Victimes.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneV).nom, DEREF(personneV).prenom FROM bdm_victime "
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneV).nom, DEREF(personneV).prenom FROM bdm_victime "
                     + "WHERE DEREF(crimeV).id=? ORDER BY id");
             stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idVictime;
             while(rs.next())
             {
@@ -85,7 +113,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
                 button.setName(""+idVictime);
                 //Ajout des informations dans le bouton
                 button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneV).nom")+"<br>Prénom : "+rs.getString("DEREF(personneV).prenom")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
                 
@@ -103,12 +131,12 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             rs.close();
             stmt.close();
         } 
-        catch (SQLException ex) 
+        catch (SQLException ex)
         {
-            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DlgAfficheCrime.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void afficherTemoignage(java.awt.event.ActionEvent evt)
     {
         JButton jb = (JButton)evt.getSource();
@@ -178,6 +206,13 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         jPanel13.add(jLabel6);
 
         AjoutTemoignage.setText("Ajouter un témoignage");
+        AjoutTemoignage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutTemoignageActionPerformed(evt);
+            }
+        });
         jPanel13.add(AjoutTemoignage);
 
         jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
@@ -205,6 +240,13 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         jPanel15.add(jLabel7);
 
         AjoutVictime.setText("Ajouter une victime");
+        AjoutVictime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutVictimeActionPerformed(evt);
+            }
+        });
         jPanel15.add(AjoutVictime);
 
         jPanel14.add(jPanel15, java.awt.BorderLayout.PAGE_START);
@@ -226,6 +268,16 @@ public class DlgAfficheCrime extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AjoutTemoignageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutTemoignageActionPerformed
+    {//GEN-HEADEREND:event_AjoutTemoignageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AjoutTemoignageActionPerformed
+
+    private void AjoutVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutVictimeActionPerformed
+    {//GEN-HEADEREND:event_AjoutVictimeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_AjoutVictimeActionPerformed
 
     /**
      * @param args the command line arguments

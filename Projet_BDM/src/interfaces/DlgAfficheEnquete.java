@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
@@ -44,74 +46,78 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             //Récupération des informations de l'enquête
             this.Nom.setText(rs.getString("NOM"));
             this.Etat.setText(rs.getString("ETAT"));
+            rs.close();
+            stmt.close();
             
             //Récupération de la liste des suspects
-            this.Suspects.removeAll();
-            this.Suspects.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneS).nom, DEREF(personneS).prenom, etat FROM bdm_suspect "
-                    + "WHERE DEREF(enqueteS).id=? ORDER BY id");
-            stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
-            int idSuspect;
-            while(rs.next())
-            {
-                idSuspect = rs.getInt("ID");
-                JButton button = new JButton();
-                button.setName(""+idSuspect);
-                //Ajout des informations dans le bouton
-                button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneS).nom")+"<br>Prénom : "+rs.getString("DEREF(personneS).prenom")+"<br>Etat : "+rs.getString("ETAT")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
-                button.setHorizontalTextPosition(SwingConstants.CENTER); 
-                button.setSize(50, 50);
-                
-                //Ajout du listener
-                button.addActionListener(new java.awt.event.ActionListener() 
-                {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        afficherSuspect(evt);
-                    }
-                });
-                
-                this.Suspects.add(button);
-            }
+            this.initialiserSuspects();
             
             //Récupération de la liste des preuves
-            this.Preuves.removeAll();
-            this.Preuves.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve "
-                    + "WHERE DEREF(enqueteP).id=? ORDER BY id");
+            this.initialiserPreuves();
+            
+            //Récupération de la liste des crimes
+            this.initialiserCrimes();
+            
+            //Récupération de la liste des enquêteurs
+            this.initialiserEnqueteurs();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialiserEnqueteurs()
+    {
+        try
+        {
+            this.Enqueteurs.removeAll();
+            this.Enqueteurs.setLayout(new GridLayout());
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge FROM bdm_enqueteur "
+                    + "WHERE id IN(SELECT DEREF(enqueteurEE).id FROM bdm_enqueteur_enquete WHERE DEREF(enqueteEE).id=?) ORDER BY id");
             stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
-            int idPreuve;
-            while(rs.next())
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idEnqueteur;
+            while(rs.next()) 
             {
-                idPreuve = rs.getInt("ID");
+                idEnqueteur = rs.getInt("ID");
                 JButton button = new JButton();
-                button.setName(""+idPreuve);
+                button.setName(""+idEnqueteur);
                 //Ajout des informations dans le bouton
-                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
-                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                button.setHorizontalTextPosition(SwingConstants.CENTER);
                 button.setSize(50, 50);
                 
                 //Ajout du listener
-                button.addActionListener(new java.awt.event.ActionListener() 
+                button.addActionListener(new java.awt.event.ActionListener()
                 {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        afficherPreuve(evt);
+                        afficherEnqueteur(evt);
                     }
                 });
                 
-                this.Preuves.add(button);
+                this.Enqueteurs.add(button);
             }
-            
-            //Récupération de la liste des crimes
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialiserCrimes()
+    {
+        try
+        {
             this.Crimes.removeAll();
             this.Crimes.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, fait, dateC, lieu FROM bdm_crime "
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, fait, dateC, lieu FROM bdm_crime "
                     + "WHERE DEREF(enqueteC).id=? ORDER BY dateC");
             stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idCrime;
             while(rs.next())
             {
@@ -120,7 +126,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.setName(""+idCrime);
                 //Ajout des informations dans le bouton
                 button.setText("<HTML><body>Fait : "+rs.getString("FAIT")+"<br>Date : "+rs.getString("DATEC")+"<br>Lieu : "+rs.getString("LIEU")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
                 
@@ -134,23 +140,34 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 
                 this.Crimes.add(button);
             }
-            
-            //Récupération de la liste des enquêteurs
-            this.Enqueteurs.removeAll();
-            this.Enqueteurs.setLayout(new GridLayout());
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge FROM bdm_enqueteur "
-                    + "WHERE id IN(SELECT DEREF(enqueteurEE).id FROM bdm_enqueteur_enquete WHERE DEREF(enqueteEE).id=?) ORDER BY id");
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialiserPreuves()
+    {
+        try
+        {
+            this.Preuves.removeAll();
+            this.Preuves.setLayout(new GridLayout());
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve "
+                    + "WHERE DEREF(enqueteP).id=? ORDER BY id");
             stmt.setInt(1, this.id);
-            rs = (OracleResultSet)stmt.executeQuery();
-            int idEnqueteur;
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idPreuve;
             while(rs.next())
             {
-                idEnqueteur = rs.getInt("ID");
+                idPreuve = rs.getInt("ID");
                 JButton button = new JButton();
-                button.setName(""+idEnqueteur);
+                button.setName(""+idPreuve);
                 //Ajout des informations dans le bouton
-                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
-                button.setVerticalTextPosition(SwingConstants.BOTTOM); 
+                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
                 
@@ -158,16 +175,57 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.addActionListener(new java.awt.event.ActionListener() 
                 {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        afficherEnqueteur(evt);
+                        afficherPreuve(evt);
                     }
                 });
                 
-                this.Enqueteurs.add(button);
+                this.Preuves.add(button);
             }
             rs.close();
             stmt.close();
         } 
-        catch (SQLException ex) 
+        catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialiserSuspects()
+    {
+        try
+        {
+            this.Suspects.removeAll();
+            this.Suspects.setLayout(new GridLayout());
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneS).nom, DEREF(personneS).prenom, etat FROM bdm_suspect "
+                    + "WHERE DEREF(enqueteS).id=? ORDER BY id");
+            stmt.setInt(1, this.id);
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idSuspect;
+            while(rs.next())
+            {
+                idSuspect = rs.getInt("ID");
+                JButton button = new JButton();
+                button.setName(""+idSuspect);
+                //Ajout des informations dans le bouton
+                button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneS).nom")+"<br>Prénom : "+rs.getString("DEREF(personneS).prenom")+"<br>Etat : "+rs.getString("ETAT")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setSize(50, 50);
+                
+                //Ajout du listener
+                button.addActionListener(new java.awt.event.ActionListener() 
+                {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        afficherSuspect(evt);
+                    }
+                });
+                
+                this.Suspects.add(button);
+            }
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex)
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -256,6 +314,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel4.add(Nom);
 
         ModifierNom.setText("Modifier");
+        ModifierNom.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ModifierNomActionPerformed(evt);
+            }
+        });
         jPanel4.add(ModifierNom);
 
         jLabel3.setText("Etat :");
@@ -263,6 +328,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel4.add(Etat);
 
         ModifierEtat.setText("Modifier");
+        ModifierEtat.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ModifierEtatActionPerformed(evt);
+            }
+        });
         jPanel4.add(ModifierEtat);
 
         jPanel1.add(jPanel4);
@@ -298,6 +370,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel11.add(jLabel5);
 
         AjoutSuspect.setText("Ajouter un suspect");
+        AjoutSuspect.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutSuspectActionPerformed(evt);
+            }
+        });
         jPanel11.add(AjoutSuspect);
 
         jPanel10.add(jPanel11, java.awt.BorderLayout.PAGE_START);
@@ -325,6 +404,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel9.add(jLabel4);
 
         AjoutPreuve.setText("Ajouter une preuve");
+        AjoutPreuve.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutPreuveActionPerformed(evt);
+            }
+        });
         jPanel9.add(AjoutPreuve);
 
         jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
@@ -352,6 +438,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel13.add(jLabel6);
 
         AjoutCrime.setText("Ajouter un crime");
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutCrimeActionPerformed(evt);
+            }
+        });
         jPanel13.add(AjoutCrime);
 
         jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
@@ -379,6 +472,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel7.add(jLabel2);
 
         AjoutEnqueteur.setText("Ajouter un enquêteur");
+        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutEnqueteurActionPerformed(evt);
+            }
+        });
         jPanel7.add(AjoutEnqueteur);
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
@@ -400,6 +500,85 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AjoutCrimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutCrimeActionPerformed
+    {//GEN-HEADEREND:event_AjoutCrimeActionPerformed
+        DlgAjoutCrime dlg = new DlgAjoutCrime();
+        dlg.setVisible(true);
+    }//GEN-LAST:event_AjoutCrimeActionPerformed
+
+    private void AjoutSuspectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutSuspectActionPerformed
+    {//GEN-HEADEREND:event_AjoutSuspectActionPerformed
+        // TODO add your handling code here:
+        //Interface avec choix d'une personne, comparaison d'images ?
+    }//GEN-LAST:event_AjoutSuspectActionPerformed
+
+    private void AjoutPreuveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPreuveActionPerformed
+    {//GEN-HEADEREND:event_AjoutPreuveActionPerformed
+        DlgAjoutPreuve dlg = new DlgAjoutPreuve();
+        dlg.setVisible(true);
+    }//GEN-LAST:event_AjoutPreuveActionPerformed
+
+    private void AjoutEnqueteurActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutEnqueteurActionPerformed
+    {//GEN-HEADEREND:event_AjoutEnqueteurActionPerformed
+        try
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT COUNT(*) FROM bdm_enqueteur "
+                    + "WHERE id NOT IN(SELECT DEREF(enqueteurEE).id FROM bdm_enqueteur_enquete WHERE DEREF(enqueteEE).id=?)");
+            stmt.setInt(1, this.id);
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            rs.next();
+            int nbEnqueteurs = rs.getInt(1);
+            String[] enqueteurs = new String[nbEnqueteurs];
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom FROM bdm_enqueteur "
+                    + "WHERE id NOT IN(SELECT DEREF(enqueteurEE).id FROM bdm_enqueteur_enquete WHERE DEREF(enqueteEE).id=?) ORDER BY id");
+            stmt.setInt(1, this.id);
+            rs = (OracleResultSet)stmt.executeQuery();
+            int i=0;
+            while(rs.next())
+            {
+                enqueteurs[i] = rs.getInt("ID")+" - "+rs.getString("PRENOM")+" "+rs.getString("NOM");
+                i++;
+            }
+            //JOptionPane de choix d'un enquêteur
+            JComboBox combo = new JComboBox(enqueteurs);
+            String[] options = { "Ajouter", "Annuler" };
+            int selection = JOptionPane.showOptionDialog(null, combo, "Ajouter un enquêteur", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+            //Récupération de la sélection
+            if(selection<=0) 
+            {
+                if(combo.getSelectedIndex()>=0)
+                {
+                    String enqueteur = combo.getSelectedItem().toString();
+                    int idEnqueteur = Integer.parseInt(enqueteur.split(" - ")[0]);
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_enqueteur_enquete VALUES"
+                            + "((SELECT REF(e) FROM bdm_enqueteur e WHERE e.id=?), (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?))");
+                    stmt.setInt(1, idEnqueteur);
+                    stmt.setInt(2, this.id);
+                    stmt.executeQuery();
+                    this.initialiserEnqueteurs();
+                    this.setSize(this.getWidth()+1, this.getHeight()+1);
+                    this.setSize(this.getWidth()-1, this.getHeight()-1);
+                }
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }//GEN-LAST:event_AjoutEnqueteurActionPerformed
+
+    private void ModifierNomActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ModifierNomActionPerformed
+    {//GEN-HEADEREND:event_ModifierNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ModifierNomActionPerformed
+
+    private void ModifierEtatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ModifierEtatActionPerformed
+    {//GEN-HEADEREND:event_ModifierEtatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ModifierEtatActionPerformed
 
     /**
      * @param args the command line arguments
