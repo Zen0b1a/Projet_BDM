@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.io.File;
+import java.nio.file.Files;
 
 
 /**
@@ -110,6 +111,8 @@ public class Menu extends javax.swing.JFrame {
                     files[i].delete();
             }
         }
+        else
+            path.mkdir();
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
