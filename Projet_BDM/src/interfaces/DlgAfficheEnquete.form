@@ -213,17 +213,17 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="T&#xe9;moignages"/>
+                <Property name="text" type="java.lang.String" value="Crimes"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="AjoutTemoignage">
+            <Component class="javax.swing.JButton" name="AjoutCrime">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ajouter un t&#xe9;moignage"/>
+                <Property name="text" type="java.lang.String" value="Ajouter un crime"/>
               </Properties>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="Temoignages">
+        <Container class="javax.swing.JPanel" name="Crimes">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
               <BorderConstraints direction="Center"/>

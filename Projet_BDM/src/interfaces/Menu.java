@@ -104,8 +104,11 @@ public class Menu extends javax.swing.JFrame {
         if(path.exists())
         {
             File[] files = path.listFiles();
-            for(int i=0; i<files.length; i++)
-                files[i].delete();
+            if(files!=null)
+            {
+                for(int i=0; i<files.length; i++)
+                    files[i].delete();
+            }
         }
     }//GEN-LAST:event_formWindowGainedFocus
 
