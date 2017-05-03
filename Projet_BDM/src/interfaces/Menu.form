@@ -25,8 +25,8 @@
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
-    <Property name="columns" type="int" value="3"/>
-    <Property name="rows" type="int" value="1"/>
+    <Property name="columns" type="int" value="2"/>
+    <Property name="rows" type="int" value="2"/>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JButton" name="Enqueteurs">
@@ -51,6 +51,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnquetesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="AjoutPersonne">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ajouter une personne"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutPersonneActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -34,6 +34,7 @@ public class Menu extends javax.swing.JFrame {
         Enqueteurs = new javax.swing.JButton();
         AjoutCrime = new javax.swing.JButton();
         Enquetes = new javax.swing.JButton();
+        AjoutPersonne = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener()
@@ -46,7 +47,7 @@ public class Menu extends javax.swing.JFrame {
             {
             }
         });
-        getContentPane().setLayout(new java.awt.GridLayout(1, 3));
+        getContentPane().setLayout(new java.awt.GridLayout(2, 2));
 
         Enqueteurs.setText("Voir les enquêteurs");
         Enqueteurs.addActionListener(new java.awt.event.ActionListener()
@@ -77,6 +78,16 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Enquetes);
+
+        AjoutPersonne.setText("Ajouter une personne");
+        AjoutPersonne.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutPersonneActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AjoutPersonne);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -113,6 +124,12 @@ public class Menu extends javax.swing.JFrame {
         else
             path.mkdir();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void AjoutPersonneActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPersonneActionPerformed
+    {//GEN-HEADEREND:event_AjoutPersonneActionPerformed
+        DlgAjoutPersonne dlg = new DlgAjoutPersonne();
+        dlg.setVisible(true);
+    }//GEN-LAST:event_AjoutPersonneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -151,6 +168,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AjoutCrime;
+    private javax.swing.JButton AjoutPersonne;
     private javax.swing.JButton Enquetes;
     private javax.swing.JButton Enqueteurs;
     // End of variables declaration//GEN-END:variables
