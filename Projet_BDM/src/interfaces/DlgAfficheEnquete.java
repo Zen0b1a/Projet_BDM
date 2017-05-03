@@ -269,8 +269,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -303,6 +302,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         AjoutEnqueteur = new javax.swing.JButton();
         Enqueteurs = new javax.swing.JPanel();
 
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(5, 1));
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
@@ -314,10 +320,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel4.add(Nom);
 
         ModifierNom.setText("Modifier");
-        ModifierNom.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ModifierNom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModifierNomActionPerformed(evt);
             }
         });
@@ -328,10 +332,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel4.add(Etat);
 
         ModifierEtat.setText("Modifier");
-        ModifierEtat.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ModifierEtat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModifierEtatActionPerformed(evt);
             }
         });
@@ -370,10 +372,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel11.add(jLabel5);
 
         AjoutSuspect.setText("Ajouter un suspect");
-        AjoutSuspect.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutSuspect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutSuspectActionPerformed(evt);
             }
         });
@@ -404,10 +404,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel9.add(jLabel4);
 
         AjoutPreuve.setText("Ajouter une preuve");
-        AjoutPreuve.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutPreuve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutPreuveActionPerformed(evt);
             }
         });
@@ -438,10 +436,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel13.add(jLabel6);
 
         AjoutCrime.setText("Ajouter un crime");
-        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutCrimeActionPerformed(evt);
             }
         });
@@ -472,10 +468,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel7.add(jLabel2);
 
         AjoutEnqueteur.setText("Ajouter un enquêteur");
-        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutEnqueteurActionPerformed(evt);
             }
         });
@@ -557,9 +551,6 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                     stmt.setInt(1, idEnqueteur);
                     stmt.setInt(2, this.id);
                     stmt.executeQuery();
-                    this.initialiserEnqueteurs();
-                    this.setSize(this.getWidth()+1, this.getHeight()+1);
-                    this.setSize(this.getWidth()-1, this.getHeight()-1);
                 }
             }
             rs.close();
@@ -579,6 +570,12 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     {//GEN-HEADEREND:event_ModifierEtatActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModifierEtatActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        this.initialiserEnquete();
+        this.setSize(this.getWidth()+1, this.getHeight()+1);
+        this.setSize(this.getWidth()-1, this.getHeight()-1);
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
