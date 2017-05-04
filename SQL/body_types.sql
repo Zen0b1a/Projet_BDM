@@ -87,7 +87,80 @@ CREATE OR REPLACE TYPE BODY bdm_enquete_type AS
 	END supprimerCrime;
 END;
 /
-		
+
+--Crime
+--ALTER TYPE bdm_crime_type
+--ADD MEMBER PROCEDURE ajouterEnquete(idE IN INTEGER) CASCADE;
+--ALTER TYPE bdm_crime_type
+--ADD MEMBER PROCEDURE modifierEnquete(idE IN INTEGER) CASCADE;
+
+CREATE OR REPLACE TYPE BODY bdm_crime_type AS
+	MEMBER PROCEDURE ajouterEnquete(idE IN INTEGER) IS
+		v_enquete bdm_enquete_type;
+	BEGIN
+		UPDATE bdm_crime SET enqueteC=(SELECT REF(e) FROM bdm_enquete e WHERE e.id=idE) WHERE id=self.id;
+		SELECT VALUE(e) INTO v_enquete
+		FROM bdm_enquete e
+		WHERE e.id=idE;
+		v_enquete.ajouterCrime(self.id);
+	END ajouterEnquete;
+	MEMBER PROCEDURE modifierEnquete(idE IN INTEGER) IS
+		v_enquete bdm_enquete_type;
+	BEGIN
+		SELECT DEREF(enqueteC) INTO v_enquete
+		FROM bdm_crime
+		WHERE id=self.id;
+		v_enquete.supprimerCrime(self.id);
+		self.ajouterEnquete(idE);
+	END modifierEnquete;
+END;
+/
+
+--Preuve
+--ALTER TYPE bdm_preuve_type
+--ADD NOT FINAL MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION CASCADE;
+
+CREATE OR REPLACE TYPE BODY bdm_preuve_type AS
+	NOT FINAL MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
+		img_preuve SI_StillImage;
+		img_personne SI_StillImage;
+		bl_preuve BLOB; 
+		bl_personne BLOB;
+		sig SI_FeatureList;
+		score DOUBLE PRECISION;
+		img ORDImage;
+	BEGIN
+		score := 0.0;
+		RETURN score;
+	END compareImage;
+END;
+/
+
+--ALTER TYPE bdm_preuve_image_type
+--ADD OVERRIDING MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION CASCADE;
+
+CREATE OR REPLACE TYPE BODY bdm_preuve_image_type AS
+	OVERRIDING MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
+		img_preuve SI_StillImage;
+		img_personne SI_StillImage;
+		bl_preuve BLOB; 
+		bl_personne BLOB;
+		sig SI_FeatureList;
+		score DOUBLE PRECISION;
+		img ORDImage;
+	BEGIN
+		SELECT photo INTO img FROM bdm_personne WHERE id=idP;
+		bl_preuve := self.image.source.localData;
+		bl_personne := img.source.localData;
+		img_preuve := new SI_StillImage(bl_preuve);
+		img_personne := new SI_StillImage(bl_personne);
+		sig := new SI_FeatureList(new SI_AverageColor(img_preuve), pond_avg_color, new SI_ColorHistogram(img_preuve), pond_histogramme, new SI_PositionalColor(img_preuve), pond_pos_color, new SI_Texture(img_preuve), pond_texture);
+		score := sig.SI_Score(img_personne);
+		RETURN score;
+	END compareImage;
+END;
+/
+
 --PROCEDURES D'APPEL
 
 --Personne
@@ -153,51 +226,24 @@ END;
 --END supprimerCrimeAEnquete;
 --/
 
---TRIGGER
-CREATE OR REPLACE TRIGGER t_insert_crime
-AFTER INSERT
-	ON bdm_crime
-	FOR EACH ROW
-DECLARE
-	v_idE bdm_enquete.id%TYPE;
-	v_idC bdm_crime.id%TYPE;
-BEGIN
-	v_idC := :NEW.id;
-	SELECT DEREF(enqueteC).id INTO v_idE
-	FROM bdm_crime
-	WHERE id=v_idC;
-	ajouterCrimeAEnquete(v_idE, :NEW.id);
-END;
-/
+--Crime 
+--CREATE OR REPLACE PROCEDURE changerEnqueteDuCrime(idC IN INTEGER, idE IN INTEGER) IS
+--	v_crime bdm_crime_type;
+--BEGIN
+--	SELECT VALUE(c) INTO v_crime
+--	FROM bdm_crime c
+--	WHERE c.id=idC;
+--	v_crime.modifierEnquete(idE);
+--END changerEnqueteDuCrime;
+--/
 
-CREATE OR REPLACE TRIGGER t_before_update_crime
-BEFORE UPDATE
-	ON bdm_crime
-	FOR EACH ROW
-DECLARE
-	v_idE bdm_enquete.id%TYPE;
-	v_idC bdm_crime.id%TYPE;
-BEGIN
-	--Suppression du crime dans l'ancicienne enquête
-	v_idC := :NEW.id;
-	SELECT DEREF(enqueteC).id INTO v_idE
-	FROM bdm_crime
-	WHERE id=v_idC;
-	supprimerCrimeAEnquete(v_idE, :NEW.id);
-END;
-/
-
-CREATE OR REPLACE TRIGGER t_after_update_crime
-BEFORE UPDATE ON bdm_crime FOR EACH ROW
-DECLARE
-	v_idE bdm_enquete.id%TYPE;
-	v_idC bdm_crime.id%TYPE;
-BEGIN
-	--Insertion du crime dans la nouvelle enquête
-	v_idC := :NEW.id;
-	SELECT DEREF(enqueteC).id INTO v_idE
-	FROM bdm_crime
-	WHERE id=v_idC;
-	ajouterCrimeAEnquete(v_idE, :NEW.id);
-END;
-/
+--Preuve
+--CREATE OR REPLACE FUNCTION compare(idPr IN INTEGER, idPe IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
+--	v_preuve bdm_preuve_type;
+--	score DOUBLE PRECISION;
+--BEGIN
+--	SELECT VALUE(p) INTO v_preuve FROM bdm_preuve p WHERE id=idPr;
+--	score := v_preuve.compareImage(idPe, pond_avg_color, pond_histogramme, pond_pos_color, pond_texture);
+--	RETURN score;
+--END compare;
+--/
