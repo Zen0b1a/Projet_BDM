@@ -161,6 +161,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nom :");
+        jLabel1.setPreferredSize(new java.awt.Dimension(300, 21));
         jPanel2.add(jLabel1);
 
         Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -168,6 +169,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
 
         jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Enqueteurs :");
+        jLabel2.setPreferredSize(new java.awt.Dimension(200, 21));
         jPanel2.add(jLabel2);
 
         Enqueteurs.setBackground(new java.awt.Color(226, 220, 207));
@@ -186,6 +188,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         jPanel2.add(Enqueteurs);
 
         ListeEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        ListeEnqueteurs.setPreferredSize(new java.awt.Dimension(150, 27));
         jPanel2.add(ListeEnqueteurs);
 
         AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
