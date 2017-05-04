@@ -41,17 +41,16 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             this.Lieu.setText(rs.getString("LIEU"));
             rs.close();
             stmt.close();
-            
-            //Récupération de la liste des témoignages
-            this.initialisationTemoignages();
-            
-            //Récupération de la liste des victimes
-            this.initialisationVictimes();
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Récupération de la liste des témoignages
+        this.initialisationTemoignages();
+
+        //Récupération de la liste des victimes
+        this.initialisationVictimes();
     }
     
     private void initialisationTemoignages()
@@ -141,8 +140,8 @@ public class DlgAfficheCrime extends javax.swing.JFrame
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        //DlgAfficheTemoignage dlg = new DlgAfficheTemoignage(id);
-        //dlg.setVisible(true);
+        DlgAfficheTemoignage dlg = new DlgAfficheTemoignage(id);
+        dlg.setVisible(true);
     }
     
     private void afficherVictime(java.awt.event.ActionEvent evt)
@@ -180,6 +179,16 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         AjoutVictime = new javax.swing.JButton();
         Victimes = new javax.swing.JPanel();
 
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
         getContentPane().setLayout(new java.awt.GridLayout(3, 1));
 
         jPanel1.setLayout(new java.awt.GridLayout(3, 2));
@@ -271,13 +280,24 @@ public class DlgAfficheCrime extends javax.swing.JFrame
 
     private void AjoutTemoignageActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutTemoignageActionPerformed
     {//GEN-HEADEREND:event_AjoutTemoignageActionPerformed
-        // TODO add your handling code here:
+        DlgAjoutTemoignage dlg = new DlgAjoutTemoignage(this.id);
+        dlg.setVisible(true);
     }//GEN-LAST:event_AjoutTemoignageActionPerformed
 
     private void AjoutVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutVictimeActionPerformed
     {//GEN-HEADEREND:event_AjoutVictimeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AjoutVictimeActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
+    {//GEN-HEADEREND:event_formWindowGainedFocus
+        //Récupération de la liste des témoignages
+        this.initialisationTemoignages();
+        //Récupération de la liste des victimes
+        this.initialisationVictimes();
+        this.setSize(this.getWidth()+1, this.getHeight()+1);
+        this.setSize(this.getWidth()-1, this.getHeight()-1);
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
