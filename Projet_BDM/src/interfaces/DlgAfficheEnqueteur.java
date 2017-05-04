@@ -120,6 +120,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         ModifierTelephone2 = new javax.swing.JButton();
         SupprimerEnqueteur = new javax.swing.JButton();
 
+        setTitle("Enquêteur");
         setPreferredSize(new java.awt.Dimension(900, 700));
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 

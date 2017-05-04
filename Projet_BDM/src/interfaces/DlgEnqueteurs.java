@@ -46,6 +46,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur ORDER BY id");
             rs = (OracleResultSet)stmt.executeQuery();
             int idEnqueteur;
+            Font fonte = new Font("Courier",Font.PLAIN,18);
             while(rs.next())
             {
                 idEnqueteur = rs.getInt("ID");
@@ -58,6 +59,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 img.getDataInFile(fichier);
                 button.setIcon(new ImageIcon(fichier));
                 button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setFont(fonte);
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 
@@ -94,8 +96,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -104,29 +105,30 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         PanelEnqueteurs = new javax.swing.JPanel();
 
+        setTitle("Liste des enquêteurs");
         setMinimumSize(new java.awt.Dimension(500, 500));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nombre d'enquêteurs :");
         jPanel1.add(jLabel1);
+
+        NbEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel1.add(NbEnqueteurs);
 
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
@@ -134,6 +136,9 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
+        jScrollPane.setBackground(new java.awt.Color(226, 220, 207));
+
+        PanelEnqueteurs.setBackground(new java.awt.Color(226, 220, 207));
         PanelEnqueteurs.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane.setViewportView(PanelEnqueteurs);
 
