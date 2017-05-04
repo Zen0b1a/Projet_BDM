@@ -509,7 +509,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
     private void AjoutPreuveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPreuveActionPerformed
     {//GEN-HEADEREND:event_AjoutPreuveActionPerformed
-        DlgAjoutPreuve dlg = new DlgAjoutPreuve();
+        DlgAjoutPreuve dlg = new DlgAjoutPreuve(this.id);
         dlg.setVisible(true);
     }//GEN-LAST:event_AjoutPreuveActionPerformed
 

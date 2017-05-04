@@ -5,19 +5,36 @@
  */
 package interfaces;
 
+import java.awt.Toolkit;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleResultSet;
+import oracle.ord.im.OrdAudio;
+import oracle.ord.im.OrdImage;
+import oracle.ord.im.OrdVideo;
+import utils.ConnexionUtils;
+
 /**
  *
  * @author Annabelle
  */
 public class DlgAjoutPreuve extends javax.swing.JFrame
 {
-
+    private int idE;
     /**
      * Creates new form DlgAjoutPreuve
      */
-    public DlgAjoutPreuve()
+    public DlgAjoutPreuve(int idE)
     {
         initComponents();
+        this.idE = idE;
     }
 
     /**
@@ -27,22 +44,175 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        jPanel1 = new javax.swing.JPanel();
+        Annuler = new javax.swing.JButton();
+        Ajouter = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        ListeTypes = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Description = new javax.swing.JTextArea();
+
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        Annuler.setText("Annuler");
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnnulerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Annuler);
+
+        Ajouter.setText("Ajouter");
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Ajouter);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        jPanel2.setLayout(new java.awt.GridLayout(2, 2));
+
+        jLabel1.setText("Type :");
+        jPanel2.add(jLabel1);
+
+        ListeTypes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Image", "Audio", "Vidéo" }));
+        jPanel2.add(ListeTypes);
+
+        jLabel2.setText("Description :");
+        jPanel2.add(jLabel2);
+
+        Description.setColumns(20);
+        Description.setRows(5);
+        jScrollPane1.setViewportView(Description);
+
+        jPanel2.add(jScrollPane1);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnulerActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
+        String description = this.Description.getText();
+        if(!description.equals(""))
+        {
+            //Fenêtre de sélection
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Choisir une photo");
+            FileNameExtensionFilter filterImage = new FileNameExtensionFilter("Images", "bmp", "jpg", "jpeg", "png");
+            FileNameExtensionFilter filterAudio = new FileNameExtensionFilter("Audios", "mp3", "midi", "wav", "flac");
+            FileNameExtensionFilter filterVideo = new FileNameExtensionFilter("Videos", "mp4", "avi", "mkv");
+            FileNameExtensionFilter filter = null;
+            switch(this.ListeTypes.getSelectedItem().toString())
+            {
+                case "Image" : filter = filterImage; break;
+                case "Audio" : filter = filterAudio; break;
+                case "Vidéo" : filter = filterVideo; break;
+            }
+            fileChooser.addChoosableFileFilter(filter);
+            fileChooser.setAcceptAllFileFilterUsed(false);
+            fileChooser.setFileFilter(filter);
+            if(fileChooser.showOpenDialog(this)==JFileChooser.APPROVE_OPTION)
+            {
+                String chemin = fileChooser.getSelectedFile().getAbsolutePath();
+                try 
+                {
+                    //Récupération de l'id
+                    OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_preuve");
+                    OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                    rs.next();
+                    int idPreuve = rs.getInt(1)+1;
+                    ConnexionUtils.getInstance().setAutoCommit(false);
+                    //Récupération du media
+                    switch(this.ListeTypes.getSelectedItem().toString())
+                    {
+                        case "Image" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
+                            + "bdm_preuve_image_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDImage.init())");
+                            break;
+                        case "Audio" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
+                            + "bdm_preuve_audio_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDAudio.init())");
+                            break;
+                        case "Vidéo" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
+                            + "bdm_preuve_video_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDVideo.init())");
+                            break;
+                    }
+                    //Insertion
+                    stmt.setInt(1, idPreuve);
+                    stmt.setString(2, description);
+                    stmt.setInt(3, this.idE);
+                    stmt.executeQuery();
+                    Statement ps = null;
+                    switch(this.ListeTypes.getSelectedItem().toString())
+                    {
+                        case "Image" : 
+                            //Ajout de la photo
+                            ps = (Statement)ConnexionUtils.getInstance().createStatement();
+                            rs = (OracleResultSet)ps.executeQuery("SELECT image FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs.next();
+                            OrdImage imgObj = (OrdImage)rs.getORAData(1, OrdImage.getORADataFactory());
+                            imgObj.loadDataFromFile(chemin);
+                            imgObj.setProperties();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET image=? WHERE id=?");
+                            stmt.setORAData(1, imgObj);
+                            stmt.setInt(2, idPreuve);
+                            stmt.execute();
+                            break;
+                        case "Audio" : 
+                            //Ajout de la photo
+                            ps = (Statement)ConnexionUtils.getInstance().createStatement();
+                            rs = (OracleResultSet)ps.executeQuery("SELECT audio FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs.next();
+                            OrdAudio audObj = (OrdAudio)rs.getORAData(1, OrdAudio.getORADataFactory());
+                            audObj.loadDataFromFile(chemin);
+                            //audObj.setProperties();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET audio=? WHERE id=?");
+                            stmt.setORAData(1, audObj);
+                            stmt.setInt(2, idPreuve);
+                            stmt.execute();
+                            break;
+                        case "Vidéo" : 
+                            //Ajout de la photo
+                            ps = (Statement)ConnexionUtils.getInstance().createStatement();
+                            rs = (OracleResultSet)ps.executeQuery("SELECT video FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs.next();
+                            OrdVideo vidObj = (OrdVideo)rs.getORAData(1, OrdVideo.getORADataFactory());
+                            vidObj.loadDataFromFile(chemin);
+                            //vidObj.setProperties();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET video=? WHERE id=?");
+                            stmt.setORAData(1, vidObj);
+                            stmt.setInt(2, idPreuve);
+                            stmt.execute();
+                            break;
+                    }
+                    ConnexionUtils.getInstance().commit();
+                    ps.close();
+                    rs.close();
+                    stmt.close();
+                    ConnexionUtils.getInstance().setAutoCommit(true);
+                } 
+                catch (SQLException | IOException ex) 
+                {
+                    Logger.getLogger(DlgAjoutPreuve.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Une description doit être fournie.", "Erreur lors de l'ajout", JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_AjouterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,17 +248,17 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(DlgAjoutPreuve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new DlgAjoutPreuve().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Ajouter;
+    private javax.swing.JButton Annuler;
+    private javax.swing.JTextArea Description;
+    private javax.swing.JComboBox<String> ListeTypes;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
