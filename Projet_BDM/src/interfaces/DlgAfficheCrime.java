@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -64,12 +65,14 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idTemoignage;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
                 idTemoignage = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setName(""+idTemoignage);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneT).nom")+"<br>Prénom : "+rs.getString("DEREF(personneT).prenom")+"<br>Date : "+rs.getString("DATET")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -105,10 +108,12 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idVictime;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
                 idVictime = rs.getInt("ID");
                 JButton button = new JButton();
+                button.setFont(fonte);
                 button.setName(""+idVictime);
                 //Ajout des informations dans le bouton
                 button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneV).nom")+"<br>Prénom : "+rs.getString("DEREF(personneV).prenom")+"</HTML></body>");
@@ -158,8 +163,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -179,46 +183,56 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         AjoutVictime = new javax.swing.JButton();
         Victimes = new javax.swing.JPanel();
 
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        setTitle("Crime");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(3, 1));
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(3, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Fait :");
         jPanel1.add(jLabel1);
+
+        Fait.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel1.add(Fait);
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Date :");
         jPanel1.add(jLabel3);
+
+        Date.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel1.add(Date);
 
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel5.setText("Lieu :");
         jPanel1.add(jLabel5);
+
+        Lieu.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel1.add(Lieu);
 
         getContentPane().add(jPanel1);
 
+        jPanel12.setBackground(new java.awt.Color(226, 220, 207));
         jPanel12.setLayout(new java.awt.BorderLayout());
 
+        jPanel13.setBackground(new java.awt.Color(226, 220, 207));
         jPanel13.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setText("Témoignages");
         jPanel13.add(jLabel6);
 
+        AjoutTemoignage.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutTemoignage.setText("Ajouter un témoignage");
-        AjoutTemoignage.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutTemoignage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutTemoignageActionPerformed(evt);
             }
         });
@@ -226,33 +240,37 @@ public class DlgAfficheCrime extends javax.swing.JFrame
 
         jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
 
+        Temoignages.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout TemoignagesLayout = new javax.swing.GroupLayout(Temoignages);
         Temoignages.setLayout(TemoignagesLayout);
         TemoignagesLayout.setHorizontalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
         TemoignagesLayout.setVerticalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 71, Short.MAX_VALUE)
         );
 
         jPanel12.add(Temoignages, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel12);
 
+        jPanel14.setBackground(new java.awt.Color(226, 220, 207));
         jPanel14.setLayout(new java.awt.BorderLayout());
 
+        jPanel15.setBackground(new java.awt.Color(226, 220, 207));
         jPanel15.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel7.setText("Victimes");
         jPanel15.add(jLabel7);
 
+        AjoutVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutVictime.setText("Ajouter une victime");
-        AjoutVictime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutVictime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutVictimeActionPerformed(evt);
             }
         });
@@ -260,15 +278,17 @@ public class DlgAfficheCrime extends javax.swing.JFrame
 
         jPanel14.add(jPanel15, java.awt.BorderLayout.PAGE_START);
 
+        Victimes.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout VictimesLayout = new javax.swing.GroupLayout(Victimes);
         Victimes.setLayout(VictimesLayout);
         VictimesLayout.setHorizontalGroup(
             VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
         VictimesLayout.setVerticalGroup(
             VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
+            .addGap(0, 71, Short.MAX_VALUE)
         );
 
         jPanel14.add(Victimes, java.awt.BorderLayout.CENTER);

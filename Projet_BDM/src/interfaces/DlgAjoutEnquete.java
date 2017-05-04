@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         String id;
         String nom;
         String[] split;
+        Font fonte = new Font("Courier",Font.PLAIN,14);
         this.Enqueteurs.removeAll();
         this.Enqueteurs.setLayout(new GridLayout(this.enqueteurs.size(), 2));
         for(int i=0; i<this.enqueteurs.size(); i++)
@@ -53,6 +55,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
             JLabel jl = new JLabel();
             jl.setText(id+" - "+nom);
             JButton jb = new JButton();
+            jb.setFont(fonte);
             jb.setText("Supprimer cet enquêteur.");
             jb.setName(this.enqueteurs.get(i));
             //Ajout du listener
@@ -126,6 +129,8 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         Enqueteurs = new javax.swing.JPanel();
         ListeEnqueteurs = new javax.swing.JComboBox();
         AjoutEnqueteur = new javax.swing.JButton();
+
+        setTitle("Ajout d'une enquête");
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));

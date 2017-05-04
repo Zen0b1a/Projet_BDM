@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -38,6 +39,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         String id;
         String nom;
         String[] split;
+        Font fonte = new Font("Courier",Font.PLAIN,14);
         this.Victimes.removeAll();
         this.Victimes.setLayout(new GridLayout(this.personnesVictimes.size(), 3));
         for(int i=0; i<this.personnesVictimes.size(); i++)
@@ -50,11 +52,13 @@ public class DlgAjoutCrime extends javax.swing.JFrame
             JLabel jl = new JLabel();
             jl.setText(id+" - "+nom);
             JComboBox jcb = new JComboBox();
+            jcb.setFont(fonte);
             jcb.setName("jcb "+id);
             jcb.removeAllItems();
             jcb.addItem("vivant");
             jcb.addItem("mort");
             JButton jb = new JButton();
+            jb.setFont(fonte);
             jb.setText("Supprimer cette victime.");
             jb.setName(this.personnesVictimes.get(i));
             //Ajout du listener
@@ -142,149 +146,188 @@ public class DlgAjoutCrime extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Fait = new javax.swing.JTextField();
+        jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         Lieu = new javax.swing.JTextField();
+        jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         Date = new javax.swing.JTextField();
-        Ajouter = new javax.swing.JButton();
-        Annuler = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
         ListeEnquetes = new javax.swing.JComboBox();
         CreerEnquete = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
+        NouvelleVictime = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         Victimes = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         ListeVictimes = new javax.swing.JComboBox();
         AjouterVictime = new javax.swing.JButton();
-        NouvelleVictime = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        Ajouter = new javax.swing.JButton();
+        Annuler = new javax.swing.JButton();
 
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        setTitle("Ajout d'un crime");
+        setPreferredSize(new java.awt.Dimension(700, 600));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
-        getContentPane().setLayout(new java.awt.GridLayout(1, 2));
+        getContentPane().setLayout(new java.awt.GridLayout(9, 1));
 
-        jPanel1.setLayout(new java.awt.GridLayout(4, 2));
+        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Fait");
-        jPanel1.add(jLabel1);
-        jPanel1.add(Fait);
+        jLabel1.setPreferredSize(new java.awt.Dimension(44, 40));
+        jPanel6.add(jLabel1);
 
+        Fait.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel6.add(Fait);
+
+        getContentPane().add(jPanel6);
+
+        jPanel7.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Lieu");
-        jPanel1.add(jLabel2);
-        jPanel1.add(Lieu);
+        jPanel7.add(jLabel2);
 
+        Lieu.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel7.add(Lieu);
+
+        getContentPane().add(jPanel7);
+
+        jPanel8.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel8.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Date");
-        jPanel1.add(jLabel3);
-        jPanel1.add(Date);
+        jPanel8.add(jLabel3);
 
+        Date.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel8.add(Date);
+
+        getContentPane().add(jPanel8);
+
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel4.setText("Enquête :");
+        jPanel3.add(jLabel4);
+
+        jLabel5.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel3.add(jLabel5);
+
+        getContentPane().add(jPanel3);
+
+        jPanel9.setLayout(new java.awt.GridLayout(1, 2));
+
+        ListeEnquetes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel9.add(ListeEnquetes);
+
+        CreerEnquete.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        CreerEnquete.setText("Créer une nouvelle enquête");
+        CreerEnquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreerEnqueteActionPerformed(evt);
+            }
+        });
+        jPanel9.add(CreerEnquete);
+
+        getContentPane().add(jPanel9);
+
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel4.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel6.setText("Victime(s) :");
+        jPanel4.add(jLabel6);
+
+        NouvelleVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        NouvelleVictime.setText("Ajouter une nouvelle victime");
+        NouvelleVictime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NouvelleVictimeActionPerformed(evt);
+            }
+        });
+        jPanel4.add(NouvelleVictime);
+
+        getContentPane().add(jPanel4);
+
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setLayout(new java.awt.GridLayout(1, 1));
+
+        Victimes.setBackground(new java.awt.Color(226, 220, 207));
+
+        javax.swing.GroupLayout VictimesLayout = new javax.swing.GroupLayout(Victimes);
+        Victimes.setLayout(VictimesLayout);
+        VictimesLayout.setHorizontalGroup(
+            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1023, Short.MAX_VALUE)
+        );
+        VictimesLayout.setVerticalGroup(
+            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+        );
+
+        jPanel2.add(Victimes);
+
+        getContentPane().add(jPanel2);
+
+        jPanel5.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
+
+        ListeVictimes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel5.add(ListeVictimes);
+
+        AjouterVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        AjouterVictime.setText("Ajouter victime");
+        AjouterVictime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterVictimeActionPerformed(evt);
+            }
+        });
+        jPanel5.add(AjouterVictime);
+
+        getContentPane().add(jPanel5);
+
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
+
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
         jPanel1.add(Ajouter);
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel1.add(Annuler);
 
         getContentPane().add(jPanel1);
-
-        jPanel2.setLayout(new java.awt.GridLayout(2, 1));
-
-        jPanel3.setLayout(new java.awt.GridLayout(2, 2));
-
-        jLabel4.setText("Enquête :");
-        jPanel3.add(jLabel4);
-        jPanel3.add(jLabel5);
-
-        jPanel3.add(ListeEnquetes);
-
-        CreerEnquete.setText("Créer une nouvelle enquête");
-        CreerEnquete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                CreerEnqueteActionPerformed(evt);
-            }
-        });
-        jPanel3.add(CreerEnquete);
-
-        jPanel2.add(jPanel3);
-
-        jPanel4.setLayout(new java.awt.GridLayout(2, 2));
-
-        jLabel6.setText("Victime(s) :");
-        jPanel4.add(jLabel6);
-
-        javax.swing.GroupLayout VictimesLayout = new javax.swing.GroupLayout(Victimes);
-        Victimes.setLayout(VictimesLayout);
-        VictimesLayout.setHorizontalGroup(
-            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 292, Short.MAX_VALUE)
-        );
-        VictimesLayout.setVerticalGroup(
-            VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        jPanel4.add(Victimes);
-
-        jPanel5.setLayout(new java.awt.GridLayout(1, 2));
-
-        jPanel5.add(ListeVictimes);
-
-        AjouterVictime.setText("Ajouter victime");
-        AjouterVictime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                AjouterVictimeActionPerformed(evt);
-            }
-        });
-        jPanel5.add(AjouterVictime);
-
-        jPanel4.add(jPanel5);
-
-        NouvelleVictime.setText("Ajouter une nouvelle victime");
-        NouvelleVictime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                NouvelleVictimeActionPerformed(evt);
-            }
-        });
-        jPanel4.add(NouvelleVictime);
-
-        jPanel2.add(jPanel4);
-
-        getContentPane().add(jPanel2);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -505,5 +548,9 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }
