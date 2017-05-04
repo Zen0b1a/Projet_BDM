@@ -59,7 +59,7 @@ END;
 
 CREATE OR REPLACE TYPE BODY bdm_enquete_type AS
 	MEMBER PROCEDURE ajouterCrime(idC IN INTEGER) IS
-		v_crime bdm_crime_type;
+		v_crime REF bdm_crime_type;
 		v_crimes bdm_crimes_type;
 	BEGIN
 		SELECT REF(c) INTO v_crime
@@ -72,14 +72,15 @@ CREATE OR REPLACE TYPE BODY bdm_enquete_type AS
 	END ajouterCrime;
 	MEMBER PROCEDURE supprimerCrime(idC IN INTEGER) IS
 		v_crimes bdm_crimes_type;
-		v_crime REF bdm_crime_type;
+		v_crime bdm_crime_type;
 	BEGIN
 		v_crimes := self.crimes;
-		FOR i IN 1..v_crimes.last LOOP
-			v_crime := DEREF(v_crimes(i).crimeR);
+		FOR i IN v_crimes.first..v_crimes.last LOOP
+			SELECT DEREF(crimes(i).crimeR) INTO v_crime
+			FROM bdm_enquete
+			WHERE id=self.id;
 			IF v_crime.id=idC THEN
 				v_crimes.delete(i);
-				i := i-1;
 			END IF;
 		END LOOP;
 		UPDATE bdm_enquete SET crimes = v_crimes WHERE self.id=id;
@@ -151,3 +152,52 @@ END;
 --	v_enquete.supprimerCrime(idC);
 --END supprimerCrimeAEnquete;
 --/
+
+--TRIGGER
+CREATE OR REPLACE TRIGGER t_insert_crime
+AFTER INSERT
+	ON bdm_crime
+	FOR EACH ROW
+DECLARE
+	v_idE bdm_enquete.id%TYPE;
+	v_idC bdm_crime.id%TYPE;
+BEGIN
+	v_idC := :NEW.id;
+	SELECT DEREF(enqueteC).id INTO v_idE
+	FROM bdm_crime
+	WHERE id=v_idC;
+	ajouterCrimeAEnquete(v_idE, :NEW.id);
+END;
+/
+
+CREATE OR REPLACE TRIGGER t_before_update_crime
+BEFORE UPDATE
+	ON bdm_crime
+	FOR EACH ROW
+DECLARE
+	v_idE bdm_enquete.id%TYPE;
+	v_idC bdm_crime.id%TYPE;
+BEGIN
+	--Suppression du crime dans l'ancicienne enquête
+	v_idC := :NEW.id;
+	SELECT DEREF(enqueteC).id INTO v_idE
+	FROM bdm_crime
+	WHERE id=v_idC;
+	supprimerCrimeAEnquete(v_idE, :NEW.id);
+END;
+/
+
+CREATE OR REPLACE TRIGGER t_after_update_crime
+BEFORE UPDATE ON bdm_crime FOR EACH ROW
+DECLARE
+	v_idE bdm_enquete.id%TYPE;
+	v_idC bdm_crime.id%TYPE;
+BEGIN
+	--Insertion du crime dans la nouvelle enquête
+	v_idC := :NEW.id;
+	SELECT DEREF(enqueteC).id INTO v_idE
+	FROM bdm_crime
+	WHERE id=v_idC;
+	ajouterCrimeAEnquete(v_idE, :NEW.id);
+END;
+/
