@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -43,10 +44,11 @@ public class DlgEnquetes extends javax.swing.JFrame
             nbEnquetes = rs.getInt(1);
             this.NbEnquetes.setText(""+nbEnquetes);
             //Création de l'interface
-            this.PanelEnquetes.setLayout(new GridLayout((int)Math.ceil(nbEnquetes/5), 5));
+            this.PanelEnquetes.setLayout(new GridLayout(7, (int)Math.ceil(nbEnquetes/7)));
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom FROM bdm_enquete");
             rs = (OracleResultSet)stmt.executeQuery();
             int idEnquete;
+            Font fonte = new Font("Courier",Font.PLAIN,18);
             while(rs.next())
             {
                 idEnquete = rs.getInt("ID");
@@ -54,6 +56,7 @@ public class DlgEnquetes extends javax.swing.JFrame
                 button.setLayout(new GridLayout(2, 1));
                 button.setName(""+idEnquete);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText(idEnquete+" - "+rs.getString("NOM"));
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -91,8 +94,7 @@ public class DlgEnquetes extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -101,30 +103,36 @@ public class DlgEnquetes extends javax.swing.JFrame
         jScrollPane = new javax.swing.JScrollPane();
         PanelEnquetes = new javax.swing.JPanel();
 
+        setTitle("Liste d'enquêtes");
+
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabel1.setText("Nombre d'enquêtes :");
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel1.setText("Nombre d'enquêtes :  ");
+        jLabel1.setPreferredSize(new java.awt.Dimension(209, 40));
         jPanel1.add(jLabel1);
+
+        NbEnquetes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel1.add(NbEnquetes);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        PanelEnquetes.setLayout(new java.awt.GridLayout());
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+
+        PanelEnquetes.setBackground(new java.awt.Color(226, 220, 207));
+        PanelEnquetes.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane.setViewportView(PanelEnquetes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);

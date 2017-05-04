@@ -114,8 +114,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         Annuler = new javax.swing.JButton();
@@ -128,23 +127,23 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         ListeEnqueteurs = new javax.swing.JComboBox();
         AjoutEnqueteur = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel1.add(Annuler);
 
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.setPreferredSize(new java.awt.Dimension(109, 40));
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
@@ -152,35 +151,42 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.GridLayout(3, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nom :");
         jPanel2.add(jLabel1);
+
+        Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Nom);
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Enqueteurs :");
         jPanel2.add(jLabel2);
+
+        Enqueteurs.setBackground(new java.awt.Color(226, 220, 207));
 
         javax.swing.GroupLayout EnqueteursLayout = new javax.swing.GroupLayout(Enqueteurs);
         Enqueteurs.setLayout(EnqueteursLayout);
         EnqueteursLayout.setHorizontalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 219, Short.MAX_VALUE)
         );
         EnqueteursLayout.setVerticalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 91, Short.MAX_VALUE)
+            .addGap(0, 86, Short.MAX_VALUE)
         );
 
         jPanel2.add(Enqueteurs);
 
+        ListeEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(ListeEnqueteurs);
 
+        AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutEnqueteur.setText("Ajouter enquêteur");
-        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutEnqueteurActionPerformed(evt);
             }
         });

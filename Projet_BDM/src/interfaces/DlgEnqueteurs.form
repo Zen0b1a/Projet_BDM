@@ -51,7 +51,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Courier New" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre d&apos;enqu&#xea;teurs :"/>
+            <Property name="text" type="java.lang.String" value="Nombre d&apos;enqu&#xea;teurs :   "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="NbEnqueteurs">
@@ -67,6 +67,9 @@
               <Font name="Courier New" size="18" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ajouter"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[109, 40]"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjouterActionPerformed"/>

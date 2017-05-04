@@ -5,6 +5,7 @@
  */
 package interfaces;
 
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -78,12 +79,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idEnqueteur;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next()) 
             {
                 idEnqueteur = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setName(""+idEnqueteur);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -119,12 +122,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idCrime;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
                 idCrime = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setName(""+idCrime);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Fait : "+rs.getString("FAIT")+"<br>Date : "+rs.getString("DATEC")+"<br>Lieu : "+rs.getString("LIEU")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -161,12 +166,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idPreuve;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
                 idPreuve = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setName("image "+idPreuve);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -193,6 +200,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 JButton button = new JButton();
                 button.setName("audio "+idPreuve);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -219,6 +227,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 JButton button = new JButton();
                 button.setName("video "+idPreuve);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -254,12 +263,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idSuspect;
+            Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
                 idSuspect = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setName(""+idSuspect);
                 //Ajout des informations dans le bouton
+                button.setFont(fonte);
                 button.setText("<HTML><body>Nom : "+rs.getString("DEREF(personneS).nom")+"<br>Prénom : "+rs.getString("DEREF(personneS).prenom")+"<br>Etat : "+rs.getString("ETAT")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
@@ -356,6 +367,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         AjoutEnqueteur = new javax.swing.JButton();
         Enqueteurs = new javax.swing.JPanel();
 
+        setTitle("Enquête");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -365,14 +377,20 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         });
         getContentPane().setLayout(new java.awt.GridLayout(5, 1));
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
         jPanel4.setLayout(new java.awt.GridLayout(2, 3));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nom :");
         jPanel4.add(jLabel1);
+
+        Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel4.add(Nom);
 
+        ModifierNom.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierNom.setText("Modifier");
         ModifierNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -381,10 +399,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         });
         jPanel4.add(ModifierNom);
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Etat :");
         jPanel4.add(jLabel3);
+
+        Etat.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel4.add(Etat);
 
+        ModifierEtat.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierEtat.setText("Modifier");
         ModifierEtat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -395,6 +417,9 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel1.add(jPanel4);
 
+        jPanel5.setBackground(new java.awt.Color(226, 220, 207));
+
+        jLabel7.setBackground(new java.awt.Color(226, 220, 207));
         jLabel7.setText("BOUTONS POUR FAIRE DES TRUCS ICI (comparer images...)");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -418,13 +443,17 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         getContentPane().add(jPanel1);
 
+        jPanel10.setBackground(new java.awt.Color(226, 220, 207));
         jPanel10.setLayout(new java.awt.BorderLayout());
 
+        jPanel11.setBackground(new java.awt.Color(226, 220, 207));
         jPanel11.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel5.setText("Suspects");
         jPanel11.add(jLabel5);
 
+        AjoutSuspect.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutSuspect.setText("Ajouter un suspect");
         AjoutSuspect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -435,6 +464,9 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel10.add(jPanel11, java.awt.BorderLayout.PAGE_START);
 
+        Suspects.setBackground(new java.awt.Color(226, 220, 207));
+        Suspects.setPreferredSize(new java.awt.Dimension(1076, 120));
+
         javax.swing.GroupLayout SuspectsLayout = new javax.swing.GroupLayout(Suspects);
         Suspects.setLayout(SuspectsLayout);
         SuspectsLayout.setHorizontalGroup(
@@ -443,20 +475,24 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         );
         SuspectsLayout.setVerticalGroup(
             SuspectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
 
         jPanel10.add(Suspects, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel10);
 
+        jPanel8.setBackground(new java.awt.Color(226, 220, 207));
         jPanel8.setLayout(new java.awt.BorderLayout());
 
+        jPanel9.setBackground(new java.awt.Color(226, 220, 207));
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel4.setText("Preuves");
         jPanel9.add(jLabel4);
 
+        AjoutPreuve.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutPreuve.setText("Ajouter une preuve");
         AjoutPreuve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,6 +503,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
+        Preuves.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout PreuvesLayout = new javax.swing.GroupLayout(Preuves);
         Preuves.setLayout(PreuvesLayout);
         PreuvesLayout.setHorizontalGroup(
@@ -475,7 +513,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         );
         PreuvesLayout.setVerticalGroup(
             PreuvesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
 
         jPanel8.add(Preuves, java.awt.BorderLayout.CENTER);
@@ -484,11 +522,15 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel12.setLayout(new java.awt.BorderLayout());
 
+        jPanel13.setBackground(new java.awt.Color(226, 220, 207));
         jPanel13.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel6.setBackground(new java.awt.Color(226, 220, 207));
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setText("Crimes");
         jPanel13.add(jLabel6);
 
+        AjoutCrime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutCrime.setText("Ajouter un crime");
         AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -499,6 +541,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
 
+        Crimes.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout CrimesLayout = new javax.swing.GroupLayout(Crimes);
         Crimes.setLayout(CrimesLayout);
         CrimesLayout.setHorizontalGroup(
@@ -507,7 +551,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         );
         CrimesLayout.setVerticalGroup(
             CrimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
 
         jPanel12.add(Crimes, java.awt.BorderLayout.CENTER);
@@ -516,11 +560,15 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel6.setLayout(new java.awt.BorderLayout());
 
+        jPanel7.setBackground(new java.awt.Color(226, 220, 207));
         jPanel7.setLayout(new java.awt.GridLayout(1, 2));
 
-        jLabel2.setText("Enqueteurs");
+        jLabel2.setBackground(new java.awt.Color(226, 220, 207));
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel2.setText("Enquêteurs");
         jPanel7.add(jLabel2);
 
+        AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutEnqueteur.setText("Ajouter un enquêteur");
         AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -531,6 +579,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
+        Enqueteurs.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout EnqueteursLayout = new javax.swing.GroupLayout(Enqueteurs);
         Enqueteurs.setLayout(EnqueteursLayout);
         EnqueteursLayout.setHorizontalGroup(
@@ -539,7 +589,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         );
         EnqueteursLayout.setVerticalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+            .addGap(0, 92, Short.MAX_VALUE)
         );
 
         jPanel6.add(Enqueteurs, java.awt.BorderLayout.CENTER);

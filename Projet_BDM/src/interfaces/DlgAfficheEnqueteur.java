@@ -109,7 +109,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         Photo = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Telephone1 = new javax.swing.JLabel();
@@ -121,17 +121,20 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         SupprimerEnqueteur = new javax.swing.JButton();
 
         setTitle("Enquêteur");
-        setPreferredSize(new java.awt.Dimension(900, 700));
-        getContentPane().setLayout(new java.awt.GridLayout(1, 2));
+        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jPanel1.setBackground(new java.awt.Color(230, 215, 184));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 280));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
         jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setPreferredSize(new java.awt.Dimension(330, 100));
         jPanel2.setLayout(new java.awt.GridLayout(7, 2));
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Badge :");
+        jLabel1.setPreferredSize(new java.awt.Dimension(77, 50));
+        jLabel1.setRequestFocusEnabled(false);
         jPanel2.add(jLabel1);
 
         Badge.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -166,6 +169,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel4.setText("Numéro de rue :");
+        jLabel4.setPreferredSize(new java.awt.Dimension(150, 21));
         jPanel2.add(jLabel4);
 
         NumeroRue.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -191,33 +195,39 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jPanel5.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel3.setPreferredSize(new java.awt.Dimension(0, 470));
         jPanel3.setLayout(new java.awt.GridLayout(1, 1));
 
         Photo.setBackground(new java.awt.Color(226, 220, 207));
-        Photo.setPreferredSize(new java.awt.Dimension(0, 570));
+        Photo.setPreferredSize(new java.awt.Dimension(0, 370));
 
         javax.swing.GroupLayout PhotoLayout = new javax.swing.GroupLayout(Photo);
         Photo.setLayout(PhotoLayout);
         PhotoLayout.setHorizontalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 366, Short.MAX_VALUE)
         );
         PhotoLayout.setVerticalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 333, Short.MAX_VALUE)
         );
 
         jPanel3.add(Photo);
 
-        jPanel5.add(jPanel3, java.awt.BorderLayout.NORTH);
+        jPanel5.add(jPanel3, java.awt.BorderLayout.CENTER);
 
-        jPanel6.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel1.add(jPanel5);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setLayout(new java.awt.GridLayout(3, 1));
 
         jPanel7.setBackground(new java.awt.Color(226, 220, 207));
         jPanel7.setLayout(new java.awt.GridLayout(1, 3));
 
         jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setText("Téléphone 1 :");
+        jLabel6.setPreferredSize(new java.awt.Dimension(143, 50));
         jPanel7.add(jLabel6);
 
         Telephone1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -225,6 +235,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         ModifierTelephone1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone1.setText("Modifier");
+        ModifierTelephone1.setPreferredSize(new java.awt.Dimension(121, 40));
         ModifierTelephone1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModifierTelephone1ActionPerformed(evt);
@@ -232,7 +243,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         });
         jPanel7.add(ModifierTelephone1);
 
-        jPanel6.add(jPanel7);
+        jPanel4.add(jPanel7);
 
         jPanel8.setBackground(new java.awt.Color(226, 220, 207));
         jPanel8.setLayout(new java.awt.GridLayout(1, 3));
@@ -253,41 +264,38 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         });
         jPanel8.add(ModifierTelephone2);
 
-        jPanel6.add(jPanel8);
+        jPanel4.add(jPanel8);
 
         SupprimerEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         SupprimerEnqueteur.setText("Supprimer");
+        SupprimerEnqueteur.setPreferredSize(new java.awt.Dimension(131, 40));
         SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SupprimerEnqueteurActionPerformed(evt);
             }
         });
-        jPanel6.add(SupprimerEnqueteur);
+        jPanel4.add(SupprimerEnqueteur);
 
-        jPanel5.add(jPanel6, java.awt.BorderLayout.SOUTH);
-
-        jPanel1.add(jPanel5);
-
-        getContentPane().add(jPanel1);
+        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
-        
-    }//GEN-LAST:event_ModifierTelephone1ActionPerformed
+    private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
+    private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
+
+    }//GEN-LAST:event_ModifierTelephone1ActionPerformed
+
     private void ModifierAdresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierAdresseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModifierAdresseActionPerformed
-
-    private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,8 +351,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     // End of variables declaration//GEN-END:variables

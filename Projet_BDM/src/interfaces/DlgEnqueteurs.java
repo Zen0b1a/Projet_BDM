@@ -58,8 +58,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 String fichier = "temp/"+idEnqueteur;
                 img.getDataInFile(fichier);
                 button.setIcon(new ImageIcon(fichier));
-                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
                 button.setFont(fonte);
+                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 
@@ -119,7 +119,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel1.setText("Nombre d'enquêteurs :");
+        jLabel1.setText("Nombre d'enquêteurs :   ");
         jPanel1.add(jLabel1);
 
         NbEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
@@ -127,6 +127,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
+        Ajouter.setPreferredSize(new java.awt.Dimension(109, 40));
         Ajouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
