@@ -88,8 +88,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -99,8 +98,6 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         Nom = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         Prenom = new javax.swing.JLabel();
-        Photo = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         ModifierAdresse = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -110,105 +107,163 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         Ville = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        Photo = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Telephone1 = new javax.swing.JLabel();
         ModifierTelephone1 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
+        SupprimerEnqueteur = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(450, 474));
+        setPreferredSize(new java.awt.Dimension(900, 700));
         getContentPane().setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel1.setLayout(new java.awt.GridLayout(2, 2));
+        jPanel1.setBackground(new java.awt.Color(230, 215, 184));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel2.setLayout(new java.awt.GridLayout(3, 2));
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setLayout(new java.awt.GridLayout(7, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Badge :");
         jPanel2.add(jLabel1);
+
+        Badge.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Badge);
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Nom :");
         jPanel2.add(jLabel3);
+
+        Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Nom);
 
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel5.setText("Prenom :");
         jPanel2.add(jLabel5);
+
+        Prenom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Prenom);
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel2.setText("Adresse");
+        jPanel2.add(jLabel2);
+
+        ModifierAdresse.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        ModifierAdresse.setText("Modifier");
+        ModifierAdresse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ModifierAdresseActionPerformed(evt);
+            }
+        });
+        jPanel2.add(ModifierAdresse);
+
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel4.setText("Numéro de rue :");
+        jPanel2.add(jLabel4);
+
+        NumeroRue.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel2.add(NumeroRue);
+
+        jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel7.setText("Rue :");
+        jPanel2.add(jLabel7);
+
+        NomRue.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel2.add(NomRue);
+
+        jLabel9.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel9.setText("Ville :");
+        jPanel2.add(jLabel9);
+
+        Ville.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel2.add(Ville);
+
         jPanel1.add(jPanel2);
+
+        jPanel5.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 1));
+
+        Photo.setBackground(new java.awt.Color(226, 220, 207));
+        Photo.setPreferredSize(new java.awt.Dimension(0, 570));
 
         javax.swing.GroupLayout PhotoLayout = new javax.swing.GroupLayout(Photo);
         Photo.setLayout(PhotoLayout);
         PhotoLayout.setHorizontalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         PhotoLayout.setVerticalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 237, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel1.add(Photo);
+        jPanel3.add(Photo);
 
-        jPanel4.setLayout(new java.awt.GridLayout(4, 2));
+        jPanel5.add(jPanel3, java.awt.BorderLayout.NORTH);
 
-        jLabel2.setText("Adresse");
-        jPanel4.add(jLabel2);
+        jPanel6.setLayout(new java.awt.GridLayout(3, 1));
 
-        ModifierAdresse.setText("Modifier");
-        ModifierAdresse.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                ModifierAdresseActionPerformed(evt);
-            }
-        });
-        jPanel4.add(ModifierAdresse);
+        jPanel7.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel7.setLayout(new java.awt.GridLayout(1, 3));
 
-        jLabel4.setText("Numéro de rue :");
-        jPanel4.add(jLabel4);
-        jPanel4.add(NumeroRue);
-
-        jLabel7.setText("Rue :");
-        jPanel4.add(jLabel7);
-        jPanel4.add(NomRue);
-
-        jLabel9.setText("Ville :");
-        jPanel4.add(jLabel9);
-        jPanel4.add(Ville);
-
-        jPanel1.add(jPanel4);
-
-        jPanel5.setLayout(new java.awt.GridLayout(2, 3));
-
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setText("Téléphone 1 :");
-        jPanel5.add(jLabel6);
-        jPanel5.add(Telephone1);
+        jPanel7.add(jLabel6);
 
+        Telephone1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel7.add(Telephone1);
+
+        ModifierTelephone1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone1.setText("Modifier");
-        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModifierTelephone1ActionPerformed(evt);
             }
         });
-        jPanel5.add(ModifierTelephone1);
+        jPanel7.add(ModifierTelephone1);
 
-        jLabel10.setText("Téléhone 2 :");
-        jPanel5.add(jLabel10);
-        jPanel5.add(Telephone2);
+        jPanel6.add(jPanel7);
 
+        jPanel8.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel8.setLayout(new java.awt.GridLayout(1, 3));
+
+        jLabel10.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel10.setText("Téléphone 2 :");
+        jPanel8.add(jLabel10);
+
+        Telephone2.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel8.add(Telephone2);
+
+        ModifierTelephone2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone2.setText("Modifier");
-        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ModifierTelephone2ActionPerformed(evt);
             }
         });
-        jPanel5.add(ModifierTelephone2);
+        jPanel8.add(ModifierTelephone2);
+
+        jPanel6.add(jPanel8);
+
+        SupprimerEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        SupprimerEnqueteur.setText("Supprimer");
+        SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SupprimerEnqueteurActionPerformed(evt);
+            }
+        });
+        jPanel6.add(SupprimerEnqueteur);
+
+        jPanel5.add(jPanel6, java.awt.BorderLayout.SOUTH);
 
         jPanel1.add(jPanel5);
 
@@ -228,6 +283,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private void ModifierAdresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierAdresseActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ModifierAdresseActionPerformed
+
+    private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     /**
      * @param args the command line arguments
@@ -267,6 +326,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private javax.swing.JLabel NumeroRue;
     private javax.swing.JPanel Photo;
     private javax.swing.JLabel Prenom;
+    private javax.swing.JButton SupprimerEnqueteur;
     private javax.swing.JLabel Telephone1;
     private javax.swing.JLabel Telephone2;
     private javax.swing.JLabel Ville;
@@ -281,7 +341,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     // End of variables declaration//GEN-END:variables
 }

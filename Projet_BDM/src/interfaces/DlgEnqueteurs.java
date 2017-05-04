@@ -150,6 +150,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
         this.initialiserEnqueteurs();
+        this.setSize(this.getWidth()+1, this.getHeight()+1);
+        this.setSize(this.getWidth()-1, this.getHeight()-1);
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
