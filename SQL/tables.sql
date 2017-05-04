@@ -4,6 +4,9 @@ DROP TABLE bdm_suspect CASCADE CONSTRAINTS;
 DROP TABLE bdm_victime CASCADE CONSTRAINTS;
 DROP TABLE bdm_enquete CASCADE CONSTRAINTS;
 DROP TABLE bdm_preuve CASCADE CONSTRAINTS;
+DROP TABLE bdm_preuve_image CASCADE CONSTRAINTS;
+DROP TABLE bdm_preuve_audio CASCADE CONSTRAINTS;
+DROP TABLE bdm_preuve_video CASCADE CONSTRAINTS;
 DROP TABLE bdm_crime CASCADE CONSTRAINTS;
 DROP TABLE bdm_temoignage CASCADE CONSTRAINTS;
 DROP TABLE bdm_enqueteur_enquete CASCADE CONSTRAINTS;
@@ -20,7 +23,15 @@ CHECK(etat IN ('en-cours', 'résolue')))
 NESTED TABLE crimes STORE AS tab_crimes,
 NESTED TABLE preuves STORE AS tab_preuves;
 
-CREATE TABLE bdm_preuve OF bdm_preuve_type
+CREATE TABLE bdm_preuve_image OF bdm_preuve_image_type
+(PRIMARY KEY(id),
+enqueteP SCOPE IS bdm_enquete);
+
+CREATE TABLE bdm_preuve_audio OF bdm_preuve_audio_type
+(PRIMARY KEY(id),
+enqueteP SCOPE IS bdm_enquete);
+
+CREATE TABLE bdm_video_image OF bdm_preuve_video_type
 (PRIMARY KEY(id),
 enqueteP SCOPE IS bdm_enquete);
 

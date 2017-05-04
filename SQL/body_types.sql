@@ -1,9 +1,9 @@
 --BODY TYPES
 --Personne
---ALTER TYPE bdm_personne_type
---ADD NOT FINAL MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) CASCADE;
---ALTER TYPE bdm_personne_type
---ADD NOT FINAL MEMBER PROCEDURE modifierAdresse(numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) CASCADE;
+ALTER TYPE bdm_personne_type
+ADD NOT FINAL MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) CASCADE;
+ALTER TYPE bdm_personne_type
+ADD NOT FINAL MEMBER PROCEDURE modifierAdresse(numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) CASCADE;
 
 CREATE OR REPLACE TYPE BODY bdm_personne_type AS
 	NOT FINAL MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) IS
@@ -26,10 +26,10 @@ END;
 /
 
 --Enqueteur
---ALTER TYPE bdm_enqueteur_type
---ADD OVERRIDING MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) CASCADE;
---ALTER TYPE bdm_enqueteur_type
---ADD OVERRIDING MEMBER PROCEDURE modifierAdresse(numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) CASCADE;
+ALTER TYPE bdm_enqueteur_type
+ADD OVERRIDING MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) CASCADE;
+ALTER TYPE bdm_enqueteur_type
+ADD OVERRIDING MEMBER PROCEDURE modifierAdresse(numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) CASCADE;
 
 CREATE OR REPLACE TYPE BODY bdm_enqueteur_type AS
 	OVERRIDING MEMBER PROCEDURE modifierTelephone(indice IN INTEGER, numero IN VARCHAR2) IS
@@ -52,10 +52,10 @@ END;
 /
 
 --Enquete
---ALTER TYPE bdm_enquete_type
---ADD MEMBER PROCEDURE ajouterCrime(idC IN INTEGER) CASCADE;
---ALTER TYPE bdm_enquete_type
---ADD MEMBER PROCEDURE supprimerCrime(idC IN INTEGER) CASCADE;
+ALTER TYPE bdm_enquete_type
+ADD MEMBER PROCEDURE ajouterCrime(idC IN INTEGER) CASCADE;
+ALTER TYPE bdm_enquete_type
+ADD MEMBER PROCEDURE supprimerCrime(idC IN INTEGER) CASCADE;
 
 CREATE OR REPLACE TYPE BODY bdm_enquete_type AS
 	MEMBER PROCEDURE ajouterCrime(idC IN INTEGER) IS
@@ -89,10 +89,10 @@ END;
 /
 
 --Crime
---ALTER TYPE bdm_crime_type
---ADD MEMBER PROCEDURE ajouterEnquete(idE IN INTEGER) CASCADE;
---ALTER TYPE bdm_crime_type
---ADD MEMBER PROCEDURE modifierEnquete(idE IN INTEGER) CASCADE;
+ALTER TYPE bdm_crime_type
+ADD MEMBER PROCEDURE ajouterEnquete(idE IN INTEGER) CASCADE;
+ALTER TYPE bdm_crime_type
+ADD MEMBER PROCEDURE modifierEnquete(idE IN INTEGER) CASCADE;
 
 CREATE OR REPLACE TYPE BODY bdm_crime_type AS
 	MEMBER PROCEDURE ajouterEnquete(idE IN INTEGER) IS
@@ -116,31 +116,12 @@ CREATE OR REPLACE TYPE BODY bdm_crime_type AS
 END;
 /
 
---Preuve
---ALTER TYPE bdm_preuve_type
---ADD NOT FINAL MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION CASCADE;
-
-CREATE OR REPLACE TYPE BODY bdm_preuve_type AS
-	NOT FINAL MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
-		img_preuve SI_StillImage;
-		img_personne SI_StillImage;
-		bl_preuve BLOB; 
-		bl_personne BLOB;
-		sig SI_FeatureList;
-		score DOUBLE PRECISION;
-		img ORDImage;
-	BEGIN
-		score := 0.0;
-		RETURN score;
-	END compareImage;
-END;
-/
-
---ALTER TYPE bdm_preuve_image_type
---ADD OVERRIDING MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION CASCADE;
+--Preuve image
+ALTER TYPE bdm_preuve_image_type
+ADD MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION CASCADE;
 
 CREATE OR REPLACE TYPE BODY bdm_preuve_image_type AS
-	OVERRIDING MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
+	MEMBER FUNCTION compareImage(idP IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
 		img_preuve SI_StillImage;
 		img_personne SI_StillImage;
 		bl_preuve BLOB; 
@@ -164,86 +145,86 @@ END;
 --PROCEDURES D'APPEL
 
 --Personne
---CREATE OR REPLACE PROCEDURE majPersonneTelephone(idP IN INTEGER, indice IN INTEGER, numero IN VARCHAR2) IS
---	v_personne bdm_personne_type;
---BEGIN
---	SELECT VALUE(p) INTO v_personne
---	FROM bdm_personne p
---	WHERE p.id=idP;
---	v_personne.modifierTelephone(indice, numero);
---END majPersonneTelephone;
---/
+CREATE OR REPLACE PROCEDURE majPersonneTelephone(idP IN INTEGER, indice IN INTEGER, numero IN VARCHAR2) IS
+	v_personne bdm_personne_type;
+BEGIN
+	SELECT VALUE(p) INTO v_personne
+	FROM bdm_personne p
+	WHERE p.id=idP;
+	v_personne.modifierTelephone(indice, numero);
+END majPersonneTelephone;
+/
 
---CREATE OR REPLACE PROCEDURE majPersonneAdresse(idP IN INTEGER, numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) IS
---	v_personne bdm_personne_type;
---BEGIN
---	SELECT VALUE(p) INTO v_personne
---	FROM bdm_personne p
---	WHERE p.id=idP;
---	v_personne.modifierAdresse(numero, rue, ville);
---END majPersonneAdresse;
---/
+CREATE OR REPLACE PROCEDURE majPersonneAdresse(idP IN INTEGER, numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) IS
+	v_personne bdm_personne_type;
+BEGIN
+	SELECT VALUE(p) INTO v_personne
+	FROM bdm_personne p
+	WHERE p.id=idP;
+	v_personne.modifierAdresse(numero, rue, ville);
+END majPersonneAdresse;
+/
 
 --Enqueteur
---CREATE OR REPLACE PROCEDURE majEnqueteurTelephone(idP IN INTEGER, indice IN INTEGER, numero IN VARCHAR2) IS
---	v_enqueteur bdm_enqueteur_type;
---BEGIN
---	SELECT VALUE(e) INTO v_enqueteur
---	FROM bdm_enqueteur e
---	WHERE e.id=idP;
---	v_enqueteur.modifierTelephone(indice, numero);
---END majEnqueteurTelephone;
---/
+CREATE OR REPLACE PROCEDURE majEnqueteurTelephone(idP IN INTEGER, indice IN INTEGER, numero IN VARCHAR2) IS
+	v_enqueteur bdm_enqueteur_type;
+BEGIN
+	SELECT VALUE(e) INTO v_enqueteur
+	FROM bdm_enqueteur e
+	WHERE e.id=idP;
+	v_enqueteur.modifierTelephone(indice, numero);
+END majEnqueteurTelephone;
+/
 
---CREATE OR REPLACE PROCEDURE majEnqueteurAdresse(idP IN INTEGER, numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) IS
---	v_enqueteur bdm_enqueteur_type;
---BEGIN
---	SELECT VALUE(e) INTO v_enqueteur
---	FROM bdm_enqueteur e
---	WHERE e.id=idP;
---	v_enqueteur.modifierAdresse(numero, rue, ville);
---END majEnqueteurAdresse;
---/
+CREATE OR REPLACE PROCEDURE majEnqueteurAdresse(idP IN INTEGER, numero IN INTEGER, rue IN VARCHAR2, ville IN VARCHAR2) IS
+	v_enqueteur bdm_enqueteur_type;
+BEGIN
+	SELECT VALUE(e) INTO v_enqueteur
+	FROM bdm_enqueteur e
+	WHERE e.id=idP;
+	v_enqueteur.modifierAdresse(numero, rue, ville);
+END majEnqueteurAdresse;
+/
 
 --Enquete
---CREATE OR REPLACE PROCEDURE ajouterCrimeAEnquete(idE IN INTEGER, idC IN INTEGER) IS
---	v_enquete bdm_enquete_type;
---BEGIN
---	SELECT VALUE(e) INTO v_enquete
---	FROM bdm_enquete e
---	WHERE e.id=idE;
---	v_enquete.ajouterCrime(idC);
---END ajouterCrimeAEnquete;
---/
+CREATE OR REPLACE PROCEDURE ajouterCrimeAEnquete(idE IN INTEGER, idC IN INTEGER) IS
+	v_enquete bdm_enquete_type;
+BEGIN
+	SELECT VALUE(e) INTO v_enquete
+	FROM bdm_enquete e
+	WHERE e.id=idE;
+	v_enquete.ajouterCrime(idC);
+END ajouterCrimeAEnquete;
+/
 
---CREATE OR REPLACE PROCEDURE supprimerCrimeAEnquete(idE IN INTEGER, idC IN INTEGER) IS
---	v_enquete bdm_enquete_type;
---BEGIN
---	SELECT VALUE(e) INTO v_enquete
---	FROM bdm_enquete e
---	WHERE e.id=idE;
---	v_enquete.supprimerCrime(idC);
---END supprimerCrimeAEnquete;
---/
+CREATE OR REPLACE PROCEDURE supprimerCrimeAEnquete(idE IN INTEGER, idC IN INTEGER) IS
+	v_enquete bdm_enquete_type;
+BEGIN
+	SELECT VALUE(e) INTO v_enquete
+	FROM bdm_enquete e
+	WHERE e.id=idE;
+	v_enquete.supprimerCrime(idC);
+END supprimerCrimeAEnquete;
+/
 
 --Crime 
---CREATE OR REPLACE PROCEDURE changerEnqueteDuCrime(idC IN INTEGER, idE IN INTEGER) IS
---	v_crime bdm_crime_type;
---BEGIN
---	SELECT VALUE(c) INTO v_crime
---	FROM bdm_crime c
---	WHERE c.id=idC;
---	v_crime.modifierEnquete(idE);
---END changerEnqueteDuCrime;
---/
+CREATE OR REPLACE PROCEDURE changerEnqueteDuCrime(idC IN INTEGER, idE IN INTEGER) IS
+	v_crime bdm_crime_type;
+BEGIN
+	SELECT VALUE(c) INTO v_crime
+	FROM bdm_crime c
+	WHERE c.id=idC;
+	v_crime.modifierEnquete(idE);
+END changerEnqueteDuCrime;
+/
 
 --Preuve
---CREATE OR REPLACE FUNCTION compare(idPr IN INTEGER, idPe IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
---	v_preuve bdm_preuve_type;
---	score DOUBLE PRECISION;
---BEGIN
---	SELECT VALUE(p) INTO v_preuve FROM bdm_preuve p WHERE id=idPr;
---	score := v_preuve.compareImage(idPe, pond_avg_color, pond_histogramme, pond_pos_color, pond_texture);
---	RETURN score;
---END compare;
---/
+CREATE OR REPLACE FUNCTION compare(idPr IN INTEGER, idPe IN INTEGER, pond_avg_color IN DOUBLE PRECISION, pond_histogramme IN DOUBLE PRECISION, pond_pos_color IN DOUBLE PRECISION, pond_texture IN DOUBLE PRECISION) RETURN DOUBLE PRECISION IS
+	v_preuve bdm_preuve_image_type;
+	score DOUBLE PRECISION;
+BEGIN
+	SELECT VALUE(p) INTO v_preuve FROM bdm_preuve_image p WHERE id=idPr;
+	score := v_preuve.compareImage(idPe, pond_avg_color, pond_histogramme, pond_pos_color, pond_texture);
+	RETURN score;
+END compare;
+/

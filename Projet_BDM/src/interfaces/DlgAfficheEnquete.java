@@ -155,7 +155,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         {
             this.Preuves.removeAll();
             this.Preuves.setLayout(new GridLayout());
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve "
+            //Preuves image
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve_image "
                     + "WHERE DEREF(enqueteP).id=? ORDER BY id");
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
@@ -164,7 +165,59 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             {
                 idPreuve = rs.getInt("ID");
                 JButton button = new JButton();
-                button.setName(""+idPreuve);
+                button.setName("image "+idPreuve);
+                //Ajout des informations dans le bouton
+                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setSize(50, 50);
+                
+                //Ajout du listener
+                button.addActionListener(new java.awt.event.ActionListener() 
+                {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        afficherPreuve(evt);
+                    }
+                });
+                
+                this.Preuves.add(button);
+            }
+            //Preuves image
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve_audio "
+                    + "WHERE DEREF(enqueteP).id=? ORDER BY id");
+            stmt.setInt(1, this.id);
+            rs = (OracleResultSet)stmt.executeQuery();
+            while(rs.next())
+            {
+                idPreuve = rs.getInt("ID");
+                JButton button = new JButton();
+                button.setName("audio "+idPreuve);
+                //Ajout des informations dans le bouton
+                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setVerticalTextPosition(SwingConstants.BOTTOM);
+                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setSize(50, 50);
+                
+                //Ajout du listener
+                button.addActionListener(new java.awt.event.ActionListener() 
+                {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        afficherPreuve(evt);
+                    }
+                });
+                
+                this.Preuves.add(button);
+            }
+            //Preuves image
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve_video "
+                    + "WHERE DEREF(enqueteP).id=? ORDER BY id");
+            stmt.setInt(1, this.id);
+            rs = (OracleResultSet)stmt.executeQuery();
+            while(rs.next())
+            {
+                idPreuve = rs.getInt("ID");
+                JButton button = new JButton();
+                button.setName("video "+idPreuve);
                 //Ajout des informations dans le bouton
                 button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -250,7 +303,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private void afficherPreuve(java.awt.event.ActionEvent evt)
     {
         JButton jb = (JButton)evt.getSource();
-        int id = Integer.parseInt(jb.getName());
+        String[] split = jb.getName().split(" "); //split[0] -> image, audio ou video
+        int id = Integer.parseInt(split[1]);
         //DlgAffichePreuve dlg = new DlgAffichePreuve(id);
         //dlg.setVisible(true);
     }

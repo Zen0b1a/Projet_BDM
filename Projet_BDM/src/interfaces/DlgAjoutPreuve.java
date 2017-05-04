@@ -127,45 +127,51 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                 String chemin = fileChooser.getSelectedFile().getAbsolutePath();
                 try 
                 {
-                    //Récupération de l'id
-                    OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_preuve");
-                    OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
-                    rs.next();
-                    int idPreuve = rs.getInt(1)+1;
+                    OraclePreparedStatement stmt = null;
+                    OracleResultSet rs = null;
                     ConnexionUtils.getInstance().setAutoCommit(false);
                     //Récupération du media
                     switch(this.ListeTypes.getSelectedItem().toString())
                     {
                         case "Image" : 
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
-                            + "bdm_preuve_image_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDImage.init())");
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_preuve_image");
+                            rs = (OracleResultSet)stmt.executeQuery();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve_image VALUES("
+                            + "?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDImage.init())");
                             break;
                         case "Audio" : 
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
-                            + "bdm_preuve_audio_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDAudio.init())");
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_preuve_audio");
+                            rs = (OracleResultSet)stmt.executeQuery();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve_audio VALUES("
+                            + "?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDAudio.init())");
                             break;
                         case "Vidéo" : 
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve VALUES("
-                            + "bdm_preuve_video_type(?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDVideo.init())");
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_preuve_video");
+                            rs = (OracleResultSet)stmt.executeQuery();
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_preuve_video VALUES("
+                            + "?, ?, (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?), ORDSYS.ORDVideo.init())");
                             break;
                     }
+                    rs.next();
+                    int idPreuve = rs.getInt(1)+1;
                     //Insertion
                     stmt.setInt(1, idPreuve);
                     stmt.setString(2, description);
                     stmt.setInt(3, this.idE);
                     stmt.executeQuery();
                     Statement ps = null;
+                    byte[] ctx[] = new byte [4000][1];
                     switch(this.ListeTypes.getSelectedItem().toString())
                     {
                         case "Image" : 
                             //Ajout de la photo
                             ps = (Statement)ConnexionUtils.getInstance().createStatement();
-                            rs = (OracleResultSet)ps.executeQuery("SELECT image FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs = (OracleResultSet)ps.executeQuery("SELECT image FROM bdm_preuve_image WHERE id="+idPreuve+" FOR UPDATE");
                             rs.next();
                             OrdImage imgObj = (OrdImage)rs.getORAData(1, OrdImage.getORADataFactory());
                             imgObj.loadDataFromFile(chemin);
                             imgObj.setProperties();
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET image=? WHERE id=?");
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve_image SET image=? WHERE id=?");
                             stmt.setORAData(1, imgObj);
                             stmt.setInt(2, idPreuve);
                             stmt.execute();
@@ -173,12 +179,12 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                         case "Audio" : 
                             //Ajout de la photo
                             ps = (Statement)ConnexionUtils.getInstance().createStatement();
-                            rs = (OracleResultSet)ps.executeQuery("SELECT audio FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs = (OracleResultSet)ps.executeQuery("SELECT audio FROM bdm_preuve_audio WHERE id="+idPreuve+" FOR UPDATE");
                             rs.next();
                             OrdAudio audObj = (OrdAudio)rs.getORAData(1, OrdAudio.getORADataFactory());
                             audObj.loadDataFromFile(chemin);
-                            //audObj.setProperties();
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET audio=? WHERE id=?");
+                            audObj.setProperties(ctx);
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve_audio SET audio=? WHERE id=?");
                             stmt.setORAData(1, audObj);
                             stmt.setInt(2, idPreuve);
                             stmt.execute();
@@ -186,12 +192,12 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                         case "Vidéo" : 
                             //Ajout de la photo
                             ps = (Statement)ConnexionUtils.getInstance().createStatement();
-                            rs = (OracleResultSet)ps.executeQuery("SELECT video FROM bdm_preuve WHERE id="+idPreuve+" FOR UPDATE");
+                            rs = (OracleResultSet)ps.executeQuery("SELECT video FROM bdm_preuve_video WHERE id="+idPreuve+" FOR UPDATE");
                             rs.next();
                             OrdVideo vidObj = (OrdVideo)rs.getORAData(1, OrdVideo.getORADataFactory());
                             vidObj.loadDataFromFile(chemin);
-                            //vidObj.setProperties();
-                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve SET video=? WHERE id=?");
+                            vidObj.setProperties(ctx);
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_preuve_video SET video=? WHERE id=?");
                             stmt.setORAData(1, vidObj);
                             stmt.setInt(2, idPreuve);
                             stmt.execute();
@@ -206,8 +212,7 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                 catch (SQLException | IOException ex) 
                 {
                     Logger.getLogger(DlgAjoutPreuve.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
+                } 
             }
         }
         else
