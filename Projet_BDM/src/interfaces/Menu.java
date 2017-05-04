@@ -28,62 +28,57 @@ public class Menu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         Enqueteurs = new javax.swing.JButton();
-        AjoutCrime = new javax.swing.JButton();
         Enquetes = new javax.swing.JButton();
+        AjoutCrime = new javax.swing.JButton();
         AjoutPersonne = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        setTitle("MENU");
+        setBackground(new java.awt.Color(226, 220, 207));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
-        getContentPane().setLayout(new java.awt.GridLayout(2, 2));
+        getContentPane().setLayout(new java.awt.GridLayout(4, 1));
 
+        Enqueteurs.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Enqueteurs.setText("Voir les enquêteurs");
-        Enqueteurs.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Enqueteurs.setPreferredSize(new java.awt.Dimension(350, 70));
+        Enqueteurs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EnqueteursActionPerformed(evt);
             }
         });
         getContentPane().add(Enqueteurs);
 
-        AjoutCrime.setText("Enregistrer un crime");
-        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                AjoutCrimeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(AjoutCrime);
-
+        Enquetes.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Enquetes.setText("Voir les enquêtes");
-        Enquetes.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Enquetes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EnquetesActionPerformed(evt);
             }
         });
         getContentPane().add(Enquetes);
 
+        AjoutCrime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        AjoutCrime.setText("Enregistrer un crime");
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjoutCrimeActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AjoutCrime);
+
+        AjoutPersonne.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutPersonne.setText("Ajouter une personne");
-        AjoutPersonne.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutPersonne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutPersonneActionPerformed(evt);
             }
         });
