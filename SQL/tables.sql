@@ -9,6 +9,7 @@ DROP TABLE bdm_preuve_video CASCADE CONSTRAINTS;
 DROP TABLE bdm_crime CASCADE CONSTRAINTS;
 DROP TABLE bdm_temoignage CASCADE CONSTRAINTS;
 DROP TABLE bdm_enqueteur_enquete CASCADE CONSTRAINTS;
+DROP INDEX contenu_index;
 
 CREATE TABLE bdm_personne OF bdm_personne_type
 (PRIMARY KEY(id));
@@ -59,3 +60,5 @@ CREATE TABLE bdm_enqueteur_enquete OF bdm_enqueteur_enquete_type
 (enqueteurEE SCOPE IS bdm_enqueteur,
 enqueteEE SCOPE IS bdm_enquete);
 
+CREATE INDEX contenu_index ON bdm_temoignage(contenu)
+INDEXTYPE IS ctxsys.context;

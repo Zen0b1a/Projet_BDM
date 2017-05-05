@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -187,6 +188,8 @@ public class DlgAjoutTemoignage extends javax.swing.JFrame
                 stmt.setInt(4, this.idC);
                 stmt.executeQuery();
                 stmt.close();
+                Statement st = ConnexionUtils.getInstance().createStatement();
+                st.execute("ALTER INDEX contenu_index REBUILD");
                 System.out.println("Témoignage ajouté !");
                 this.setVisible(false);
             } 
