@@ -117,8 +117,10 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Description = new javax.swing.JTextArea();
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
+        Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
         Precedent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +131,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
+        CompareImages.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         CompareImages.setText("Chercher une correspondance");
         CompareImages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +140,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         });
         jPanel4.add(CompareImages);
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Retour");
         Annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +151,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         jPanel1.add(jPanel4);
 
+        Suivant.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Suivant.setText(">");
         Suivant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,13 +162,16 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.BorderLayout());
+
+        Image.setBackground(new java.awt.Color(226, 220, 207));
 
         javax.swing.GroupLayout ImageLayout = new javax.swing.GroupLayout(Image);
         Image.setLayout(ImageLayout);
         ImageLayout.setHorizontalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 744, Short.MAX_VALUE)
+            .addGap(0, 993, Short.MAX_VALUE)
         );
         ImageLayout.setVerticalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,6 +180,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         jPanel2.add(Image, java.awt.BorderLayout.CENTER);
 
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
         jPanel3.setLayout(new java.awt.GridLayout(1, 1));
 
         Description.setColumns(20);
