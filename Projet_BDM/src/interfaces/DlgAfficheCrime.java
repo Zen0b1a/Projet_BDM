@@ -180,7 +180,6 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        AjoutVictime = new javax.swing.JButton();
         Victimes = new javax.swing.JPanel();
 
         setTitle("Crime");
@@ -246,7 +245,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         Temoignages.setLayout(TemoignagesLayout);
         TemoignagesLayout.setHorizontalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         TemoignagesLayout.setVerticalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,20 +260,11 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         jPanel14.setLayout(new java.awt.BorderLayout());
 
         jPanel15.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel15.setLayout(new java.awt.GridLayout(1, 2));
+        jPanel15.setLayout(new java.awt.GridLayout(1, 1));
 
         jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel7.setText("Victimes");
         jPanel15.add(jLabel7);
-
-        AjoutVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        AjoutVictime.setText("Ajouter une victime");
-        AjoutVictime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjoutVictimeActionPerformed(evt);
-            }
-        });
-        jPanel15.add(AjoutVictime);
 
         jPanel14.add(jPanel15, java.awt.BorderLayout.PAGE_START);
 
@@ -284,11 +274,11 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         Victimes.setLayout(VictimesLayout);
         VictimesLayout.setHorizontalGroup(
             VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 526, Short.MAX_VALUE)
+            .addGap(0, 530, Short.MAX_VALUE)
         );
         VictimesLayout.setVerticalGroup(
             VictimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 71, Short.MAX_VALUE)
+            .addGap(0, 79, Short.MAX_VALUE)
         );
 
         jPanel14.add(Victimes, java.awt.BorderLayout.CENTER);
@@ -303,11 +293,6 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         DlgAjoutTemoignage dlg = new DlgAjoutTemoignage(this.id);
         dlg.setVisible(true);
     }//GEN-LAST:event_AjoutTemoignageActionPerformed
-
-    private void AjoutVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutVictimeActionPerformed
-    {//GEN-HEADEREND:event_AjoutVictimeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AjoutVictimeActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
@@ -358,7 +343,6 @@ public class DlgAfficheCrime extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AjoutTemoignage;
-    private javax.swing.JButton AjoutVictime;
     private javax.swing.JLabel Date;
     private javax.swing.JLabel Fait;
     private javax.swing.JLabel Lieu;
