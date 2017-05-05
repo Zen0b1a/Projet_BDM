@@ -47,7 +47,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Courier New" size="18" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Nombre de personnes :   "/>
+            <Property name="text" type="java.lang.String" value="Nombre de personnes:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="NbPersonnes">

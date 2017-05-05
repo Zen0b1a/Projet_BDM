@@ -49,17 +49,17 @@ public class DlgPersonnes extends javax.swing.JFrame {
             this.PanelPersonnes.setLayout(new GridLayout((int)Math.ceil(nbPersonnes/5), 5));
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, photo FROM bdm_personne ORDER BY id");
             rs = (OracleResultSet)stmt.executeQuery();
-            int idEnqueteur;
+            int idPersonne;
             Font fonte = new Font("Courier",Font.PLAIN,18);
             while(rs.next())
             {
-                idEnqueteur = rs.getInt("ID");
+                idPersonne = rs.getInt("ID");
                 JButton button = new JButton();
                 button.setLayout(new GridLayout(2, 1));
-                button.setName(""+idEnqueteur);
+                button.setName(""+idPersonne);
                 //Ajout des informations dans le bouton
                 OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-                String fichier = "temp/personne/"+idEnqueteur;
+                String fichier = "temp/personne/"+idPersonne;
                 img.getDataInFile(fichier);
                 button.setIcon(new ImageIcon(fichier));
                 button.setFont(fonte);
@@ -82,7 +82,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
         } 
         catch (SQLException | IOException ex) 
         {
-            Logger.getLogger(DlgEnqueteurs.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DlgPersonnes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -116,7 +116,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel1.setText("Nombre de personnes :   ");
+        jLabel1.setText("Nombre de personnes:");
         jPanel1.add(jLabel1);
 
         NbPersonnes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
