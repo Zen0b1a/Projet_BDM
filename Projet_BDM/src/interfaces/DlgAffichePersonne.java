@@ -38,10 +38,10 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
     public DlgAffichePersonne(int id) {
         initComponents();
         this.id = id;
-        this.initialiserEnqueteur();
+        this.initialiserPersonne();
     }
     
-    private void initialiserEnqueteur()
+    private void initialiserPersonne()
     {
         try 
         {
