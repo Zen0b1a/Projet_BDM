@@ -110,6 +110,8 @@ public class DlgPersonnes extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         PanelPersonnes = new javax.swing.JPanel();
 
+        setPreferredSize(new java.awt.Dimension(792, 500));
+
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
