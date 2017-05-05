@@ -55,8 +55,10 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         Description = new javax.swing.JTextArea();
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
         Annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +67,7 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
         });
         jPanel1.add(Annuler);
 
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
         Ajouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,18 +78,23 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.GridLayout(2, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Type :");
         jPanel2.add(jLabel1);
 
+        ListeTypes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         ListeTypes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Image", "Audio", "Vidéo" }));
         jPanel2.add(ListeTypes);
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Description :");
         jPanel2.add(jLabel2);
 
         Description.setColumns(20);
+        Description.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Description.setRows(5);
         jScrollPane1.setViewportView(Description);
 

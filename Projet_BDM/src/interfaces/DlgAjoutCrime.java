@@ -172,8 +172,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         ListeVictimes = new javax.swing.JComboBox();
         AjouterVictime = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        Ajouter = new javax.swing.JButton();
         Annuler = new javax.swing.JButton();
+        Ajouter = new javax.swing.JButton();
 
         setTitle("Ajout d'un crime");
         setPreferredSize(new java.awt.Dimension(700, 600));
@@ -315,15 +315,6 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
-        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjouterActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Ajouter);
-
         Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
         Annuler.addActionListener(new java.awt.event.ActionListener() {
@@ -332,6 +323,15 @@ public class DlgAjoutCrime extends javax.swing.JFrame
             }
         });
         jPanel1.add(Annuler);
+
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        Ajouter.setText("Ajouter");
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjouterActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Ajouter);
 
         getContentPane().add(jPanel1);
 

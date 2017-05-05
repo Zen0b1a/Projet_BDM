@@ -176,13 +176,16 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         PondTextureJTF = new javax.swing.JTextField();
         ImagePersonne = new javax.swing.JPanel();
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
+
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 924, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,6 +194,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3);
 
+        CompareImage.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         CompareImage.setText("Chercher une correspondance dans les personnes");
         CompareImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -199,8 +203,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel1.add(CompareImage);
 
-        Invisible.setLayout(new java.awt.GridLayout());
+        Invisible.setBackground(new java.awt.Color(226, 220, 207));
+        Invisible.setLayout(new java.awt.GridLayout(1, 0));
 
+        Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
         Precedent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,8 +215,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         Invisible.add(Precedent);
 
+        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
         jPanel6.setLayout(new java.awt.GridLayout(2, 1));
 
+        jLabel9.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Taux de similarité :");
         jPanel6.add(jLabel9);
@@ -220,6 +228,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         Invisible.add(jPanel6);
 
+        Suivant.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Suivant.setText(">");
         Suivant.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,13 +241,16 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+
+        ImagePreuve.setBackground(new java.awt.Color(226, 220, 207));
 
         javax.swing.GroupLayout ImagePreuveLayout = new javax.swing.GroupLayout(ImagePreuve);
         ImagePreuve.setLayout(ImagePreuveLayout);
         ImagePreuveLayout.setHorizontalGroup(
             ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 924, Short.MAX_VALUE)
         );
         ImagePreuveLayout.setVerticalGroup(
             ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,12 +259,15 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         jPanel2.add(ImagePreuve);
 
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
         jPanel4.setLayout(new java.awt.GridLayout(8, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Pondération de la couleur moyenne :");
         jPanel4.add(jLabel1);
         jPanel4.add(jLabel2);
 
+        PondAvgColorS.setBackground(new java.awt.Color(226, 220, 207));
         PondAvgColorS.setValue(100);
         PondAvgColorS.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -261,6 +276,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondAvgColorS);
 
+        PondAvgColorJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondAvgColorJTF.setText("1.0");
         PondAvgColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -269,10 +285,12 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondAvgColorJTF);
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Pondération de l'histogramme de couleurs :");
         jPanel4.add(jLabel3);
         jPanel4.add(jLabel4);
 
+        PondColorHistoS.setBackground(new java.awt.Color(226, 220, 207));
         PondColorHistoS.setValue(100);
         PondColorHistoS.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -281,6 +299,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondColorHistoS);
 
+        PondColorHistoJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondColorHistoJTF.setText("1.0");
         PondColorHistoJTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -289,10 +308,12 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondColorHistoJTF);
 
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel5.setText("Pondération de la couleur positionnelle :");
         jPanel4.add(jLabel5);
         jPanel4.add(jLabel6);
 
+        PondPosColorS.setBackground(new java.awt.Color(226, 220, 207));
         PondPosColorS.setValue(100);
         PondPosColorS.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -301,6 +322,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondPosColorS);
 
+        PondPosColorJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondPosColorJTF.setText("1.0");
         PondPosColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -309,10 +331,12 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondPosColorJTF);
 
+        jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel7.setText("Pondération de la texture :");
         jPanel4.add(jLabel7);
         jPanel4.add(jLabel8);
 
+        PondTextureS.setBackground(new java.awt.Color(226, 220, 207));
         PondTextureS.setValue(100);
         PondTextureS.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -321,6 +345,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondTextureS);
 
+        PondTextureJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondTextureJTF.setText("1.0");
         PondTextureJTF.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -331,11 +356,13 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         jPanel2.add(jPanel4);
 
+        ImagePersonne.setBackground(new java.awt.Color(226, 220, 207));
+
         javax.swing.GroupLayout ImagePersonneLayout = new javax.swing.GroupLayout(ImagePersonne);
         ImagePersonne.setLayout(ImagePersonneLayout);
         ImagePersonneLayout.setHorizontalGroup(
             ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 622, Short.MAX_VALUE)
+            .addGap(0, 924, Short.MAX_VALUE)
         );
         ImagePersonneLayout.setVerticalGroup(
             ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

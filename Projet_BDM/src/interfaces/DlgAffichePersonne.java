@@ -38,10 +38,10 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
     public DlgAffichePersonne(int id) {
         initComponents();
         this.id = id;
-        this.initialiserEnqueteur();
+        this.initialiserPersonne();
     }
     
-    private void initialiserEnqueteur()
+    private void initialiserPersonne()
     {
         try 
         {
@@ -136,7 +136,6 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
-        SupprimerEnqueteur = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(230, 215, 184));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 280));
@@ -226,7 +225,7 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
         jPanel7.setBackground(new java.awt.Color(226, 220, 207));
         jPanel7.setLayout(new java.awt.GridLayout(1, 3));
@@ -271,16 +270,6 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         jPanel8.add(ModifierTelephone2);
 
         jPanel4.add(jPanel8);
-
-        SupprimerEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        SupprimerEnqueteur.setText("Supprimer");
-        SupprimerEnqueteur.setPreferredSize(new java.awt.Dimension(131, 40));
-        SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SupprimerEnqueteurActionPerformed(evt);
-            }
-        });
-        jPanel4.add(SupprimerEnqueteur);
 
         getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
@@ -471,26 +460,6 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
-    private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
-        try
-        {
-            int id = this.id;
-            ConnexionUtils.getInstance().setAutoCommit(false);
-            //Supression
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_personne WHERE id="+id+"");
-            stmt.executeQuery();
-            ConnexionUtils.getInstance().commit();
-            stmt.close();
-            ConnexionUtils.getInstance().setAutoCommit(true);
-        }
-        catch (SQLException ex)
-        {
-            Logger.getLogger(DlgAffichePersonne.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.setVisible(false);
-
-    }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -529,7 +498,6 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
     private javax.swing.JLabel NumeroRue;
     private javax.swing.JPanel Photo;
     private javax.swing.JLabel Prenom;
-    private javax.swing.JButton SupprimerEnqueteur;
     private javax.swing.JLabel Telephone1;
     private javax.swing.JLabel Telephone2;
     private javax.swing.JLabel Ville;
