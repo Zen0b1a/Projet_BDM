@@ -26,6 +26,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private int idE;
     private Image image;
     private int indice;
+    private List<Integer> id;
     private List<Image> preuves;
     private List<String> descriptions;
     /**
@@ -36,6 +37,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         this.idE = idE;
         this.preuves = new ArrayList<>();
         this.descriptions = new ArrayList<>();
+        this.id = new ArrayList<>();
         this.initialiserPreuvesImage();
     }
 
@@ -48,7 +50,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             while(rs.next())
             {
-                //Récupération de la description
+                //Récupération de la description et de l'id
+                this.id.add(rs.getInt("ID"));
                 this.descriptions.add(rs.getString("DESCRIPTION"));
                 //Récupération de la photo
                 OrdImage img = (OrdImage)rs.getORAData("IMAGE", OrdImage.getORADataFactory());
@@ -92,6 +95,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         Precedent = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        CompareImages = new javax.swing.JButton();
         Annuler = new javax.swing.JButton();
         Suivant = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -110,13 +115,25 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         });
         jPanel1.add(Precedent);
 
+        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
+
+        CompareImages.setText("Chercher une correspondance");
+        CompareImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompareImagesActionPerformed(evt);
+            }
+        });
+        jPanel4.add(CompareImages);
+
         Annuler.setText("Retour");
         Annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
-        jPanel1.add(Annuler);
+        jPanel4.add(Annuler);
+
+        jPanel1.add(jPanel4);
 
         Suivant.setText(">");
         Suivant.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +151,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         Image.setLayout(ImageLayout);
         ImageLayout.setHorizontalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 415, Short.MAX_VALUE)
+            .addGap(0, 744, Short.MAX_VALUE)
         );
         ImageLayout.setVerticalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -179,6 +196,11 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         this.afficheImage();
     }//GEN-LAST:event_SuivantActionPerformed
 
+    private void CompareImagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompareImagesActionPerformed
+        DlgComparaisonImages dlg = new DlgComparaisonImages(this.id.get(this.indice), this.image);
+        dlg.setVisible(true);
+    }//GEN-LAST:event_CompareImagesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -209,6 +231,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Annuler;
+    private javax.swing.JButton CompareImages;
     private javax.swing.JTextArea Description;
     private javax.swing.JPanel Image;
     private javax.swing.JButton Precedent;
@@ -216,6 +239,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
