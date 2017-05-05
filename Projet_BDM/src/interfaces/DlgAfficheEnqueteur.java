@@ -311,7 +311,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
         
