@@ -165,7 +165,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         CreerEnquete = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        NouvelleVictime = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         Victimes = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -258,14 +258,20 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         jLabel6.setText("Victime(s) :");
         jPanel4.add(jLabel6);
 
-        NouvelleVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        NouvelleVictime.setText("Ajouter une nouvelle victime");
-        NouvelleVictime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NouvelleVictimeActionPerformed(evt);
-            }
-        });
-        jPanel4.add(NouvelleVictime);
+        jPanel10.setBackground(new java.awt.Color(226, 220, 207));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 511, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 44, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(jPanel10);
 
         getContentPane().add(jPanel4);
 
@@ -467,13 +473,6 @@ public class DlgAjoutCrime extends javax.swing.JFrame
         this.remplirPanelVictimes();
     }//GEN-LAST:event_AjouterVictimeActionPerformed
 
-    private void NouvelleVictimeActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_NouvelleVictimeActionPerformed
-    {//GEN-HEADEREND:event_NouvelleVictimeActionPerformed
-        DlgAjoutPersonne dlg = new DlgAjoutPersonne();
-        dlg.setVisible(true);
-        this.initialisationCbVictimes();
-    }//GEN-LAST:event_NouvelleVictimeActionPerformed
-
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
         this.initialisationCbVictimes();
@@ -535,7 +534,6 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     private javax.swing.JTextField Lieu;
     private javax.swing.JComboBox ListeEnquetes;
     private javax.swing.JComboBox ListeVictimes;
-    private javax.swing.JButton NouvelleVictime;
     private javax.swing.JPanel Victimes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -544,6 +542,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
