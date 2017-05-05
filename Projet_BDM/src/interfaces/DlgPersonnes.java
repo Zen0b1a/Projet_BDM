@@ -90,7 +90,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        //DlgAffichePersonne dlg = new DlgAffichePersonne(id);
+        DlgAffichePersonne dlg = new DlgAffichePersonne(id);
         dlg.setVisible(true);
     }
     
@@ -109,8 +109,6 @@ public class DlgPersonnes extends javax.swing.JFrame {
         Ajouter = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
         PanelPersonnes = new javax.swing.JPanel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
@@ -137,7 +135,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
         jScrollPane.setBackground(new java.awt.Color(226, 220, 207));
 
         PanelPersonnes.setBackground(new java.awt.Color(226, 220, 207));
-        PanelPersonnes.setLayout(new java.awt.GridLayout());
+        PanelPersonnes.setLayout(new java.awt.GridLayout(1, 0));
         jScrollPane.setViewportView(PanelPersonnes);
 
         getContentPane().add(jScrollPane, java.awt.BorderLayout.CENTER);
