@@ -7,9 +7,17 @@ package interfaces;
 
 import java.awt.*;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import oracle.jdbc.*;
 import oracle.ord.im.OrdImage;
 import oracle.sql.*;
@@ -282,19 +290,191 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
-        // TODO add your handling code here:
+        try 
+        {
+            int id = this.id;
+            ConnexionUtils.getInstance().setAutoCommit(false);
+            //Supression
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id="+id+"");
+            stmt.executeQuery();
+            ConnexionUtils.getInstance().commit();
+            stmt.close();
+            ConnexionUtils.getInstance().setAutoCommit(true);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
+        
     }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
-        // TODO add your handling code here:
+        //JTextField modification du numéro de téléphone 2
+        JOptionPane jop = new JOptionPane();
+        String telephone2 = JOptionPane.showInputDialog(null, "Modifier Téléphone 2 : ", "Modifier", JOptionPane.DEFAULT_OPTION);
+        //Vérification numéro
+        boolean valide = true;
+        if(valide)
+        {
+            try
+            {
+                Long.parseLong(telephone2);
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Le numéro de téléphone doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        } 
+        if(valide)
+        {
+            try {
+                String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                ConnexionUtils.getInstance().setAutoCommit(false);
+                stmt.setInt(1, this.id);
+                stmt.setInt(2, 1);
+                stmt.setString(3, telephone2);
+                stmt.execute();
+                ConnexionUtils.getInstance().commit();
+                stmt.close();
+                ConnexionUtils.getInstance().setAutoCommit(true);
+                Telephone2.setText(telephone2);
+            } catch (SQLException ex) {
+                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
     private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
-
+        //JTextField modification du numéro de téléphone 1
+        JOptionPane jop = new JOptionPane();
+        String telephone1 = JOptionPane.showInputDialog(null, "Modifier Téléphone 1 : ", "Modifier", JOptionPane.DEFAULT_OPTION);
+        //Vérification numéro
+        boolean valide = true;
+        if(valide)
+        {
+            try
+            {
+               Long.parseLong(telephone1);
+               if(telephone1==null)
+               {
+                   valide = false;
+                    System.out.println("false");
+               }
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Veuillez entrer un numéro de téléphone", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }
+        if(valide)
+        {
+            try
+            {
+                Long.parseLong(telephone1);
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Le numéro de téléphone doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        } 
+        if(valide)
+        {
+            try {
+                String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                ConnexionUtils.getInstance().setAutoCommit(false);
+                stmt.setInt(1, this.id);
+                stmt.setInt(2, 1);
+                stmt.setString(3, telephone1);
+                stmt.execute();
+                ConnexionUtils.getInstance().commit();
+                stmt.close();
+                ConnexionUtils.getInstance().setAutoCommit(true);
+                Telephone1.setText(telephone1);
+            } catch (SQLException ex) {
+                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
     private void ModifierAdresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierAdresseActionPerformed
-        // TODO add your handling code here:
+        //JTextField modification de l'adresse
+        JTextField num = new JTextField();
+        num.setSize(100,20);
+        JTextField rue = new JTextField();
+        rue.setSize(100,20);
+        JTextField ville = new JTextField();
+        ville.setSize(100,20);
+        JPanel jp = new JPanel();
+        jp.setLayout(new GridLayout(3,3));
+        jp.add(new JLabel("Numero :"));
+        jp.add(num);
+        //jp.add(Box.createHorizontalStrut(15)); // a spacer
+        jp.add(new JLabel("Rue :"));
+        jp.add(rue);
+      //  jp.add(Box.createHorizontalStrut(15)); // a spacer
+        jp.add(new JLabel("Ville :"));
+        jp.add(ville);
+
+        int result = JOptionPane.showConfirmDialog(null, jp, "Modifier l'adresse : ", JOptionPane.DEFAULT_OPTION);
+        JOptionPane jop = new JOptionPane();
+        //Vérification numéro
+        boolean valide = true;
+        if(valide)
+        {
+            try
+            {
+               if(num==null || rue==null || ville==null)
+               {
+                   valide = false;
+               }
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Veuillez entrer toutes les coordonées", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        }
+        if(valide)
+        {
+            try
+            {
+                Integer.parseInt(num.getText());
+            }
+            catch(NumberFormatException e)
+            {
+                valide = false;
+                jop.showMessageDialog(null, "Le numéro de rue doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        } 
+        if(valide)
+        {
+          /*  try {
+               // String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
+                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                ConnexionUtils.getInstance().setAutoCommit(false);
+                stmt.setInt(1, this.id);
+                stmt.setInt(2, Integer.parseInt(num.getText()));
+                stmt.setString(3, rue.getText());
+                stmt.setString(4, ville.getText());
+                stmt.execute();
+                ConnexionUtils.getInstance().commit();
+                stmt.close();
+                ConnexionUtils.getInstance().setAutoCommit(true);
+                NumeroRue.setText(num.getText());
+                NomRue.setText(rue.getText());
+                Ville.setText(ville.getText());
+            } catch (SQLException ex) {
+                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
+            System.out.println(""+num.getText()+" "+rue.getText()+" "+ville.getText());
+        }
+        System.out.println(""+num.getText()+" "+rue.getText()+" "+ville.getText());
     }//GEN-LAST:event_ModifierAdresseActionPerformed
 
     /**
