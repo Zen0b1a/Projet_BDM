@@ -409,8 +409,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        //DlgAfficheSuspect dlg = new DlgAfficheSuspect(id);
-        //dlg.setVisible(true);
+        DlgAfficheSuspect dlg = new DlgAfficheSuspect(id);
+        dlg.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -818,7 +818,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         } catch (SQLException ex)
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        }
     }//GEN-LAST:event_AjoutEnqueteurActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
@@ -830,8 +830,6 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private void encoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encoursActionPerformed
          try 
         {
-           
-           
             //Update
             OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enquete SET etat='en-cours' WHERE id=?");
             stmt.setInt(1,id);
@@ -840,21 +838,17 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             AjoutPreuve.setEnabled(true);
             AjoutCrime.setEnabled(true);
             AjoutEnqueteur.setEnabled(true);
-            stmt.close();
-            
+            stmt.close(); 
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        } 
     }//GEN-LAST:event_encoursActionPerformed
 
     private void resolueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolueActionPerformed
         try 
-        {
-           
-           
+        {           
             //Update
             OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enquete SET etat='resolue' WHERE id=?");
             stmt.setInt(1,id);
@@ -863,8 +857,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             AjoutPreuve.setEnabled(false);
             AjoutCrime.setEnabled(false);
             AjoutEnqueteur.setEnabled(false);
-            stmt.close();
-            
+            stmt.close();   
         } 
         catch (SQLException ex) 
         {

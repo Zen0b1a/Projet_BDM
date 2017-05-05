@@ -103,7 +103,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         {
             this.Victimes.removeAll();
             this.Victimes.setLayout(new GridLayout());
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, DEREF(personneV).nom, DEREF(personneV).prenom FROM bdm_victime "
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT DEREF(personneV).id, DEREF(personneV).nom, DEREF(personneV).prenom FROM bdm_victime "
                     + "WHERE DEREF(crimeV).id=? ORDER BY id");
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
@@ -111,7 +111,7 @@ public class DlgAfficheCrime extends javax.swing.JFrame
             Font fonte = new Font("Courier",Font.PLAIN,14);
             while(rs.next())
             {
-                idVictime = rs.getInt("ID");
+                idVictime = rs.getInt("DEREF(personneV).id");
                 JButton button = new JButton();
                 button.setFont(fonte);
                 button.setName(""+idVictime);
@@ -153,8 +153,8 @@ public class DlgAfficheCrime extends javax.swing.JFrame
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        //DlgAfficheVictime dlg = new DlgAfficheVictime(id);
-        //dlg.setVisible(true);
+        DlgAffichePersonne dlg = new DlgAffichePersonne(id);
+        dlg.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.

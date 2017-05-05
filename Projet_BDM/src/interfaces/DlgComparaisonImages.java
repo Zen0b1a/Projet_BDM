@@ -77,22 +77,22 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     {
         List<Pair<Integer, Double>> temp = new ArrayList<>();
         int taille = this.resultat.size();
-        double max;
-        int indiceMax;
+        double min;
+        int indiceMin;
         for(int i=0; i<taille; i++)
         {
-            max = this.resultat.get(0).getValue();
-            indiceMax = 0;
+            min = this.resultat.get(0).getValue();
+            indiceMin = 0;
             for(int j=1; j<this.resultat.size(); j++)
             {
-                if(this.resultat.get(j).getValue()>max)
+                if(this.resultat.get(j).getValue()<min)
                 {
-                    max = this.resultat.get(j).getValue();
-                    indiceMax = j;
+                    min = this.resultat.get(j).getValue();
+                    indiceMin = j;
                 }
             }
-            temp.add(this.resultat.get(indiceMax));
-            this.resultat.remove(indiceMax);
+            temp.add(this.resultat.get(indiceMin));
+            this.resultat.remove(indiceMin);
         }
         this.resultat = temp;
     }

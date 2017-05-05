@@ -5,7 +5,10 @@
  */
 package interfaces;
 
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -15,38 +18,74 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import oracle.jdbc.*;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleResultSet;
 import oracle.ord.im.OrdImage;
-import oracle.sql.*;
+import oracle.sql.ARRAY;
+import oracle.sql.STRUCT;
 import utils.ConnexionUtils;
 
 /**
  *
- * @author Annabelle
+ * @author ag092850
  */
-public class DlgAfficheEnqueteur extends javax.swing.JFrame {
+public class DlgAfficheSuspect extends javax.swing.JFrame {
     
-    private int id;
+    private int idS;
+    private int idP;
     private Image photo;
-    
-    public DlgAfficheEnqueteur(int id) {
+    /**
+     * Creates new form DlgAfficheSuspect
+     */
+    public DlgAfficheSuspect(int idS) {
         initComponents();
-        this.id = id;
-        this.initialiserEnqueteur();
+        this.idS = idS;
+        this.initialiserPersonne();
+        this.initialiserSuspect();
         this.repaint();
     }
 
-    private void initialiserEnqueteur()
+    private void initialiserSuspect()
     {
         try 
         {
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT * FROM bdm_enqueteur WHERE id=?");
-            stmt.setInt(1, this.id);
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT etat, alibi FROM bdm_suspect WHERE id=?");
+            stmt.setInt(1, this.idS);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             rs.next();
-            //Récupération des informations de l'enquêteur
-            this.Badge.setText(rs.getString("BADGE"));
+            //Récupération des informations de le suspect
+            String alibi = rs.getString("ALIBI");
+            this.Alibi.setText(alibi);
+            if(alibi!=null && !alibi.equals(""))
+                this.AjoutAlibi.setText("Modifier l'alibi");
+            String etat = rs.getString("ETAT");
+            switch(etat)
+            {
+                case "coupable" : this.Coupable.setSelected(true); this.PanelAlibi.setVisible(false); break;
+                case "disculpe" : this.Disculpe.setSelected(true); this.PanelAlibi.setVisible(true); break;
+                case "non defini" : this.NonDefini.setSelected(true); this.PanelAlibi.setVisible(false); break;
+            }
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void initialiserPersonne()
+    {
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT * FROM bdm_personne WHERE id=(SELECT DEREF(personneS).id FROM bdm_suspect WHERE id=?)");
+            stmt.setInt(1, this.idS);
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            rs.next();
+            //Récupération des informations de la personne
+            this.idP = rs.getInt("ID");
             this.Nom.setText(rs.getString("NOM"));
             this.Prenom.setText(rs.getString("PRENOM"));
             //Récupération de l'adresse
@@ -62,7 +101,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             this.Telephone2.setText(((STRUCT)tel[1]).getAttributes()[0].toString());
             //Récupération de la photo
             OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-            String fichier = "temp/enqueteur/"+this.id;
+            String fichier = "temp/personne/"+this.idP;
             img.getDataInFile(fichier);
             this.photo = this.Photo.getToolkit().getImage(fichier);
             affichePhoto();
@@ -71,7 +110,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         } 
         catch (SQLException | IOException ex) 
         {
-            Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
@@ -107,10 +146,22 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        Etat = new javax.swing.ButtonGroup();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        Coupable = new javax.swing.JRadioButton();
+        NonDefini = new javax.swing.JRadioButton();
+        Disculpe = new javax.swing.JRadioButton();
+        PanelAlibi = new javax.swing.JPanel();
+        PanelAlibi1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        AjoutAlibi = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Alibi = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        Badge = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Nom = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -135,10 +186,74 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
-        SupprimerEnqueteur = new javax.swing.JButton();
 
-        setTitle("Enquêteur");
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
+
+        jPanel9.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel1.setText("Etat :");
+        jPanel9.add(jLabel1);
+
+        jPanel10.setLayout(new java.awt.GridLayout(3, 1));
+
+        Etat.add(Coupable);
+        Coupable.setText("Coupable");
+        Coupable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CoupableActionPerformed(evt);
+            }
+        });
+        jPanel10.add(Coupable);
+
+        Etat.add(NonDefini);
+        NonDefini.setText("Non défini");
+        NonDefini.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NonDefiniActionPerformed(evt);
+            }
+        });
+        jPanel10.add(NonDefini);
+
+        Etat.add(Disculpe);
+        Disculpe.setText("Disculpé");
+        Disculpe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisculpeActionPerformed(evt);
+            }
+        });
+        jPanel10.add(Disculpe);
+
+        jPanel9.add(jPanel10);
+
+        jPanel6.add(jPanel9);
+
+        PanelAlibi.setLayout(new java.awt.BorderLayout());
+
+        PanelAlibi1.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel8.setText("Alibi :");
+        PanelAlibi1.add(jLabel8);
+
+        AjoutAlibi.setText("Ajouter un alibi");
+        AjoutAlibi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AjoutAlibiActionPerformed(evt);
+            }
+        });
+        PanelAlibi1.add(AjoutAlibi);
+
+        PanelAlibi.add(PanelAlibi1, java.awt.BorderLayout.LINE_START);
+
+        Alibi.setColumns(20);
+        Alibi.setRows(5);
+        Alibi.setEnabled(false);
+        jScrollPane1.setViewportView(Alibi);
+
+        PanelAlibi.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel6.add(PanelAlibi);
+
+        getContentPane().add(jPanel6, java.awt.BorderLayout.PAGE_START);
 
         jPanel1.setBackground(new java.awt.Color(230, 215, 184));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 280));
@@ -146,16 +261,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setPreferredSize(new java.awt.Dimension(330, 100));
-        jPanel2.setLayout(new java.awt.GridLayout(7, 2));
-
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel1.setText("Badge :");
-        jLabel1.setPreferredSize(new java.awt.Dimension(77, 50));
-        jLabel1.setRequestFocusEnabled(false);
-        jPanel2.add(jLabel1);
-
-        Badge.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        jPanel2.add(Badge);
+        jPanel2.setLayout(new java.awt.GridLayout(6, 2));
 
         jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Nom :");
@@ -222,11 +328,11 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         Photo.setLayout(PhotoLayout);
         PhotoLayout.setHorizontalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 366, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
         PhotoLayout.setVerticalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanel3.add(Photo);
@@ -237,7 +343,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 1));
+        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
 
         jPanel7.setBackground(new java.awt.Color(226, 220, 207));
         jPanel7.setLayout(new java.awt.GridLayout(1, 3));
@@ -283,146 +389,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         jPanel4.add(jPanel8);
 
-        SupprimerEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        SupprimerEnqueteur.setText("Supprimer");
-        SupprimerEnqueteur.setPreferredSize(new java.awt.Dimension(131, 40));
-        SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SupprimerEnqueteurActionPerformed(evt);
-            }
-        });
-        jPanel4.add(SupprimerEnqueteur);
-
         getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
-        try 
-        {
-            int id = this.id;
-            ConnexionUtils.getInstance().setAutoCommit(false);
-            //Supression
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id="+id+"");
-            stmt.executeQuery();
-            ConnexionUtils.getInstance().commit();
-            stmt.close();
-            ConnexionUtils.getInstance().setAutoCommit(true);
-        } 
-        catch (SQLException ex) 
-        {
-            Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
-
-    private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
-        //Modification du numéro de téléphone 2
-        JOptionPane jop = new JOptionPane();
-        String telephone2;
-        //Vérification numéro
-        boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 2 : ";
-        while(continuer)
-        {
-            telephone2 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
-            if(telephone2==null)
-            {
-                continuer=false;
-            }
-            else if(!telephone2.equals(""))
-            {
-                try{
-                    Long.parseLong(telephone2);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
-                {
-                    mes="Veuillez rentrer un numéro de téléphone valide";
-                    valide=false;
-                    
-                }
-                if(valide && Long.parseLong(telephone2)>=0)
-                {
-                    
-                    try {
-                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 2);
-                        stmt.setString(3, telephone2);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone2.setText(telephone2);
-                        continuer=false;                } 
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } 
-            }
-                          
-        }
-    }//GEN-LAST:event_ModifierTelephone2ActionPerformed
-
-    private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
-        //Modification du numéro de téléphone 1
-        JOptionPane jop = new JOptionPane();
-        String telephone1;
-        //Vérification numéro
-        boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 1 : ";
-        while(continuer)
-        {
-            telephone1 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
-            if(telephone1==null)
-            {
-                continuer=false;
-            }
-            else if(!telephone1.equals(""))
-            {
-                try{
-                    Long.parseLong(telephone1);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
-                {
-                    mes="Veuillez entrer un numéro de téléphone valide";
-                    valide=false;
-                    
-                }
-                if(valide && Long.parseLong(telephone1)>=0)
-                {
-                    
-                    try {
-                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 1);
-                        stmt.setString(3, telephone1);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone1.setText(telephone1);
-                        continuer=false;                } 
-                    catch (SQLException ex) 
-                    {
-                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                } 
-            }
-                          
-        }
-    }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
     private void ModifierAdresseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierAdresseActionPerformed
         //JTextField modification de l'adresse
@@ -460,9 +430,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                 mes="Veuillez entrer une adresse valide";
                 valide=false;
             }
-            else 
+            else
             {
-                
                 try{
                     Integer.parseInt(num.getText());
                     valide=true;
@@ -471,16 +440,16 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                 {
                     mes="Veuillez entrer un numéro valide";
                     valide=false;
-                    
+
                 }
                 if(valide && Integer.parseInt(num.getText())>=0)
                 {
-                    
+
                     try {
-                        String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
+                        String sql = "{call majPersonneAdresse(?, ?, ?, ?)}";
                         CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
                         ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
+                        stmt.setInt(1, this.idP);
                         stmt.setInt(2, Integer.parseInt(num.getText()));
                         stmt.setString(3, rue.getText());
                         stmt.setString(4, ville.getText());
@@ -491,17 +460,192 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                         NumeroRue.setText(num.getText());
                         NomRue.setText(rue.getText());
                         Ville.setText(ville.getText());
-                        continuer=false; 
+                        continuer=false;
                     } catch (SQLException ex) {
-                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                                   
 
-                } 
+                }
             }
-                          
         }
     }//GEN-LAST:event_ModifierAdresseActionPerformed
+
+    private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
+        //Modification du numéro de téléphone 1
+        JOptionPane jop = new JOptionPane();
+        String telephone1;
+        //Vérification numéro
+        boolean continuer = true;
+        boolean valide = true;
+        String mes = "Modifier Téléphone 1 : ";
+        while(continuer)
+        {
+            telephone1 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
+            if(telephone1==null)
+            {
+                continuer=false;
+            }
+            else if(!telephone1.equals(""))
+            {
+                try{
+                    Long.parseLong(telephone1);
+                    valide=true;
+                }
+                catch(NumberFormatException e)
+                {
+                    mes="Veuillez entrer un numéro de téléphone valide";
+                    valide=false;
+                }
+                if(valide && Long.parseLong(telephone1)>=0)
+                {
+
+                    try {
+                        String sql = "{call majPersonneTelephone(?, ?, ?)}";
+                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                        ConnexionUtils.getInstance().setAutoCommit(false);
+                        stmt.setInt(1, this.idP);
+                        stmt.setInt(2, 1);
+                        stmt.setString(3, telephone1);
+                        stmt.execute();
+                        ConnexionUtils.getInstance().commit();
+                        stmt.close();
+                        ConnexionUtils.getInstance().setAutoCommit(true);
+                        Telephone1.setText(telephone1);
+                        continuer=false;                }
+                    catch (SQLException ex)
+                    {
+                        Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_ModifierTelephone1ActionPerformed
+
+    private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
+        //Modification du numéro de téléphone 2
+        JOptionPane jop = new JOptionPane();
+        String telephone2;
+        //Vérification numéro
+        boolean continuer = true;
+        boolean valide = true;
+        String mes = "Modifier Téléphone 2 : ";
+        while(continuer)
+        {
+            telephone2 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
+            if(telephone2==null)
+            {
+                continuer=false;
+            }
+            else if(!telephone2.equals(""))
+            {
+                try
+                {
+                    Long.parseLong(telephone2);
+                    valide=true;
+                }
+                catch(NumberFormatException e)
+                {
+                    mes="Veuillez rentrer un numéro de téléphone valide";
+                    valide=false;
+                }
+                if(valide && Long.parseLong(telephone2)>=0)
+                {
+                    try {
+                        String sql = "{call majPersonneTelephone(?, ?, ?)}";
+                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                        stmt.setInt(1, this.idP);
+                        stmt.setInt(2, 2);
+                        stmt.setString(3, telephone2);
+                        stmt.execute();
+                        stmt.close();
+                        this.Telephone2.setText(telephone2);
+                        continuer=false;                
+                    }
+                    catch (SQLException ex)
+                    {
+                        Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_ModifierTelephone2ActionPerformed
+
+    private void CoupableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CoupableActionPerformed
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_suspect SET etat='coupable' WHERE id=?");
+            stmt.setInt(1, this.idS);
+            stmt.executeUpdate();
+            stmt.close();
+            this.PanelAlibi.setVisible(false);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CoupableActionPerformed
+
+    private void NonDefiniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NonDefiniActionPerformed
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_suspect SET etat='non defini' WHERE id=?");
+            stmt.setInt(1, this.idS);
+            stmt.executeUpdate();
+            stmt.close();
+            this.PanelAlibi.setVisible(false);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_NonDefiniActionPerformed
+
+    private void DisculpeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisculpeActionPerformed
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_suspect SET etat='disculpe' WHERE id=?");
+            stmt.setInt(1, this.idS);
+            stmt.executeUpdate();
+            stmt.close();
+            this.PanelAlibi.setVisible(true);
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_DisculpeActionPerformed
+
+    private void AjoutAlibiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjoutAlibiActionPerformed
+        try
+        {
+            //JOptionPane de choix d'un enquêteur
+            JTextArea jta = new JTextArea();
+            jta.setSize(100,100);
+            String[] options = { "Ajouter", "Annuler" };
+            int selection = JOptionPane.showOptionDialog(null, jta, "Ajouter un alibi", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+            //Récupération de la sélection
+            if(selection<=0) 
+            {
+                String alibi = jta.getText();
+                if(alibi.length()>0 && alibi.length()<=500)
+                {
+                    OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_suspect SET alibi=? WHERE id=?");
+                    stmt.setString(1, alibi);
+                    stmt.setInt(2, this.idS);
+                    stmt.executeQuery();
+                    stmt.close();
+                    this.Alibi.setText(alibi);
+                    this.AjoutAlibi.setText("Modifier l'alibi");
+                }
+                else
+                    JOptionPane.showMessageDialog(null, "L'alibi doit faire entre 1 et 500 caractères.", "Erreur lors de l'ajout", JOptionPane.INFORMATION_MESSAGE, null);
+            }
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheSuspect.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }//GEN-LAST:event_AjoutAlibiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -520,28 +664,35 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgAfficheSuspect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgAfficheSuspect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgAfficheSuspect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgAfficheSuspect.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Badge;
+    private javax.swing.JButton AjoutAlibi;
+    private javax.swing.JTextArea Alibi;
+    private javax.swing.JRadioButton Coupable;
+    private javax.swing.JRadioButton Disculpe;
+    private javax.swing.ButtonGroup Etat;
     private javax.swing.JButton ModifierAdresse;
     private javax.swing.JButton ModifierTelephone1;
     private javax.swing.JButton ModifierTelephone2;
     private javax.swing.JLabel Nom;
     private javax.swing.JLabel NomRue;
+    private javax.swing.JRadioButton NonDefini;
     private javax.swing.JLabel NumeroRue;
+    private javax.swing.JPanel PanelAlibi;
+    private javax.swing.JPanel PanelAlibi1;
     private javax.swing.JPanel Photo;
     private javax.swing.JLabel Prenom;
-    private javax.swing.JButton SupprimerEnqueteur;
     private javax.swing.JLabel Telephone1;
     private javax.swing.JLabel Telephone2;
     private javax.swing.JLabel Ville;
@@ -553,13 +704,18 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -40,6 +40,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         this.descriptions = new ArrayList<>();
         this.id = new ArrayList<>();
         this.initialiserPreuvesImage();
+        this.repaint();
     }
 
     private void initialiserPreuvesImage()
@@ -64,7 +65,6 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
             this.image = this.preuves.get(this.indice);
             this.Description.setText(this.descriptions.get(this.indice));
             afficheImage();
-            this.repaint();
             rs.close();
             stmt.close();
         } 

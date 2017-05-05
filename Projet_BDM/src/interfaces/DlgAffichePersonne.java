@@ -39,6 +39,7 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         initComponents();
         this.id = id;
         this.initialiserPersonne();
+        this.repaint();
     }
     
     private void initialiserPersonne()
