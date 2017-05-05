@@ -18,7 +18,6 @@ import javax.swing.SwingConstants;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
 import oracle.ord.im.OrdAudio;
-import oracle.ord.im.OrdImage;
 import oracle.ord.im.OrdVideo;
 import utils.ConnexionUtils;
 
@@ -53,23 +52,22 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             this.Etat.setText(rs.getString("ETAT"));
             rs.close();
             stmt.close();
-            
-            //Récupération de la liste des suspects
-            this.initialiserSuspects();
-            
-            //Récupération de la liste des preuves
-            this.initialiserPreuves();
-            
-            //Récupération de la liste des crimes
-            this.initialiserCrimes();
-            
-            //Récupération de la liste des enquêteurs
-            this.initialiserEnqueteurs();
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
         }
+        //Récupération de la liste des suspects
+        this.initialiserSuspects();
+
+        //Récupération de la liste des preuves
+        this.initialiserPreuves();
+
+        //Récupération de la liste des crimes
+        this.initialiserCrimes();
+
+        //Récupération de la liste des enquêteurs
+        this.initialiserEnqueteurs();
     }
     
     private void initialiserEnqueteurs()
@@ -332,7 +330,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             String fichier = "";
             try 
             {
-                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT video FROM bdm_preuve_audio WHERE id=?");
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT audio FROM bdm_preuve_audio WHERE id=?");
                 stmt.setInt(1, id);
                 OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
                 while(rs.next())

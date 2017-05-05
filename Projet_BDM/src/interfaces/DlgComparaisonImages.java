@@ -6,9 +6,21 @@
 package interfaces;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.sql.CallableStatement;
+import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.util.Pair;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleResultSet;
+import utils.ConnexionUtils;
 
 /**
  *
@@ -18,6 +30,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private int idPr;
     private Image imagePreuve;
     private Image imagePersonne;
+    private List<Pair<Integer, Double>> resultat; //élément 1 : id, élément 2 : score
     /**
      * Creates new form DlgComparaisonImages
      */
@@ -25,18 +38,47 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         initComponents();
         this.idPr = idPr;
         this.imagePreuve = imagePreuve;
+        this.resultat = new ArrayList<>();
     }
 
+    private void trierResultat()
+    {
+        for(int i=0; i<this.resultat.size(); i++)
+        {
+            
+        }
+    }
+    
     private void afficheImagePreuve()
     {
-        Graphics g = this.ImagePreuve.getGraphics();
-        g.drawImage(this.imagePreuve, 0, 0, this.ImagePreuve.getWidth(), this.ImagePreuve.getHeight(), this);
+        Graphics2D g = (Graphics2D)this.ImagePreuve.getGraphics();
+        Double scaleWidth = this.ImagePreuve.getWidth()/new Double(this.imagePreuve.getWidth(null));
+	Double scaleHeight = this.ImagePreuve.getHeight()/new Double(this.imagePreuve.getHeight(null));
+        if (scaleWidth>scaleHeight)
+            scaleWidth = scaleHeight;
+        else
+            scaleHeight = scaleWidth;
+        int x = (int)((this.ImagePreuve.getWidth() - (this.imagePreuve.getWidth(null)*scaleWidth)) / 2);
+        int y = (int)((this.ImagePreuve.getHeight() - (this.imagePreuve.getHeight(null)*scaleHeight)) / 2);
+        g.translate(x, y);
+        g.scale(scaleWidth, scaleHeight);
+        g.drawImage(this.imagePreuve, 0, 0, null);
     }
     
     private void afficheImagePersonne()
     {
-        Graphics g = this.ImagePersonne.getGraphics();
-        g.drawImage(this.imagePersonne, 0, 0, this.ImagePersonne.getWidth(), this.ImagePersonne.getHeight(), this);
+        Graphics2D g = (Graphics2D)this.ImagePersonne.getGraphics();
+        Double scaleWidth = this.ImagePersonne.getWidth()/new Double(this.imagePersonne.getWidth(null));
+	Double scaleHeight = this.ImagePersonne.getHeight()/new Double(this.imagePersonne.getHeight(null));
+        if(scaleWidth>scaleHeight)
+            scaleWidth = scaleHeight;
+        else
+            scaleHeight = scaleWidth;
+        int x = (int)((this.ImagePersonne.getWidth() - (this.imagePersonne.getWidth(null)*scaleWidth)) / 2);
+        int y = (int)((this.ImagePersonne.getHeight() - (this.imagePersonne.getHeight(null)*scaleHeight)) / 2);
+        g.translate(x, y);
+        g.scale(scaleWidth, scaleHeight);
+        g.drawImage(this.imagePersonne, 0, 0, null);
     }
     
     public void paint(Graphics g)
@@ -57,6 +99,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        CompareImage = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ImagePreuve = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -78,15 +121,28 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         PondTextureJTF = new javax.swing.JTextField();
         ImagePersonne = new javax.swing.JPanel();
 
+        CompareImage.setText("Chercher une correspondance dans les personnes");
+        CompareImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompareImageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1866, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(608, Short.MAX_VALUE)
+                .addComponent(CompareImage)
+                .addGap(866, 866, 866))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(CompareImage)
+                .addGap(33, 33, 33))
         );
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
@@ -251,7 +307,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            System.out.println("Saisie non valide.");
+            
         }
     }//GEN-LAST:event_PondAvgColorJTFKeyReleased
 
@@ -266,7 +322,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            System.out.println("Saisie non valide.");
+            
         }
     }//GEN-LAST:event_PondColorHistoJTFKeyReleased
 
@@ -281,7 +337,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            System.out.println("Saisie non valide.");
+            
         }
     }//GEN-LAST:event_PondPosColorJTFKeyReleased
 
@@ -296,9 +352,46 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         }
         catch(NumberFormatException e)
         {
-            System.out.println("Saisie non valide.");
+            
         }
     }//GEN-LAST:event_PondTextureJTFKeyReleased
+
+    private void CompareImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompareImageActionPerformed
+        double pondAvgColor = this.PondAvgColorS.getValue()/100;
+        double pondHistoColor = this.PondColorHistoS.getValue()/100;
+        double pondPosColor = this.PondPosColorS.getValue()/100;
+        double pondTexture = this.PondTextureS.getValue()/100;
+        this.resultat.clear();
+        try 
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id FROM bdm_personne");
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            int idPe;
+            double score;
+            CallableStatement cstmt = ConnexionUtils.getInstance().prepareCall("{?=call compare(?,?,?,?,?,?)}");
+            while(rs.next())
+            {
+                idPe = rs.getInt("ID");
+                cstmt.registerOutParameter(1, Types.DOUBLE);
+                cstmt.setInt(2, this.idPr);
+                cstmt.setInt(3, idPe);
+                cstmt.setDouble(4, pondAvgColor);
+                cstmt.setDouble(5, pondHistoColor);
+                cstmt.setDouble(6, pondPosColor);
+                cstmt.setDouble(7, pondTexture);
+                cstmt.execute();
+                score = cstmt.getDouble(1);
+                this.resultat.add(new Pair(idPe, score));
+            }
+            cstmt.close();
+            rs.close();
+            stmt.close();
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_CompareImageActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,6 +423,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CompareImage;
     private javax.swing.JPanel ImagePersonne;
     private javax.swing.JPanel ImagePreuve;
     private javax.swing.JTextField PondAvgColorJTF;
