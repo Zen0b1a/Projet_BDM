@@ -118,6 +118,45 @@ public class Menu extends javax.swing.JFrame {
         }
         else
             path.mkdir();
+        //Preuves images
+        path = new File("temp/image/");
+        if(path.exists())
+        {
+            File[] files = path.listFiles();
+            if(files!=null)
+            {
+                for(int i=0; i<files.length; i++)
+                    files[i].delete();
+            }
+        }
+        else
+            path.mkdir();
+        //Preuves audio
+        path = new File("temp/audio/");
+        if(path.exists())
+        {
+            File[] files = path.listFiles();
+            if(files!=null)
+            {
+                for(int i=0; i<files.length; i++)
+                    files[i].delete();
+            }
+        }
+        else
+            path.mkdir();
+        //Preuves video
+        path = new File("temp/video/");
+        if(path.exists())
+        {
+            File[] files = path.listFiles();
+            if(files!=null)
+            {
+                for(int i=0; i<files.length; i++)
+                    files[i].delete();
+            }
+        }
+        else
+            path.mkdir();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void AjoutPersonneActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPersonneActionPerformed

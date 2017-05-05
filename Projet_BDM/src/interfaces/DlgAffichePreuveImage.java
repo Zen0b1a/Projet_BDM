@@ -9,14 +9,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
 import oracle.ord.im.OrdImage;
-import oracle.sql.ARRAY;
-import oracle.sql.STRUCT;
 import utils.ConnexionUtils;
 
 /**
@@ -26,31 +25,40 @@ import utils.ConnexionUtils;
 public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private int idE;
     private Image image;
+    private int indice;
     private List<Image> preuves;
+    private List<String> descriptions;
     /**
      * Creates new form DlgAffichePreuveImage
      */
     public DlgAffichePreuveImage(int idE) {
         initComponents();
         this.idE = idE;
+        this.preuves = new ArrayList<>();
+        this.descriptions = new ArrayList<>();
+        this.initialiserPreuvesImage();
     }
 
-    private void initialiserEnqueteur()
+    private void initialiserPreuvesImage()
     {
         try 
         {
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, image FROM bdm_preuve_image WHERE DEREF(enqueteP).id=? ORDER BY id");
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description, image FROM bdm_preuve_image WHERE DEREF(enqueteP).id=? ORDER BY id");
             stmt.setInt(1, this.idE);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             while(rs.next())
             {
+                //Récupération de la description
+                this.descriptions.add(rs.getString("DESCRIPTION"));
                 //Récupération de la photo
-                OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
+                OrdImage img = (OrdImage)rs.getORAData("IMAGE", OrdImage.getORADataFactory());
                 String fichier = "temp/image/"+rs.getInt("ID");
                 img.getDataInFile(fichier);
                 this.preuves.add(this.Image.getToolkit().getImage(fichier));
             }
-            this.image = this.preuves.get(0);
+            this.indice = 0;
+            this.image = this.preuves.get(this.indice);
+            this.Description.setText(this.descriptions.get(this.indice));
             afficheImage();
             rs.close();
             stmt.close();
@@ -86,11 +94,20 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         Precedent = new javax.swing.JButton();
         Annuler = new javax.swing.JButton();
         Suivant = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         Image = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Description = new javax.swing.JTextArea();
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         Precedent.setText("<");
+        Precedent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrecedentActionPerformed(evt);
+            }
+        });
         jPanel1.add(Precedent);
 
         Annuler.setText("Retour");
@@ -102,9 +119,16 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         jPanel1.add(Annuler);
 
         Suivant.setText(">");
+        Suivant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SuivantActionPerformed(evt);
+            }
+        });
         jPanel1.add(Suivant);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout ImageLayout = new javax.swing.GroupLayout(Image);
         Image.setLayout(ImageLayout);
@@ -114,10 +138,23 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         );
         ImageLayout.setVerticalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 275, Short.MAX_VALUE)
+            .addGap(0, 197, Short.MAX_VALUE)
         );
 
-        getContentPane().add(Image, java.awt.BorderLayout.CENTER);
+        jPanel2.add(Image, java.awt.BorderLayout.CENTER);
+
+        jPanel3.setLayout(new java.awt.GridLayout(1, 1));
+
+        Description.setColumns(20);
+        Description.setRows(5);
+        Description.setEnabled(false);
+        jScrollPane1.setViewportView(Description);
+
+        jPanel3.add(jScrollPane1);
+
+        jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -125,6 +162,22 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private void AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AnnulerActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void PrecedentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecedentActionPerformed
+        this.indice = (this.indice-1)%this.preuves.size();
+        if(this.indice<0)
+            this.indice = -this.indice;
+        this.image = this.preuves.get(this.indice);
+        this.Description.setText(this.descriptions.get(this.indice));
+        this.afficheImage();
+    }//GEN-LAST:event_PrecedentActionPerformed
+
+    private void SuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuivantActionPerformed
+        this.indice = (this.indice+1)%this.preuves.size();
+        this.image = this.preuves.get(this.indice);
+        this.Description.setText(this.descriptions.get(this.indice));
+        this.afficheImage();
+    }//GEN-LAST:event_SuivantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,9 +209,13 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Annuler;
+    private javax.swing.JTextArea Description;
     private javax.swing.JPanel Image;
     private javax.swing.JButton Precedent;
     private javax.swing.JButton Suivant;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

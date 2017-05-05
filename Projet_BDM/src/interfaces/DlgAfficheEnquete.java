@@ -7,6 +7,7 @@ package interfaces;
 
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
+import oracle.ord.im.OrdAudio;
+import oracle.ord.im.OrdImage;
+import oracle.ord.im.OrdVideo;
 import utils.ConnexionUtils;
 
 /**
@@ -316,8 +320,78 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         JButton jb = (JButton)evt.getSource();
         String[] split = jb.getName().split(" "); //split[0] -> image, audio ou video
         int id = Integer.parseInt(split[1]);
-        //DlgAffichePreuve dlg = new DlgAffichePreuve(id);
-        //dlg.setVisible(true);
+        //Pour afficher une preuve image
+        if(split[0].equals("image"))
+        {
+            DlgAffichePreuveImage dlg = new DlgAffichePreuveImage(this.id);
+            dlg.setVisible(true);
+        }
+        //Pour afficher une preuve audio
+        if(split[0].equals("audio"))
+        {
+            String fichier = "";
+            try 
+            {
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT video FROM bdm_preuve_audio WHERE id=?");
+                stmt.setInt(1, id);
+                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                while(rs.next())
+                {
+                    //Récupération de la video
+                    OrdAudio aud = (OrdAudio)rs.getORAData("AUDIO", OrdAudio.getORADataFactory());
+                    fichier = "temp/audio/"+id;
+                    aud.getDataInFile(fichier);
+                }
+                rs.close();
+                stmt.close();
+                if(!fichier.equals(""))
+                {
+                    Runtime runtime = Runtime.getRuntime();
+                    runtime.exec("vlc " + fichier);
+                }
+            } 
+            catch (SQLException | IOException ex) 
+            {
+                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        //Pour afficher une preuve vidéo
+        if(split[0].equals("video"))
+        {
+            String fichier = "";
+            try 
+            {
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT video FROM bdm_preuve_video WHERE id=?");
+                stmt.setInt(1, id);
+                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                while(rs.next())
+                {
+                    //Récupération de la video
+                    OrdVideo vid = (OrdVideo)rs.getORAData("VIDEO", OrdVideo.getORADataFactory());
+                    fichier = "temp/video/"+id;
+                    vid.getDataInFile(fichier);
+                }
+                rs.close();
+                stmt.close();
+                if(!fichier.equals(""))
+                {
+                    Runtime runtime = Runtime.getRuntime();
+                    runtime.exec("vlc " + fichier);
+                }
+            } 
+            catch (SQLException | IOException ex) 
+            {
+                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(!fichier.equals(""))
+            {
+                
+                //DlgAffichePreuveVideo dlg = new DlgAffichePreuveVideo(fichier);
+                //dlg.setVisible(true);
+            }
+            else
+                System.out.println("Erreur lors du chargement de la vidéo.");
+        }
     }
     
     private void afficherSuspect(java.awt.event.ActionEvent evt)
