@@ -7,16 +7,15 @@ package interfaces;
 
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+import mapping.Personne;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
-import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
 /**
@@ -31,6 +30,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
     public DlgPersonnes() {
         initComponents();
         this.initialiserPersonnes();
+        this.repaint();
     }
 
     private void initialiserPersonnes()
@@ -38,7 +38,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
         int nbPersonnes;
         try 
         {
-            //Initialisation du nombre d'enquêteurs
+            //Initialisation du nombre de personnes
             OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT COUNT(*) FROM bdm_personne");
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             rs.next();
@@ -47,23 +47,19 @@ public class DlgPersonnes extends javax.swing.JFrame {
             //Création de l'interface
             this.PanelPersonnes.removeAll();
             this.PanelPersonnes.setLayout(new GridLayout((int)Math.ceil(nbPersonnes/5), 5));
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, photo FROM bdm_personne ORDER BY id");
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id FROM bdm_personne ORDER BY id");
             rs = (OracleResultSet)stmt.executeQuery();
-            int idPersonne;
             Font fonte = new Font("Courier",Font.PLAIN,18);
             while(rs.next())
             {
-                idPersonne = rs.getInt("ID");
+                Personne personne = new Personne().chargerPersonne(rs.getInt("ID"));
                 JButton button = new JButton();
                 button.setLayout(new GridLayout(2, 1));
-                button.setName(""+idPersonne);
+                button.setName(""+personne.getId());
                 //Ajout des informations dans le bouton
-                OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-                String fichier = "temp/personne/"+idPersonne;
-                img.getDataInFile(fichier);
-                button.setIcon(new ImageIcon(fichier));
+                button.setIcon(new ImageIcon(personne.getCheminPhoto()));
                 button.setFont(fonte);
-                button.setText("<HTML><body>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setText("<HTML><body>Nom : "+personne.getNom()+"<br>Prénom : "+personne.getPrenom()+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 
@@ -80,7 +76,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
             rs.close();
             stmt.close();
         } 
-        catch (SQLException | IOException ex) 
+        catch (SQLException ex) 
         {
             Logger.getLogger(DlgPersonnes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,7 +97,8 @@ public class DlgPersonnes extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -112,11 +109,14 @@ public class DlgPersonnes extends javax.swing.JFrame {
 
         setTitle("Liste des personnes");
         setPreferredSize(new java.awt.Dimension(792, 500));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
             }
         });
 
@@ -133,8 +133,10 @@ public class DlgPersonnes extends javax.swing.JFrame {
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
         Ajouter.setPreferredSize(new java.awt.Dimension(109, 40));
-        Ajouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Ajouter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjouterActionPerformed(evt);
             }
         });
@@ -160,8 +162,8 @@ public class DlgPersonnes extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         this.initialiserPersonnes();
-        this.setSize(this.getWidth()+1, this.getHeight()+1);
-        this.setSize(this.getWidth()-1, this.getHeight()-1);
+        this.setSize(this.getHeight()-1, this.getWidth()-1);
+        this.setSize(this.getHeight()+1, this.getWidth()+1);
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**

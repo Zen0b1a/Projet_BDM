@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import mapping.Personne;
 import oracle.jdbc.*;
 import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
@@ -265,6 +266,11 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
             try
             {
                 numRue = Integer.parseInt(numeroRue);
+                if(numRue<0)
+                {
+                    valide = false;
+                    jop.showMessageDialog(null, "Le numéro de rue doit être un nombre positif.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                }
             }
             catch(NumberFormatException e)
             {
@@ -277,8 +283,8 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
         {
             try
             {
-                Integer.parseInt(telephone1);
-                Integer.parseInt(telephone2);
+                Long.parseLong(telephone1);
+                Long.parseLong(telephone2);
             }
             catch(NumberFormatException e)
             {
@@ -289,47 +295,8 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
         //Si tout est valide, on fait l'ajout dans la base de données
         if(valide)
         {
-            try
-            {
-                //Récupération de l'id
-                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_personne");
-                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
-                rs.next();
-                int id = rs.getInt(1)+1;
-                ConnexionUtils.getInstance().setAutoCommit(false);
-                //Insertion
-                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_personne VALUES(?, ?, ?, "
-                    + "bdm_adresse_type(?, ?, ?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
-                stmt.setInt(1, id);
-                stmt.setString(2, nom);
-                stmt.setString(3, prenom);
-                stmt.setInt(4, numRue);
-                stmt.setString(5, nomRue);
-                stmt.setString(6, ville);
-                stmt.setString(7, telephone1);
-                stmt.setString(8, telephone2);
-                stmt.executeQuery();
-                //Ajout de la photo
-                Statement ps = (Statement)ConnexionUtils.getInstance().createStatement();
-                rs = (OracleResultSet)ps.executeQuery("SELECT photo FROM bdm_personne WHERE id="+id+" FOR UPDATE");
-                rs.next();
-                OrdImage imgObj = (OrdImage)rs.getORAData(1, OrdImage.getORADataFactory());
-                imgObj.loadDataFromFile(this.cheminPhoto);
-                imgObj.setProperties();
-                stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_personne SET photo=? WHERE id=?");
-                stmt.setORAData(1, imgObj);
-                stmt.setInt(2, id);
-                stmt.execute();
-                ConnexionUtils.getInstance().commit();
-                ps.close();
-                rs.close();
-                stmt.close();
-                ConnexionUtils.getInstance().setAutoCommit(true);
-            }
-            catch (SQLException | IOException ex)
-            {
-                Logger.getLogger(DlgAjoutEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            Personne personne = new Personne(nom, prenom, numRue, nomRue, ville, telephone1, telephone2, this.cheminPhoto);
+            personne.enregistrerPersonne();
             this.setVisible(false);
         }
     }//GEN-LAST:event_AjouterActionPerformed

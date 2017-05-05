@@ -9,21 +9,15 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import oracle.jdbc.OraclePreparedStatement;
-import oracle.jdbc.OracleResultSet;
-import oracle.ord.im.OrdImage;
-import oracle.sql.ARRAY;
-import oracle.sql.STRUCT;
+import mapping.Personne;
 import utils.ConnexionUtils;
 
 /**
@@ -34,6 +28,7 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
 
     private int id;
     private Image photo;
+    private Personne personne;
     
     public DlgAffichePersonne(int id) {
         initComponents();
@@ -44,46 +39,25 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
     
     private void initialiserPersonne()
     {
-        try 
-        {
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT * FROM bdm_personne WHERE id=?");
-            stmt.setInt(1, this.id);
-            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
-            rs.next();
-            //Récupération des informations de la personne
-            this.Nom.setText(rs.getString("NOM"));
-            this.Prenom.setText(rs.getString("PRENOM"));
-            //Récupération de l'adresse
-            STRUCT adresse = rs.getSTRUCT("ADRESSE");
-            Object[] adresse_attributs = adresse.getAttributes();
-            this.NumeroRue.setText(adresse_attributs[0].toString());
-            this.NomRue.setText(adresse_attributs[1].toString());
-            this.Ville.setText(adresse_attributs[2].toString());
-            //Récupération des numéros de téléphone
-            ARRAY telephone = rs.getARRAY("TELEPHONE");
-            Object[] tel = (Object[])telephone.getArray();
-            this.Telephone1.setText(((STRUCT)tel[0]).getAttributes()[0].toString());
-            this.Telephone2.setText(((STRUCT)tel[1]).getAttributes()[0].toString());
-            //Récupération de la photo
-            OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-            String fichier = "temp/personne/"+this.id;
-            img.getDataInFile(fichier);
-            this.photo = this.Photo.getToolkit().getImage(fichier);
-            affichePhoto();
-            rs.close();
-            stmt.close();
-        } 
-        catch (SQLException | IOException ex) 
-        {
-            Logger.getLogger(DlgAffichePersonne.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //Récupération de la personne
+        this.personne = new Personne().chargerPersonne(this.id);
+        //Affichage des informations de la personne
+        this.Nom.setText(this.personne.getNom());
+        this.Prenom.setText(this.personne.getPrenom());
+        this.NumeroRue.setText(""+this.personne.getNumeroRue());
+        this.NomRue.setText(this.personne.getNomRue());
+        this.Ville.setText(this.personne.getVille());
+        this.Telephone1.setText(this.personne.getTelephone1());
+        this.Telephone2.setText(this.personne.getTelephone2());
+        this.photo = this.Photo.getToolkit().getImage(this.personne.getCheminPhoto());
+        this.repaint();
     }
     
     private void affichePhoto()
     {
         Graphics2D g = (Graphics2D)this.Photo.getGraphics();
-        Double scaleWidth = this.Photo.getWidth()/new Double(this.photo.getWidth(null));
-	Double scaleHeight = this.Photo.getHeight()/new Double(this.photo.getHeight(null));
+        Double scaleWidth = this.Photo.getWidth()/(double)this.photo.getWidth(null);
+	Double scaleHeight = this.Photo.getHeight()/(double)this.photo.getHeight(null);
         if (scaleWidth>scaleHeight)
             scaleWidth = scaleHeight;
         else
@@ -291,10 +265,8 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         jp.setLayout(new GridLayout(3,3));
         jp.add(new JLabel("Numero :"));
         jp.add(num);
-        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Rue :"));
         jp.add(rue);
-        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Ville :"));
         jp.add(ville);
         JOptionPane jop = new JOptionPane();
@@ -302,11 +274,12 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         //Vérification adresse
         boolean continuer = true;
         boolean valide = true;
+        int numeroRue = -1;
         String mes = "Modifier adresse: ";
         while(continuer)
         {
             adresse = jop.showConfirmDialog(null, jp, mes, JOptionPane.OK_CANCEL_OPTION);
-            if(adresse==JOptionPane.CANCEL_OPTION)
+            if(adresse==JOptionPane.CANCEL_OPTION || adresse==JOptionPane.CLOSED_OPTION)
             {
                 continuer=false;
             }
@@ -317,43 +290,27 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
             }
             else
             {
-
-                try{
-                    Integer.parseInt(num.getText());
-                    valide=true;
+                try
+                {
+                    numeroRue = Integer.parseInt(num.getText());
+                    if(numeroRue<0)
+                    {
+                        valide = false;
+                        mes="Veuillez entrer un numéro valide";
+                    }
                 }
                 catch(NumberFormatException e)
                 {
                     mes="Veuillez entrer un numéro valide";
                     valide=false;
-
                 }
-                if(valide && Integer.parseInt(num.getText())>=0)
+                if(valide)
                 {
-
-                    try {
-                        String sql = "{call majPersonneAdresse(?, ?, ?, ?)}";
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, Integer.parseInt(num.getText()));
-                        stmt.setString(3, rue.getText());
-                        stmt.setString(4, ville.getText());
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        NumeroRue.setText(num.getText());
-                        NomRue.setText(rue.getText());
-                        Ville.setText(ville.getText());
-                        continuer=false;
-                    } catch (SQLException ex) {
-                        Logger.getLogger(DlgAffichePersonne.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
+                    this.personne.majAdresse(numeroRue, rue.getText(), ville.getText());
+                    this.initialiserPersonne();
+                    continuer = false;
                 }
             }
-
         }
     }//GEN-LAST:event_ModifierAdresseActionPerformed
 

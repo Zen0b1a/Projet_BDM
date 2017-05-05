@@ -271,6 +271,11 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
             try
             {
                 numBadge = Integer.parseInt(badge);
+                if(numBadge<0)
+                {
+                    valide = false;
+                    jop.showMessageDialog(null, "Le numéro de badge doit être un nombre positif.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                }
             }
             catch(NumberFormatException e)
             {
@@ -284,6 +289,11 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
             try
             {
                 numRue = Integer.parseInt(numeroRue);
+                if(numRue<0)
+                {
+                    valide = false;
+                    jop.showMessageDialog(null, "Le numéro de rue doit être un nombre positif.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                }
             }
             catch(NumberFormatException e)
             {
@@ -296,8 +306,8 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
         {
             try
             {
-                Integer.parseInt(telephone1);
-                Integer.parseInt(telephone2);
+                Long.parseLong(telephone1);
+                Long.parseLong(telephone2);
             }
             catch(NumberFormatException e)
             {

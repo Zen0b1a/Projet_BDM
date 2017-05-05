@@ -105,7 +105,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -177,8 +178,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         ModifierAdresse.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierAdresse.setText("Modifier");
-        ModifierAdresse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierAdresse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierAdresseActionPerformed(evt);
             }
         });
@@ -253,8 +256,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         ModifierTelephone1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone1.setText("Modifier");
         ModifierTelephone1.setPreferredSize(new java.awt.Dimension(121, 40));
-        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone1ActionPerformed(evt);
             }
         });
@@ -274,8 +279,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
 
         ModifierTelephone2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone2.setText("Modifier");
-        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone2ActionPerformed(evt);
             }
         });
@@ -286,8 +293,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         SupprimerEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         SupprimerEnqueteur.setText("Supprimer");
         SupprimerEnqueteur.setPreferredSize(new java.awt.Dimension(131, 40));
-        SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        SupprimerEnqueteur.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 SupprimerEnqueteurActionPerformed(evt);
             }
         });
@@ -301,21 +310,17 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
         try 
         {
-            int id = this.id;
-            ConnexionUtils.getInstance().setAutoCommit(false);
             //Supression
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id="+id+"");
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id=?");
+            stmt.setInt(1, this.id);
             stmt.executeQuery();
-            ConnexionUtils.getInstance().commit();
             stmt.close();
-            ConnexionUtils.getInstance().setAutoCommit(true);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setVisible(false);
-        
+        this.setVisible(false);      
     }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
@@ -342,12 +347,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                 catch(NumberFormatException e)
                 {
                     mes="Veuillez rentrer un numéro de téléphone valide";
-                    valide=false;
-                    
+                    valide=false;  
                 }
                 if(valide && Long.parseLong(telephone2)>=0)
-                {
-                    
+                {  
                     try {
                         String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
                         CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
@@ -360,14 +363,14 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                         stmt.close();
                         ConnexionUtils.getInstance().setAutoCommit(true);
                         Telephone2.setText(telephone2);
-                        continuer=false;                } 
+                        continuer=false;
+                    } 
                     catch (SQLException ex) 
                     {
                         Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } 
-            }
-                          
+            }                
         }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
@@ -395,12 +398,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                 catch(NumberFormatException e)
                 {
                     mes="Veuillez entrer un numéro de téléphone valide";
-                    valide=false;
-                    
+                    valide=false;   
                 }
                 if(valide && Long.parseLong(telephone1)>=0)
                 {
-                    
                     try {
                         String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
                         CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
@@ -419,8 +420,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                         Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } 
-            }
-                          
+            }                   
         }
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
@@ -436,14 +436,13 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jp.setLayout(new GridLayout(3,3));
         jp.add(new JLabel("Numero :"));
         jp.add(num);
-        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Rue :"));
         jp.add(rue);
-        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Ville :"));
         jp.add(ville);
         JOptionPane jop = new JOptionPane();
         int adresse;
+        int numeroRue;
         //Vérification adresse
         boolean continuer = true;
         boolean valide = true;
@@ -451,7 +450,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         while(continuer)
         {
             adresse = jop.showConfirmDialog(null, jp, mes, JOptionPane.OK_CANCEL_OPTION);
-            if(adresse==JOptionPane.CANCEL_OPTION)
+            if(adresse==JOptionPane.CANCEL_OPTION || adresse==JOptionPane.CLOSED_OPTION)
             {
                 continuer=false;
             }
@@ -464,18 +463,20 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             {
                 
                 try{
-                    Integer.parseInt(num.getText());
-                    valide=true;
+                    numeroRue = Integer.parseInt(num.getText());
+                    if(numeroRue<0)
+                    {
+                        mes="Veuillez entrer un numéro valide";
+                        valide=false;
+                    }
                 }
                 catch(NumberFormatException e)
                 {
                     mes="Veuillez entrer un numéro valide";
-                    valide=false;
-                    
+                    valide=false;      
                 }
-                if(valide && Integer.parseInt(num.getText())>=0)
-                {
-                    
+                if(valide)
+                { 
                     try {
                         String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
                         CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
@@ -495,11 +496,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                                   
-
                 } 
-            }
-                          
+            }                      
         }
     }//GEN-LAST:event_ModifierAdresseActionPerformed
 
