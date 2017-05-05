@@ -148,7 +148,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
 
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.setPreferredSize(new java.awt.Dimension(109, 40));
+        Ajouter.setPreferredSize(new java.awt.Dimension(109, 50));
         Ajouter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
@@ -189,7 +189,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         );
         EnqueteursLayout.setVerticalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 121, Short.MAX_VALUE)
+            .addGap(0, 119, Short.MAX_VALUE)
         );
 
         jPanel2.add(Enqueteurs);

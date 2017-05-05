@@ -138,6 +138,8 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
 
+        setTitle("Personne");
+
         jPanel1.setBackground(new java.awt.Color(230, 215, 184));
         jPanel1.setPreferredSize(new java.awt.Dimension(500, 280));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
