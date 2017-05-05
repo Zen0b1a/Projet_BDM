@@ -111,6 +111,13 @@ public class DlgPersonnes extends javax.swing.JFrame {
         PanelPersonnes = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(792, 500));
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
@@ -149,6 +156,12 @@ public class DlgPersonnes extends javax.swing.JFrame {
         DlgAjoutPersonne dlgAjoutPersonne = new DlgAjoutPersonne();
         dlgAjoutPersonne.setVisible(true);
     }//GEN-LAST:event_AjouterActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        this.initialiserPersonnes();
+        this.setSize(this.getWidth()+1, this.getHeight()+1);
+        this.setSize(this.getWidth()-1, this.getHeight()-1);
+    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments

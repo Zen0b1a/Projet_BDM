@@ -716,8 +716,55 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
     private void AjoutSuspectActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutSuspectActionPerformed
     {//GEN-HEADEREND:event_AjoutSuspectActionPerformed
-        // TODO add your handling code here:
-        //Interface avec choix d'une personne, comparaison d'images ?
+        try
+        {
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT COUNT(*) FROM bdm_personne "
+                    + "WHERE id NOT IN(SELECT DEREF(personneS).id FROM bdm_suspect WHERE DEREF(enqueteS).id=?)");
+            stmt.setInt(1, this.id);
+            OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+            rs.next();
+            int nbPersonnes = rs.getInt(1);
+            String[] personnes = new String[nbPersonnes];
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom FROM bdm_personne "
+                    + "WHERE id NOT IN(SELECT DEREF(personneS).id FROM bdm_suspect WHERE DEREF(enqueteS).id=?) ORDER BY id");
+            stmt.setInt(1, this.id);
+            rs = (OracleResultSet)stmt.executeQuery();
+            int i=0;
+            while(rs.next())
+            {
+                personnes[i] = rs.getInt("ID")+" - "+rs.getString("PRENOM")+" "+rs.getString("NOM");
+                i++;
+            }
+            //JOptionPane de choix d'une personne
+            JComboBox combo = new JComboBox(personnes);
+            String[] options = { "Ajouter", "Annuler" };
+            int selection = JOptionPane.showOptionDialog(null, combo, "Ajouter un suspect", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
+
+            //Récupération de la sélection
+            if(selection<=0) 
+            {
+                if(combo.getSelectedIndex()>=0)
+                {
+                    String personne = combo.getSelectedItem().toString();
+                    int idPersonne = Integer.parseInt(personne.split(" - ")[0]);
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT MAX(id) FROM bdm_suspect");
+                    rs = (OracleResultSet)stmt.executeQuery();
+                    rs.next();
+                    int idSuspect = rs.getInt(1)+1;
+                    stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_suspect VALUES"
+                            + "(?,'','non defini',(SELECT REF(p) FROM bdm_personne p WHERE p.id=?), (SELECT REF(e) FROM bdm_enquete e WHERE e.id=?))");
+                    stmt.setInt(1, idSuspect);
+                    stmt.setInt(2, idPersonne);
+                    stmt.setInt(3, this.id);
+                    stmt.executeQuery();
+                }
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException ex)
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_AjoutSuspectActionPerformed
 
     private void AjoutPreuveActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPreuveActionPerformed
