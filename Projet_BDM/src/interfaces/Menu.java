@@ -33,7 +33,7 @@ public class Menu extends javax.swing.JFrame {
         Enqueteurs = new javax.swing.JButton();
         Enquetes = new javax.swing.JButton();
         AjoutCrime = new javax.swing.JButton();
-        AjoutPersonne = new javax.swing.JButton();
+        VoirPersonnes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU");
@@ -75,14 +75,14 @@ public class Menu extends javax.swing.JFrame {
         });
         getContentPane().add(AjoutCrime);
 
-        AjoutPersonne.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        AjoutPersonne.setText("Ajouter une personne");
-        AjoutPersonne.addActionListener(new java.awt.event.ActionListener() {
+        VoirPersonnes.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        VoirPersonnes.setText("Voir les personnes");
+        VoirPersonnes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AjoutPersonneActionPerformed(evt);
+                VoirPersonnesActionPerformed(evt);
             }
         });
-        getContentPane().add(AjoutPersonne);
+        getContentPane().add(VoirPersonnes);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -106,7 +106,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
-        File path = new File("temp/");
+        File path = new File("temp/enqueteur/");
         if(path.exists())
         {
             File[] files = path.listFiles();
@@ -157,13 +157,26 @@ public class Menu extends javax.swing.JFrame {
         }
         else
             path.mkdir();
+        //Personnes
+        path = new File("temp/personne/");
+        if(path.exists())
+        {
+            File[] files = path.listFiles();
+            if(files!=null)
+            {
+                for(int i=0; i<files.length; i++)
+                    files[i].delete();
+            }
+        }
+        else
+            path.mkdir();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void AjoutPersonneActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutPersonneActionPerformed
-    {//GEN-HEADEREND:event_AjoutPersonneActionPerformed
-        DlgAjoutPersonne dlg = new DlgAjoutPersonne();
+    private void VoirPersonnesActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_VoirPersonnesActionPerformed
+    {//GEN-HEADEREND:event_VoirPersonnesActionPerformed
+        DlgPersonnes dlg = new DlgPersonnes();
         dlg.setVisible(true);
-    }//GEN-LAST:event_AjoutPersonneActionPerformed
+    }//GEN-LAST:event_VoirPersonnesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,8 +215,8 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AjoutCrime;
-    private javax.swing.JButton AjoutPersonne;
     private javax.swing.JButton Enquetes;
     private javax.swing.JButton Enqueteurs;
+    private javax.swing.JButton VoirPersonnes;
     // End of variables declaration//GEN-END:variables
 }

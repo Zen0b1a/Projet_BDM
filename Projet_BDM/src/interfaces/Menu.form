@@ -69,15 +69,15 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutCrimeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="AjoutPersonne">
+    <Component class="javax.swing.JButton" name="VoirPersonnes">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Courier New" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Ajouter une personne"/>
+        <Property name="text" type="java.lang.String" value="Voir les personnes"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AjoutPersonneActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VoirPersonnesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

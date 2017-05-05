@@ -5,13 +5,17 @@
  */
 package interfaces;
 
-import java.awt.*;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
-import oracle.jdbc.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import oracle.jdbc.OraclePreparedStatement;
+import oracle.jdbc.OracleResultSet;
 import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
@@ -19,31 +23,31 @@ import utils.ConnexionUtils;
  *
  * @author ag092850
  */
-public class DlgEnqueteurs extends javax.swing.JFrame {
+public class DlgPersonnes extends javax.swing.JFrame {
 
     /**
-     * Creates new form DlgEnqueteurs
+     * Creates new form DlgPersonnes
      */
-    public DlgEnqueteurs() {
+    public DlgPersonnes() {
         initComponents();
-        this.initialiserEnqueteurs();
+        this.initialiserPersonnes();
     }
 
-    private void initialiserEnqueteurs()
+    private void initialiserPersonnes()
     {
-        int nbEnqueteurs;
+        int nbPersonnes;
         try 
         {
             //Initialisation du nombre d'enquêteurs
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT COUNT(*) FROM bdm_enqueteur");
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT COUNT(*) FROM bdm_personne");
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             rs.next();
-            nbEnqueteurs = rs.getInt(1);
-            this.NbEnqueteurs.setText(""+nbEnqueteurs);
+            nbPersonnes = rs.getInt(1);
+            this.NbPersonnes.setText(""+nbPersonnes);
             //Création de l'interface
-            this.PanelEnqueteurs.removeAll();
-            this.PanelEnqueteurs.setLayout(new GridLayout((int)Math.ceil(nbEnqueteurs/5), 5));
-            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, badge, photo FROM bdm_enqueteur ORDER BY id");
+            this.PanelPersonnes.removeAll();
+            this.PanelPersonnes.setLayout(new GridLayout((int)Math.ceil(nbPersonnes/5), 5));
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, nom, prenom, photo FROM bdm_personne ORDER BY id");
             rs = (OracleResultSet)stmt.executeQuery();
             int idEnqueteur;
             Font fonte = new Font("Courier",Font.PLAIN,18);
@@ -55,11 +59,11 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 button.setName(""+idEnqueteur);
                 //Ajout des informations dans le bouton
                 OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-                String fichier = "temp/enqueteur/"+idEnqueteur;
+                String fichier = "temp/personne/"+idEnqueteur;
                 img.getDataInFile(fichier);
                 button.setIcon(new ImageIcon(fichier));
                 button.setFont(fonte);
-                button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
+                button.setText("<HTML><body>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 
@@ -67,11 +71,11 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 button.addActionListener(new java.awt.event.ActionListener() 
                 {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        afficherEnqueteur(evt);
+                        afficherPersonne(evt);
                     }
                 });
                 
-                this.PanelEnqueteurs.add(button);
+                this.PanelPersonnes.add(button);
             }
             rs.close();
             stmt.close();
@@ -82,13 +86,14 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
         }
     }
     
-    private void afficherEnqueteur(java.awt.event.ActionEvent evt)
+    private void afficherPersonne(java.awt.event.ActionEvent evt)
     {
         JButton jb = (JButton)evt.getSource();
         int id = Integer.parseInt(jb.getName());
-        DlgAfficheEnqueteur dlg = new DlgAfficheEnqueteur(id);
+        //DlgAffichePersonne dlg = new DlgAffichePersonne(id);
         dlg.setVisible(true);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -100,30 +105,22 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        NbEnqueteurs = new javax.swing.JLabel();
+        NbPersonnes = new javax.swing.JLabel();
         Ajouter = new javax.swing.JButton();
         jScrollPane = new javax.swing.JScrollPane();
-        PanelEnqueteurs = new javax.swing.JPanel();
+        PanelPersonnes = new javax.swing.JPanel();
 
-        setTitle("Liste des enquêteurs");
-        setMinimumSize(new java.awt.Dimension(500, 500));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel1.setText("Nombre d'enquêteurs :   ");
+        jLabel1.setText("Nombre de personnes :   ");
         jPanel1.add(jLabel1);
 
-        NbEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        jPanel1.add(NbEnqueteurs);
+        NbPersonnes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
+        jPanel1.add(NbPersonnes);
 
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
@@ -139,9 +136,9 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
         jScrollPane.setBackground(new java.awt.Color(226, 220, 207));
 
-        PanelEnqueteurs.setBackground(new java.awt.Color(226, 220, 207));
-        PanelEnqueteurs.setLayout(new java.awt.GridLayout(1, 0));
-        jScrollPane.setViewportView(PanelEnqueteurs);
+        PanelPersonnes.setBackground(new java.awt.Color(226, 220, 207));
+        PanelPersonnes.setLayout(new java.awt.GridLayout());
+        jScrollPane.setViewportView(PanelPersonnes);
 
         getContentPane().add(jScrollPane, java.awt.BorderLayout.CENTER);
 
@@ -149,16 +146,9 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AjouterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterActionPerformed
-        DlgAjoutEnqueteur dlgAjoutEnqueteur = new DlgAjoutEnqueteur();
-        dlgAjoutEnqueteur.setVisible(true);
+        DlgAjoutPersonne dlgAjoutPersonne = new DlgAjoutPersonne();
+        dlgAjoutPersonne.setVisible(true);
     }//GEN-LAST:event_AjouterActionPerformed
-
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
-    {//GEN-HEADEREND:event_formWindowGainedFocus
-        this.initialiserEnqueteurs();
-        this.setSize(this.getWidth()+1, this.getHeight()+1);
-        this.setSize(this.getWidth()-1, this.getHeight()-1);
-    }//GEN-LAST:event_formWindowGainedFocus
 
     /**
      * @param args the command line arguments
@@ -177,28 +167,28 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgEnqueteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgPersonnes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgEnqueteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgPersonnes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgEnqueteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgPersonnes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgEnqueteurs.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgPersonnes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DlgEnqueteurs().setVisible(true);
+                new DlgPersonnes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Ajouter;
-    private javax.swing.JLabel NbEnqueteurs;
-    private javax.swing.JPanel PanelEnqueteurs;
+    private javax.swing.JLabel NbPersonnes;
+    private javax.swing.JPanel PanelPersonnes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane;

@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -63,6 +64,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
             this.image = this.preuves.get(this.indice);
             this.Description.setText(this.descriptions.get(this.indice));
             afficheImage();
+            this.repaint();
             rs.close();
             stmt.close();
         } 
@@ -74,8 +76,18 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     
     private void afficheImage()
     {
-        Graphics g = this.Image.getGraphics();
-        g.drawImage(this.image, 0, 0, this.Image.getWidth(), this.Image.getHeight(), this);
+        Graphics2D g = (Graphics2D)this.Image.getGraphics();
+        Double scaleWidth = this.Image.getWidth()/new Double(this.image.getWidth(null));
+	Double scaleHeight = this.Image.getHeight()/new Double(this.image.getHeight(null));
+        if (scaleWidth>scaleHeight)
+            scaleWidth = scaleHeight;
+        else
+            scaleHeight = scaleWidth;
+        int x = (int)((this.Image.getWidth() - (this.image.getWidth(null)*scaleWidth)) / 2);
+        int y = (int)((this.Image.getHeight() - (this.image.getHeight(null)*scaleHeight)) / 2);
+        g.translate(x, y);
+        g.scale(scaleWidth, scaleHeight);
+        g.drawImage(this.image, 0, 0, null);
     }
     
     public void paint(Graphics g)

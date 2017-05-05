@@ -18,7 +18,7 @@ CREATE TABLE bdm_enqueteur OF bdm_enqueteur_type
 
 CREATE TABLE bdm_enquete OF bdm_enquete_type
 (PRIMARY KEY(id),
-CHECK(etat IN ('en-cours', 'résolue')))
+CHECK(etat IN ('en-cours', 'resolue')))
 NESTED TABLE crimes STORE AS tab_crimes,
 NESTED TABLE preuves STORE AS tab_preuves;
 
@@ -40,7 +40,7 @@ enqueteC SCOPE IS bdm_enquete);
 
 CREATE TABLE bdm_suspect OF bdm_suspect_type
 (PRIMARY KEY(id),
-CHECK(etat IN ('coupable', 'disculpé', 'non défini')),
+CHECK(etat IN ('coupable', 'disculpe', 'non defini')),
 personneS SCOPE IS bdm_personne,
 enqueteS SCOPE IS bdm_enquete);
 

@@ -9,11 +9,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Box;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,7 +61,7 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             this.Telephone2.setText(((STRUCT)tel[1]).getAttributes()[0].toString());
             //Récupération de la photo
             OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
-            String fichier = "temp/"+this.id;
+            String fichier = "temp/enqueteur/"+this.id;
             img.getDataInFile(fichier);
             this.photo = this.Photo.getToolkit().getImage(fichier);
             affichePhoto();
@@ -78,8 +76,18 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     
     private void affichePhoto()
     {
-        Graphics g = this.Photo.getGraphics();
-        g.drawImage(this.photo, 0, 0, this.Photo.getWidth(), this.Photo.getHeight(), this);
+        Graphics2D g = (Graphics2D)this.Photo.getGraphics();
+        Double scaleWidth = this.Photo.getWidth()/new Double(this.photo.getWidth(null));
+	Double scaleHeight = this.Photo.getHeight()/new Double(this.photo.getHeight(null));
+        if (scaleWidth>scaleHeight)
+            scaleWidth = scaleHeight;
+        else
+            scaleHeight = scaleWidth;
+        int x = (int)((this.Photo.getWidth() - (this.photo.getWidth(null)*scaleWidth)) / 2);
+        int y = (int)((this.Photo.getHeight() - (this.photo.getHeight(null)*scaleHeight)) / 2);
+        g.translate(x, y);
+        g.scale(scaleWidth, scaleHeight);
+        g.drawImage(this.photo, 0, 0, null);
     }
     
     public void paint(Graphics g)

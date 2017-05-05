@@ -8,6 +8,7 @@ package interfaces;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -20,6 +21,7 @@ import javax.swing.JSlider;
 import javax.swing.JTextField;
 import oracle.jdbc.OraclePreparedStatement;
 import oracle.jdbc.OracleResultSet;
+import oracle.ord.im.OrdImage;
 import utils.ConnexionUtils;
 
 /**
@@ -30,6 +32,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private int idPr;
     private Image imagePreuve;
     private Image imagePersonne;
+    private int indice;
     private List<Pair<Integer, Double>> resultat; //élément 1 : id, élément 2 : score
     /**
      * Creates new form DlgComparaisonImages
@@ -39,14 +42,59 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         this.idPr = idPr;
         this.imagePreuve = imagePreuve;
         this.resultat = new ArrayList<>();
+        this.indice = 0;
+        this.Invisible.setVisible(false);
     }
-
+    
+    private void choixImagePersonne()
+    {
+        if(this.resultat.size()>0)
+        {
+            try 
+            {
+                OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT photo FROM bdm_personne WHERE id=?");
+                stmt.setInt(1, this.resultat.get(this.indice).getKey());
+                OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
+                rs.next();
+                //Récupération de la photo
+                OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
+                String fichier = "temp/personne/"+this.resultat.get(this.indice).getKey();
+                img.getDataInFile(fichier);
+                this.imagePersonne = this.ImagePersonne.getToolkit().getImage(fichier);
+                afficheImagePersonne();
+                rs.close();
+                stmt.close();
+                this.Score.setText(""+(100-this.resultat.get(this.indice).getValue()));
+            } 
+            catch (SQLException | IOException ex) 
+            {
+                Logger.getLogger(DlgComparaisonImages.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
     private void trierResultat()
     {
-        for(int i=0; i<this.resultat.size(); i++)
+        List<Pair<Integer, Double>> temp = new ArrayList<>();
+        int taille = this.resultat.size();
+        double max;
+        int indiceMax;
+        for(int i=0; i<taille; i++)
         {
-            
+            max = this.resultat.get(0).getValue();
+            indiceMax = 0;
+            for(int j=1; j<this.resultat.size(); j++)
+            {
+                if(this.resultat.get(j).getValue()>max)
+                {
+                    max = this.resultat.get(j).getValue();
+                    indiceMax = j;
+                }
+            }
+            temp.add(this.resultat.get(indiceMax));
+            this.resultat.remove(indiceMax);
         }
+        this.resultat = temp;
     }
     
     private void afficheImagePreuve()
@@ -99,7 +147,14 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         CompareImage = new javax.swing.JButton();
+        Invisible = new javax.swing.JPanel();
+        Precedent = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        Score = new javax.swing.JLabel();
+        Suivant = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         ImagePreuve = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -121,29 +176,59 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         PondTextureJTF = new javax.swing.JTextField();
         ImagePersonne = new javax.swing.JPanel();
 
+        jPanel1.setLayout(new java.awt.GridLayout(1, 3));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 622, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel3);
+
         CompareImage.setText("Chercher une correspondance dans les personnes");
         CompareImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CompareImageActionPerformed(evt);
             }
         });
+        jPanel1.add(CompareImage);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(608, Short.MAX_VALUE)
-                .addComponent(CompareImage)
-                .addGap(866, 866, 866))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(CompareImage)
-                .addGap(33, 33, 33))
-        );
+        Invisible.setLayout(new java.awt.GridLayout());
+
+        Precedent.setText("<");
+        Precedent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PrecedentActionPerformed(evt);
+            }
+        });
+        Invisible.add(Precedent);
+
+        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Taux de similarité :");
+        jPanel6.add(jLabel9);
+
+        Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel6.add(Score);
+
+        Invisible.add(jPanel6);
+
+        Suivant.setText(">");
+        Suivant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SuivantActionPerformed(evt);
+            }
+        });
+        Invisible.add(Suivant);
+
+        jPanel1.add(Invisible);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -383,15 +468,37 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
                 score = cstmt.getDouble(1);
                 this.resultat.add(new Pair(idPe, score));
             }
+            this.trierResultat();
             cstmt.close();
             rs.close();
             stmt.close();
+            this.indice = 0;
+            if(this.resultat.size()>0)
+            {
+                this.Invisible.setVisible(true);
+                this.choixImagePersonne();
+                this.repaint();
+            }
+            else
+                this.Invisible.setVisible(false);
         } 
         catch (SQLException ex) 
         {
             Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_CompareImageActionPerformed
+
+    private void PrecedentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecedentActionPerformed
+        this.indice = (this.indice-1)%this.resultat.size();
+        if(this.indice<0)
+            this.indice = -this.indice;
+        this.choixImagePersonne();
+    }//GEN-LAST:event_PrecedentActionPerformed
+
+    private void SuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuivantActionPerformed
+        this.indice = (this.indice+1)%this.resultat.size();
+        this.choixImagePersonne();
+    }//GEN-LAST:event_SuivantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -426,6 +533,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private javax.swing.JButton CompareImage;
     private javax.swing.JPanel ImagePersonne;
     private javax.swing.JPanel ImagePreuve;
+    private javax.swing.JPanel Invisible;
     private javax.swing.JTextField PondAvgColorJTF;
     private javax.swing.JSlider PondAvgColorS;
     private javax.swing.JTextField PondColorHistoJTF;
@@ -434,6 +542,9 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private javax.swing.JSlider PondPosColorS;
     private javax.swing.JTextField PondTextureJTF;
     private javax.swing.JSlider PondTextureS;
+    private javax.swing.JButton Precedent;
+    private javax.swing.JLabel Score;
+    private javax.swing.JButton Suivant;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -442,8 +553,11 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     // End of variables declaration//GEN-END:variables
 }
