@@ -310,95 +310,108 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     }//GEN-LAST:event_SupprimerEnqueteurActionPerformed
 
     private void ModifierTelephone2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone2ActionPerformed
-        //JTextField modification du numéro de téléphone 2
+        //Modification du numéro de téléphone 2
         JOptionPane jop = new JOptionPane();
-        String telephone2 = JOptionPane.showInputDialog(null, "Modifier Téléphone 2 : ", "Modifier", JOptionPane.DEFAULT_OPTION);
+        String telephone2;
         //Vérification numéro
+        boolean continuer = true;
         boolean valide = true;
-        if(valide)
+        String mes = "Modifier Téléphone 2 : ";
+        while(continuer)
         {
-            try
+            telephone2 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
+            if(telephone2==null)
             {
-                Long.parseLong(telephone2);
+                continuer=false;
             }
-            catch(NumberFormatException e)
+            else if(!telephone2.equals(""))
             {
-                valide = false;
-                jop.showMessageDialog(null, "Le numéro de téléphone doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                try{
+                    Long.parseLong(telephone2);
+                    valide=true;
+                }
+                catch(NumberFormatException e)
+                {
+                    mes="Veuillez rentrer un numéro de téléphone valide";
+                    valide=false;
+                    
+                }
+                if(valide && Long.parseLong(telephone2)>=0)
+                {
+                    
+                    try {
+                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                        ConnexionUtils.getInstance().setAutoCommit(false);
+                        stmt.setInt(1, this.id);
+                        stmt.setInt(2, 2);
+                        stmt.setString(3, telephone2);
+                        stmt.execute();
+                        ConnexionUtils.getInstance().commit();
+                        stmt.close();
+                        ConnexionUtils.getInstance().setAutoCommit(true);
+                        Telephone2.setText(telephone2);
+                        continuer=false;                } 
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } 
             }
-        } 
-        if(valide)
-        {
-            try {
-                String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                ConnexionUtils.getInstance().setAutoCommit(false);
-                stmt.setInt(1, this.id);
-                stmt.setInt(2, 1);
-                stmt.setString(3, telephone2);
-                stmt.execute();
-                ConnexionUtils.getInstance().commit();
-                stmt.close();
-                ConnexionUtils.getInstance().setAutoCommit(true);
-                Telephone2.setText(telephone2);
-            } catch (SQLException ex) {
-                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                          
         }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
     private void ModifierTelephone1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierTelephone1ActionPerformed
-        //JTextField modification du numéro de téléphone 1
+        //Modification du numéro de téléphone 1
         JOptionPane jop = new JOptionPane();
-        String telephone1 = JOptionPane.showInputDialog(null, "Modifier Téléphone 1 : ", "Modifier", JOptionPane.DEFAULT_OPTION);
+        String telephone1;
         //Vérification numéro
+        boolean continuer = true;
         boolean valide = true;
-        if(valide)
+        String mes = "Modifier Téléphone 1 : ";
+        while(continuer)
         {
-            try
+            telephone1 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
+            if(telephone1==null)
             {
-               Long.parseLong(telephone1);
-               if(telephone1==null)
-               {
-                   valide = false;
-                    System.out.println("false");
-               }
+                continuer=false;
             }
-            catch(NumberFormatException e)
+            else if(!telephone1.equals(""))
             {
-                valide = false;
-                jop.showMessageDialog(null, "Veuillez entrer un numéro de téléphone", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                try{
+                    Long.parseLong(telephone1);
+                    valide=true;
+                }
+                catch(NumberFormatException e)
+                {
+                    mes="Veuillez entrer un numéro de téléphone valide";
+                    valide=false;
+                    
+                }
+                if(valide && Long.parseLong(telephone1)>=0)
+                {
+                    
+                    try {
+                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                        ConnexionUtils.getInstance().setAutoCommit(false);
+                        stmt.setInt(1, this.id);
+                        stmt.setInt(2, 1);
+                        stmt.setString(3, telephone1);
+                        stmt.execute();
+                        ConnexionUtils.getInstance().commit();
+                        stmt.close();
+                        ConnexionUtils.getInstance().setAutoCommit(true);
+                        Telephone1.setText(telephone1);
+                        continuer=false;                } 
+                    catch (SQLException ex) 
+                    {
+                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } 
             }
-        }
-        if(valide)
-        {
-            try
-            {
-                Long.parseLong(telephone1);
-            }
-            catch(NumberFormatException e)
-            {
-                valide = false;
-                jop.showMessageDialog(null, "Le numéro de téléphone doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
-            }
-        } 
-        if(valide)
-        {
-            try {
-                String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                ConnexionUtils.getInstance().setAutoCommit(false);
-                stmt.setInt(1, this.id);
-                stmt.setInt(2, 1);
-                stmt.setString(3, telephone1);
-                stmt.execute();
-                ConnexionUtils.getInstance().commit();
-                stmt.close();
-                ConnexionUtils.getInstance().setAutoCommit(true);
-                Telephone1.setText(telephone1);
-            } catch (SQLException ex) {
-                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                          
         }
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
@@ -414,67 +427,71 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         jp.setLayout(new GridLayout(3,3));
         jp.add(new JLabel("Numero :"));
         jp.add(num);
-        //jp.add(Box.createHorizontalStrut(15)); // a spacer
+        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Rue :"));
         jp.add(rue);
-      //  jp.add(Box.createHorizontalStrut(15)); // a spacer
+        jp.add(Box.createHorizontalStrut(15)); // a spacer
         jp.add(new JLabel("Ville :"));
         jp.add(ville);
-
-        int result = JOptionPane.showConfirmDialog(null, jp, "Modifier l'adresse : ", JOptionPane.DEFAULT_OPTION);
         JOptionPane jop = new JOptionPane();
-        //Vérification numéro
+        int adresse;
+        //Vérification adresse
+        boolean continuer = true;
         boolean valide = true;
-        if(valide)
+        String mes = "Modifier adresse: ";
+        while(continuer)
         {
-            try
+            adresse = jop.showConfirmDialog(null, jp, mes, JOptionPane.OK_CANCEL_OPTION);
+            if(adresse==JOptionPane.CANCEL_OPTION)
             {
-               if(num==null || rue==null || ville==null)
-               {
-                   valide = false;
-               }
+                continuer=false;
             }
-            catch(NumberFormatException e)
+            else if(num.getText().equals("") || rue.getText().equals("") || ville.getText().equals(""))
             {
-                valide = false;
-                jop.showMessageDialog(null, "Veuillez entrer toutes les coordonées", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
+                mes="Veuillez entrer une adresse valide";
+                valide=false;
             }
+            else 
+            {
+                
+                try{
+                    Integer.parseInt(num.getText());
+                    valide=true;
+                }
+                catch(NumberFormatException e)
+                {
+                    mes="Veuillez entrer un numéro valide";
+                    valide=false;
+                    
+                }
+                if(valide && Integer.parseInt(num.getText())>=0)
+                {
+                    
+                    try {
+                        String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
+                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                        ConnexionUtils.getInstance().setAutoCommit(false);
+                        stmt.setInt(1, this.id);
+                        stmt.setInt(2, Integer.parseInt(num.getText()));
+                        stmt.setString(3, rue.getText());
+                        stmt.setString(4, ville.getText());
+                        stmt.execute();
+                        ConnexionUtils.getInstance().commit();
+                        stmt.close();
+                        ConnexionUtils.getInstance().setAutoCommit(true);
+                        NumeroRue.setText(num.getText());
+                        NomRue.setText(rue.getText());
+                        Ville.setText(ville.getText());
+                        continuer=false; 
+                    } catch (SQLException ex) {
+                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                                   
+
+                } 
+            }
+                          
         }
-        if(valide)
-        {
-            try
-            {
-                Integer.parseInt(num.getText());
-            }
-            catch(NumberFormatException e)
-            {
-                valide = false;
-                jop.showMessageDialog(null, "Le numéro de rue doit être un nombre.", "Ajout invalide", JOptionPane.INFORMATION_MESSAGE, null);
-            }
-        } 
-        if(valide)
-        {
-          /*  try {
-               // String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
-                CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                ConnexionUtils.getInstance().setAutoCommit(false);
-                stmt.setInt(1, this.id);
-                stmt.setInt(2, Integer.parseInt(num.getText()));
-                stmt.setString(3, rue.getText());
-                stmt.setString(4, ville.getText());
-                stmt.execute();
-                ConnexionUtils.getInstance().commit();
-                stmt.close();
-                ConnexionUtils.getInstance().setAutoCommit(true);
-                NumeroRue.setText(num.getText());
-                NomRue.setText(rue.getText());
-                Ville.setText(ville.getText());
-            } catch (SQLException ex) {
-                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
-            }*/
-            System.out.println(""+num.getText()+" "+rue.getText()+" "+ville.getText());
-        }
-        System.out.println(""+num.getText()+" "+rue.getText()+" "+ville.getText());
     }//GEN-LAST:event_ModifierAdresseActionPerformed
 
     /**
