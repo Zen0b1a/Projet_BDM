@@ -110,6 +110,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
         jScrollPane = new javax.swing.JScrollPane();
         PanelPersonnes = new javax.swing.JPanel();
 
+        setTitle("Liste des personnes");
         setPreferredSize(new java.awt.Dimension(792, 500));
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {

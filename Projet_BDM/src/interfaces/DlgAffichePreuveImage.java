@@ -117,6 +117,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Description = new javax.swing.JTextArea();
 
+        setTitle("Preuve image");
+
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 

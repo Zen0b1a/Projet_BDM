@@ -72,12 +72,13 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
         Personne.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jPanel1.add(Personne);
 
-        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("le");
+        jLabel2.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setText("Le ");
         jPanel1.add(jLabel2);
 
-        DateT.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        DateT.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        DateT.setPreferredSize(new java.awt.Dimension(200, 0));
         jPanel1.add(DateT);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
