@@ -123,10 +123,12 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         Annuler = new javax.swing.JButton();
         Ajouter = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Nom = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Enqueteurs = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
         ListeEnqueteurs = new javax.swing.JComboBox();
         AjoutEnqueteur = new javax.swing.JButton();
 
@@ -157,15 +159,20 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
         jPanel2.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel2.setLayout(new java.awt.GridLayout(3, 2));
+        jPanel2.setLayout(new java.awt.GridLayout(4, 1));
+
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nom :");
         jLabel1.setPreferredSize(new java.awt.Dimension(300, 21));
-        jPanel2.add(jLabel1);
+        jPanel3.add(jLabel1);
 
         Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        jPanel2.add(Nom);
+        jPanel3.add(Nom);
+
+        jPanel2.add(jPanel3);
 
         jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Enqueteurs :");
@@ -178,18 +185,20 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
         Enqueteurs.setLayout(EnqueteursLayout);
         EnqueteursLayout.setHorizontalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 219, Short.MAX_VALUE)
+            .addGap(0, 442, Short.MAX_VALUE)
         );
         EnqueteursLayout.setVerticalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 86, Short.MAX_VALUE)
+            .addGap(0, 121, Short.MAX_VALUE)
         );
 
         jPanel2.add(Enqueteurs);
 
+        jPanel4.setLayout(new java.awt.GridLayout(1, 2));
+
         ListeEnqueteurs.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         ListeEnqueteurs.setPreferredSize(new java.awt.Dimension(150, 27));
-        jPanel2.add(ListeEnqueteurs);
+        jPanel4.add(ListeEnqueteurs);
 
         AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutEnqueteur.setText("Ajouter enquêteur");
@@ -198,7 +207,9 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
                 AjoutEnqueteurActionPerformed(evt);
             }
         });
-        jPanel2.add(AjoutEnqueteur);
+        jPanel4.add(AjoutEnqueteur);
+
+        jPanel2.add(jPanel4);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -335,5 +346,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

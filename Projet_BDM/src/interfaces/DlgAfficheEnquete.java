@@ -8,6 +8,7 @@ package interfaces;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +50,19 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             rs.next();
             //Récupération des informations de l'enquête
             this.Nom.setText(rs.getString("NOM"));
-            this.Etat.setText(rs.getString("ETAT"));
+            if (rs.getString("ETAT").equals("en-cours"))
+            {
+                encours.setSelected(true);
+            }
+            else
+            {
+                resolue.setSelected(true);
+                AjoutSuspect.setEnabled(false);
+                AjoutPreuve.setEnabled(false);
+                AjoutCrime.setEnabled(false);
+                AjoutEnqueteur.setEnabled(false);
+                
+            }
             rs.close();
             stmt.close();
         } 
@@ -408,14 +421,15 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         Nom = new javax.swing.JLabel();
-        ModifierNom = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        Etat = new javax.swing.JLabel();
-        ModifierEtat = new javax.swing.JButton();
+        encours = new javax.swing.JRadioButton();
+        resolue = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -450,6 +464,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         getContentPane().setLayout(new java.awt.GridLayout(5, 1));
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1000, 120));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
         jPanel4.setBackground(new java.awt.Color(226, 220, 207));
@@ -462,30 +477,49 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel4.add(Nom);
 
-        ModifierNom.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        ModifierNom.setText("Modifier");
-        ModifierNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModifierNomActionPerformed(evt);
-            }
-        });
-        jPanel4.add(ModifierNom);
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setPreferredSize(new java.awt.Dimension(100, 60));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 358, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+
+        jPanel4.add(jPanel2);
 
         jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Etat :");
         jPanel4.add(jLabel3);
 
-        Etat.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
-        jPanel4.add(Etat);
-
-        ModifierEtat.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        ModifierEtat.setText("Modifier");
-        ModifierEtat.addActionListener(new java.awt.event.ActionListener() {
+        encours.setBackground(new java.awt.Color(226, 220, 207));
+        buttonGroup1.add(encours);
+        encours.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        encours.setText("en-cours");
+        encours.setPreferredSize(new java.awt.Dimension(80, 23));
+        encours.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ModifierEtatActionPerformed(evt);
+                encoursActionPerformed(evt);
             }
         });
-        jPanel4.add(ModifierEtat);
+        jPanel4.add(encours);
+
+        resolue.setBackground(new java.awt.Color(226, 220, 207));
+        buttonGroup1.add(resolue);
+        resolue.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        resolue.setText("résolue");
+        resolue.setPreferredSize(new java.awt.Dimension(80, 23));
+        resolue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resolueActionPerformed(evt);
+            }
+        });
+        jPanel4.add(resolue);
 
         jPanel1.add(jPanel4);
 
@@ -501,7 +535,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(jLabel7)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(595, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,13 +571,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel10.add(jPanel11, java.awt.BorderLayout.PAGE_START);
 
         Suspects.setBackground(new java.awt.Color(226, 220, 207));
-        Suspects.setPreferredSize(new java.awt.Dimension(1076, 120));
+        Suspects.setPreferredSize(new java.awt.Dimension(100, 120));
 
         javax.swing.GroupLayout SuspectsLayout = new javax.swing.GroupLayout(Suspects);
         Suspects.setLayout(SuspectsLayout);
         SuspectsLayout.setHorizontalGroup(
             SuspectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGap(0, 2148, Short.MAX_VALUE)
         );
         SuspectsLayout.setVerticalGroup(
             SuspectsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -576,12 +610,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
 
         Preuves.setBackground(new java.awt.Color(226, 220, 207));
+        Preuves.setPreferredSize(new java.awt.Dimension(200, 92));
 
         javax.swing.GroupLayout PreuvesLayout = new javax.swing.GroupLayout(Preuves);
         Preuves.setLayout(PreuvesLayout);
         PreuvesLayout.setHorizontalGroup(
             PreuvesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGap(0, 2148, Short.MAX_VALUE)
         );
         PreuvesLayout.setVerticalGroup(
             PreuvesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -614,12 +649,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel12.add(jPanel13, java.awt.BorderLayout.PAGE_START);
 
         Crimes.setBackground(new java.awt.Color(226, 220, 207));
+        Crimes.setPreferredSize(new java.awt.Dimension(200, 92));
 
         javax.swing.GroupLayout CrimesLayout = new javax.swing.GroupLayout(Crimes);
         Crimes.setLayout(CrimesLayout);
         CrimesLayout.setHorizontalGroup(
             CrimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGap(0, 2148, Short.MAX_VALUE)
         );
         CrimesLayout.setVerticalGroup(
             CrimesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,12 +688,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel6.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
         Enqueteurs.setBackground(new java.awt.Color(226, 220, 207));
+        Enqueteurs.setPreferredSize(new java.awt.Dimension(200, 92));
 
         javax.swing.GroupLayout EnqueteursLayout = new javax.swing.GroupLayout(Enqueteurs);
         Enqueteurs.setLayout(EnqueteursLayout);
         EnqueteursLayout.setHorizontalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1076, Short.MAX_VALUE)
+            .addGap(0, 2148, Short.MAX_VALUE)
         );
         EnqueteursLayout.setVerticalGroup(
             EnqueteursLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,21 +774,56 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         }  
     }//GEN-LAST:event_AjoutEnqueteurActionPerformed
 
-    private void ModifierNomActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ModifierNomActionPerformed
-    {//GEN-HEADEREND:event_ModifierNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ModifierNomActionPerformed
-
-    private void ModifierEtatActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ModifierEtatActionPerformed
-    {//GEN-HEADEREND:event_ModifierEtatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ModifierEtatActionPerformed
-
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         this.initialiserEnquete();
         this.setSize(this.getWidth()+1, this.getHeight()+1);
         this.setSize(this.getWidth()-1, this.getHeight()-1);
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void encoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encoursActionPerformed
+         try 
+        {
+           
+           
+            //Update
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enquete SET etat='en-cours' WHERE id=?");
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+            AjoutSuspect.setEnabled(true);
+            AjoutPreuve.setEnabled(true);
+            AjoutCrime.setEnabled(true);
+            AjoutEnqueteur.setEnabled(true);
+            stmt.close();
+            
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_encoursActionPerformed
+
+    private void resolueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resolueActionPerformed
+        try 
+        {
+           
+           
+            //Update
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("UPDATE bdm_enquete SET etat='resolue' WHERE id=?");
+            stmt.setInt(1,id);
+            stmt.executeUpdate();
+            AjoutSuspect.setEnabled(false);
+            AjoutPreuve.setEnabled(false);
+            AjoutCrime.setEnabled(false);
+            AjoutEnqueteur.setEnabled(false);
+            stmt.close();
+            
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_resolueActionPerformed
 
     /**
      * @param args the command line arguments
@@ -796,12 +868,11 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private javax.swing.JButton AjoutSuspect;
     private javax.swing.JPanel Crimes;
     private javax.swing.JPanel Enqueteurs;
-    private javax.swing.JLabel Etat;
-    private javax.swing.JButton ModifierEtat;
-    private javax.swing.JButton ModifierNom;
     private javax.swing.JLabel Nom;
     private javax.swing.JPanel Preuves;
     private javax.swing.JPanel Suspects;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton encours;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -814,11 +885,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JRadioButton resolue;
     // End of variables declaration//GEN-END:variables
 }
