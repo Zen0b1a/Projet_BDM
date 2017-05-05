@@ -189,7 +189,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 
                 this.Preuves.add(button);
             }
-            //Preuves image
+            //Preuves audio
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve_audio "
                     + "WHERE DEREF(enqueteP).id=? ORDER BY id");
             stmt.setInt(1, this.id);
@@ -216,7 +216,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 
                 this.Preuves.add(button);
             }
-            //Preuves image
+            //Preuves video
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT id, description FROM bdm_preuve_video "
                     + "WHERE DEREF(enqueteP).id=? ORDER BY id");
             stmt.setInt(1, this.id);

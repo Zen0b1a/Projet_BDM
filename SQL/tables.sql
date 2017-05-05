@@ -3,7 +3,6 @@ DROP TABLE bdm_enqueteur CASCADE CONSTRAINTS;
 DROP TABLE bdm_suspect CASCADE CONSTRAINTS;
 DROP TABLE bdm_victime CASCADE CONSTRAINTS;
 DROP TABLE bdm_enquete CASCADE CONSTRAINTS;
-DROP TABLE bdm_preuve CASCADE CONSTRAINTS;
 DROP TABLE bdm_preuve_image CASCADE CONSTRAINTS;
 DROP TABLE bdm_preuve_audio CASCADE CONSTRAINTS;
 DROP TABLE bdm_preuve_video CASCADE CONSTRAINTS;
@@ -31,7 +30,7 @@ CREATE TABLE bdm_preuve_audio OF bdm_preuve_audio_type
 (PRIMARY KEY(id),
 enqueteP SCOPE IS bdm_enquete);
 
-CREATE TABLE bdm_video_image OF bdm_preuve_video_type
+CREATE TABLE bdm_preuve_video OF bdm_preuve_video_type
 (PRIMARY KEY(id),
 enqueteP SCOPE IS bdm_enquete);
 

@@ -5,7 +5,6 @@
  */
 package interfaces;
 
-import java.awt.Toolkit;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -208,6 +207,7 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                     rs.close();
                     stmt.close();
                     ConnexionUtils.getInstance().setAutoCommit(true);
+                    this.setVisible(false);
                 } 
                 catch (SQLException | IOException ex) 
                 {
