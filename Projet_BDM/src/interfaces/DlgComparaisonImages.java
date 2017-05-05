@@ -121,16 +121,9 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         jPanel4.add(PondAvgColorS);
 
         PondAvgColorJTF.setText("1.0");
-        PondAvgColorJTF.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                PondAvgColorJTFInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
         PondAvgColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                PondAvgColorJTFKeyTyped(evt);
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PondAvgColorJTFKeyReleased(evt);
             }
         });
         jPanel4.add(PondAvgColorJTF);
@@ -148,6 +141,11 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         jPanel4.add(PondColorHistoS);
 
         PondColorHistoJTF.setText("1.0");
+        PondColorHistoJTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PondColorHistoJTFKeyReleased(evt);
+            }
+        });
         jPanel4.add(PondColorHistoJTF);
 
         jLabel5.setText("Pondération de la couleur positionnelle :");
@@ -163,6 +161,11 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         jPanel4.add(PondPosColorS);
 
         PondPosColorJTF.setText("1.0");
+        PondPosColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PondPosColorJTFKeyReleased(evt);
+            }
+        });
         jPanel4.add(PondPosColorJTF);
 
         jLabel7.setText("Pondération de la texture :");
@@ -178,6 +181,11 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         jPanel4.add(PondTextureS);
 
         PondTextureJTF.setText("1.0");
+        PondTextureJTF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                PondTextureJTFKeyReleased(evt);
+            }
+        });
         jPanel4.add(PondTextureJTF);
 
         jPanel2.add(jPanel4);
@@ -201,34 +209,38 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void PondAvgColorSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PondAvgColorSStateChanged
-        double valeur = ((JSlider)evt.getSource()).getValue();
-        this.PondAvgColorJTF.setText(""+(valeur/100));
+        if(!this.PondAvgColorJTF.isFocusOwner())
+        {
+            double valeur = ((JSlider)evt.getSource()).getValue();
+            this.PondAvgColorJTF.setText(""+(valeur/100));
+        }
     }//GEN-LAST:event_PondAvgColorSStateChanged
 
     private void PondColorHistoSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PondColorHistoSStateChanged
-        double valeur = ((JSlider)evt.getSource()).getValue();
-        this.PondColorHistoJTF.setText(""+(valeur/100));
+        if(!this.PondColorHistoJTF.isFocusOwner())
+        {
+            double valeur = ((JSlider)evt.getSource()).getValue();
+            this.PondColorHistoJTF.setText(""+(valeur/100));
+        }
     }//GEN-LAST:event_PondColorHistoSStateChanged
 
     private void PondPosColorSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PondPosColorSStateChanged
-        double valeur = ((JSlider)evt.getSource()).getValue();
-        this.PondPosColorJTF.setText(""+(valeur/100));
+        if(!this.PondPosColorJTF.isFocusOwner())
+        {
+            double valeur = ((JSlider)evt.getSource()).getValue();
+            this.PondPosColorJTF.setText(""+(valeur/100));
+        }
     }//GEN-LAST:event_PondPosColorSStateChanged
 
     private void PondTextureSStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_PondTextureSStateChanged
-        double valeur = ((JSlider)evt.getSource()).getValue();
-        this.PondTextureJTF.setText(""+(valeur/100));
+        if(!this.PondTextureJTF.isFocusOwner())
+        {
+            double valeur = ((JSlider)evt.getSource()).getValue();
+            this.PondTextureJTF.setText(""+(valeur/100));
+        }
     }//GEN-LAST:event_PondTextureSStateChanged
 
-    private void PondAvgColorJTFInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_PondAvgColorJTFInputMethodTextChanged
-        double valeur = Double.parseDouble(((JTextField)evt.getSource()).getText());
-        if(valeur>1)
-            ((JTextField)evt.getSource()).setText("1.0");
-        else
-            this.PondAvgColorS.setValue((int)(valeur*100));
-    }//GEN-LAST:event_PondAvgColorJTFInputMethodTextChanged
-
-    private void PondAvgColorJTFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PondAvgColorJTFKeyTyped
+    private void PondAvgColorJTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PondAvgColorJTFKeyReleased
         try
         {
             double valeur = Double.parseDouble(this.PondAvgColorJTF.getText());
@@ -241,7 +253,52 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         {
             System.out.println("Saisie non valide.");
         }
-    }//GEN-LAST:event_PondAvgColorJTFKeyTyped
+    }//GEN-LAST:event_PondAvgColorJTFKeyReleased
+
+    private void PondColorHistoJTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PondColorHistoJTFKeyReleased
+        try
+        {
+            double valeur = Double.parseDouble(this.PondColorHistoJTF.getText());
+            if(valeur>1)
+                ((JTextField)evt.getSource()).setText("1.0");
+            else
+                this.PondColorHistoS.setValue((int)(valeur*100));
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("Saisie non valide.");
+        }
+    }//GEN-LAST:event_PondColorHistoJTFKeyReleased
+
+    private void PondPosColorJTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PondPosColorJTFKeyReleased
+        try
+        {
+            double valeur = Double.parseDouble(this.PondPosColorJTF.getText());
+            if(valeur>1)
+                ((JTextField)evt.getSource()).setText("1.0");
+            else
+                this.PondPosColorS.setValue((int)(valeur*100));
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("Saisie non valide.");
+        }
+    }//GEN-LAST:event_PondPosColorJTFKeyReleased
+
+    private void PondTextureJTFKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PondTextureJTFKeyReleased
+        try
+        {
+            double valeur = Double.parseDouble(this.PondTextureJTF.getText());
+            if(valeur>1)
+                ((JTextField)evt.getSource()).setText("1.0");
+            else
+                this.PondTextureS.setValue((int)(valeur*100));
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("Saisie non valide.");
+        }
+    }//GEN-LAST:event_PondTextureJTFKeyReleased
 
     /**
      * @param args the command line arguments
