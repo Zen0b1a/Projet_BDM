@@ -53,8 +53,7 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         Personne = new javax.swing.JLabel();
@@ -64,21 +63,29 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
         jScrollPane1 = new javax.swing.JScrollPane();
         Contenu = new javax.swing.JTextArea();
 
+        setTitle("Témoignage");
         setMinimumSize(new java.awt.Dimension(400, 300));
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 4));
+
+        Personne.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jPanel1.add(Personne);
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("le");
         jPanel1.add(jLabel2);
+
+        DateT.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jPanel1.add(DateT);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        jPanel2.setLayout(new java.awt.GridLayout());
+        jPanel2.setLayout(new java.awt.GridLayout(1, 0));
 
         Contenu.setColumns(20);
+        Contenu.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Contenu.setRows(5);
         Contenu.setEnabled(false);
         jScrollPane1.setViewportView(Contenu);

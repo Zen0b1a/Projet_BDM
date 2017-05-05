@@ -64,36 +64,39 @@ public class DlgAjoutTemoignage extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         Annuler = new javax.swing.JButton();
         Ajouter = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         ListePersonnes = new javax.swing.JComboBox();
+        jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Contenu = new javax.swing.JTextArea();
 
-        jPanel1.setLayout(new java.awt.GridLayout());
+        setTitle("Ajout d'un témoignage");
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel1.add(Annuler);
 
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.setPreferredSize(new java.awt.Dimension(111, 40));
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
@@ -101,22 +104,43 @@ public class DlgAjoutTemoignage extends javax.swing.JFrame
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.setLayout(new java.awt.GridLayout(2, 2));
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
+
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Personne :");
-        jPanel2.add(jLabel1);
+        jPanel3.add(jLabel1);
 
+        ListePersonnes.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         ListePersonnes.setToolTipText("");
-        jPanel2.add(ListePersonnes);
+        ListePersonnes.setPreferredSize(new java.awt.Dimension(280, 40));
+        jPanel3.add(ListePersonnes);
 
+        jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_START);
+
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel4.setLayout(new java.awt.BorderLayout());
+
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Témoignage :");
-        jPanel2.add(jLabel3);
+        jLabel3.setPreferredSize(new java.awt.Dimension(132, 40));
+        jPanel4.add(jLabel3, java.awt.BorderLayout.PAGE_START);
+
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(178, 250));
 
         Contenu.setColumns(20);
+        Contenu.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Contenu.setRows(5);
+        Contenu.setPreferredSize(new java.awt.Dimension(160, 250));
         jScrollPane1.setViewportView(Contenu);
 
-        jPanel2.add(jScrollPane1);
+        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -221,6 +245,8 @@ public class DlgAjoutTemoignage extends javax.swing.JFrame
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
