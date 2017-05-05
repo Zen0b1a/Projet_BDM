@@ -55,8 +55,7 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -84,94 +83,124 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
         Annuler = new javax.swing.JButton();
         Ajouter = new javax.swing.JButton();
 
+        setTitle("Ajout d'une personne");
+
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.GridLayout(8, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Nom :");
+        jLabel1.setPreferredSize(new java.awt.Dimension(55, 50));
         jPanel2.add(jLabel1);
+
+        Nom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Nom);
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Prénom :");
         jPanel2.add(jLabel2);
+
+        Prenom.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Prenom);
 
+        jLabel8.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel8.setText("Adresse");
         jPanel2.add(jLabel8);
         jPanel2.add(jLabel9);
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Numéro de rue :");
         jPanel2.add(jLabel3);
+
+        NumeroRue.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(NumeroRue);
 
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel4.setText("Rue :");
         jPanel2.add(jLabel4);
+
+        NomRue.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(NomRue);
 
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel5.setText("Ville :");
         jPanel2.add(jLabel5);
+
+        Ville.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Ville);
 
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setText("Téléphone 1 :");
         jPanel2.add(jLabel6);
+
+        Telephone1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Telephone1);
 
+        jLabel10.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel10.setText("Téléphone 2 :");
         jPanel2.add(jLabel10);
+
+        Telephone2.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel2.add(Telephone2);
 
         jPanel1.add(jPanel2);
 
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
+        jLabel11.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Photo");
         jPanel3.add(jLabel11, java.awt.BorderLayout.PAGE_START);
+
+        Photo.setBackground(new java.awt.Color(226, 220, 207));
 
         javax.swing.GroupLayout PhotoLayout = new javax.swing.GroupLayout(Photo);
         Photo.setLayout(PhotoLayout);
         PhotoLayout.setHorizontalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 143, Short.MAX_VALUE)
+            .addGap(0, 330, Short.MAX_VALUE)
         );
         PhotoLayout.setVerticalGroup(
             PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 259, Short.MAX_VALUE)
+            .addGap(0, 208, Short.MAX_VALUE)
         );
 
         jPanel3.add(Photo, java.awt.BorderLayout.CENTER);
 
+        Parcourir.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Parcourir.setText("Pacourir");
-        Parcourir.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Parcourir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ParcourirActionPerformed(evt);
             }
         });
-        jPanel3.add(Parcourir, java.awt.BorderLayout.LINE_START);
+        jPanel3.add(Parcourir, java.awt.BorderLayout.PAGE_END);
 
         jPanel1.add(jPanel3);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
-        jPanel4.setLayout(new java.awt.GridLayout());
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel4.setLayout(new java.awt.GridLayout(1, 0));
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel4.add(Annuler);
 
+        Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.setPreferredSize(new java.awt.Dimension(111, 40));
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
