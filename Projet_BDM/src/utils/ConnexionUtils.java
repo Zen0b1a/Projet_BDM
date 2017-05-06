@@ -26,7 +26,7 @@ public class ConnexionUtils {
         try 
         {
             Class.forName("oracle.jdbc.driver.OracleDriver");
-            this.connect = DriverManager.getConnection(URL_FAC, LOGIN, MDP);
+            connect = DriverManager.getConnection(URL_FAC, LOGIN, MDP);
         } 
         catch (ClassNotFoundException ex) 
         {
@@ -36,7 +36,7 @@ public class ConnexionUtils {
         {
             try 
             {
-                this.connect = DriverManager.getConnection(URL_EXTERIEUR, LOGIN, MDP);
+                connect = DriverManager.getConnection(URL_EXTERIEUR, LOGIN, MDP);
             } 
             catch (SQLException ex1) 
             {
@@ -50,8 +50,25 @@ public class ConnexionUtils {
         if(single==null)
         {
             single = new ConnexionUtils();
-            System.out.println("Création d'instance.");
+            System.out.println("Connexion à la BD ouverte.");
         }
         return connect;
+    }
+    
+    public static void closeConnect()
+    {
+        try 
+        {
+            if(single!=null)
+            {
+                connect.close();
+                single = null;
+                System.out.println("Connexion fermée.");
+            }
+        } 
+        catch (SQLException e) 
+        {
+        	e.printStackTrace();
+        }
     }
 }

@@ -6,6 +6,7 @@
 package interfaces;
 
 import java.io.File;
+import utils.ConnexionUtils;
 
 
 /**
@@ -28,7 +29,8 @@ public class Menu extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         Enqueteurs = new javax.swing.JButton();
         Enquetes = new javax.swing.JButton();
@@ -38,11 +40,25 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MENU");
         setBackground(new java.awt.Color(226, 220, 207));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter()
+        {
+            public void windowClosed(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt)
+            {
+                formWindowClosing(evt);
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(4, 1));
@@ -50,8 +66,10 @@ public class Menu extends javax.swing.JFrame {
         Enqueteurs.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Enqueteurs.setText("Voir les enquêteurs");
         Enqueteurs.setPreferredSize(new java.awt.Dimension(350, 70));
-        Enqueteurs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Enqueteurs.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 EnqueteursActionPerformed(evt);
             }
         });
@@ -59,8 +77,10 @@ public class Menu extends javax.swing.JFrame {
 
         Enquetes.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Enquetes.setText("Voir les enquêtes");
-        Enquetes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Enquetes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 EnquetesActionPerformed(evt);
             }
         });
@@ -68,8 +88,10 @@ public class Menu extends javax.swing.JFrame {
 
         AjoutCrime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutCrime.setText("Enregistrer un crime");
-        AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutCrimeActionPerformed(evt);
             }
         });
@@ -77,8 +99,10 @@ public class Menu extends javax.swing.JFrame {
 
         VoirPersonnes.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         VoirPersonnes.setText("Voir les personnes");
-        VoirPersonnes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        VoirPersonnes.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 VoirPersonnesActionPerformed(evt);
             }
         });
@@ -177,6 +201,16 @@ public class Menu extends javax.swing.JFrame {
         DlgPersonnes dlg = new DlgPersonnes();
         dlg.setVisible(true);
     }//GEN-LAST:event_VoirPersonnesActionPerformed
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosed
+    {//GEN-HEADEREND:event_formWindowClosed
+
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowClosing
+    {//GEN-HEADEREND:event_formWindowClosing
+        ConnexionUtils.closeConnect();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

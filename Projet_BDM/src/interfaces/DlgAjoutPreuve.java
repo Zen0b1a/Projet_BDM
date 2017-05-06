@@ -166,6 +166,25 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
                     stmt.setString(2, description);
                     stmt.setInt(3, this.idE);
                     stmt.executeQuery();
+                    //Insertion dans le tableau de réferences
+                    switch(this.ListeTypes.getSelectedItem().toString())
+                    {
+                        case "Image" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO THE (SELECT preuves FROM bdm_enquete "
+                                    + "WHERE id=?) SELECT REF(p) FROM bdm_preuve_image p WHERE p.id=?");
+                            break;
+                        case "Audio" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO THE (SELECT preuves FROM bdm_enquete "
+                                    + "WHERE id=?) SELECT REF(p) FROM bdm_preuve_audio p WHERE p.id=?");
+                            break;
+                        case "Vidéo" : 
+                            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO THE (SELECT preuves FROM bdm_enquete "
+                                    + "WHERE id=?) SELECT REF(p) FROM bdm_preuve_video p WHERE p.id=?");
+                            break;
+                    }
+                    stmt.setInt(1, this.idE);
+                    stmt.setInt(2, idPreuve);
+                    stmt.executeQuery();
                     Statement ps = null;
                     byte[] ctx[] = new byte [4000][1];
                     switch(this.ListeTypes.getSelectedItem().toString())

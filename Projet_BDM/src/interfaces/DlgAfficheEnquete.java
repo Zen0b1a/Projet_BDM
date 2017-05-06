@@ -344,13 +344,11 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT audio FROM bdm_preuve_audio WHERE id=?");
                 stmt.setInt(1, id);
                 OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
-                while(rs.next())
-                {
-                    //Récupération de la video
-                    OrdAudio aud = (OrdAudio)rs.getORAData("AUDIO", OrdAudio.getORADataFactory());
-                    fichier = "temp/audio/"+id;
-                    aud.getDataInFile(fichier);
-                }
+                rs.next();
+                //Récupération de la video
+                OrdAudio aud = (OrdAudio)rs.getORAData("AUDIO", OrdAudio.getORADataFactory());
+                fichier = "temp/audio/"+id;
+                aud.getDataInFile(fichier);
                 rs.close();
                 stmt.close();
                 if(!fichier.equals(""))

@@ -76,8 +76,8 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private void affichePhoto()
     {
         Graphics2D g = (Graphics2D)this.Photo.getGraphics();
-        Double scaleWidth = this.Photo.getWidth()/new Double(this.photo.getWidth(null));
-	Double scaleHeight = this.Photo.getHeight()/new Double(this.photo.getHeight(null));
+        Double scaleWidth = this.Photo.getWidth()/(double)this.photo.getWidth(null);
+	Double scaleHeight = this.Photo.getHeight()/(double)this.photo.getHeight(null);
         if (scaleWidth>scaleHeight)
             scaleWidth = scaleHeight;
         else
