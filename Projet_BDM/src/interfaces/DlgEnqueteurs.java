@@ -57,7 +57,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
                 OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
                 String fichier = "temp/enqueteur/"+idEnqueteur;
                 img.getDataInFile(fichier);
-                button.setIcon(new ImageIcon(fichier));
+                button.setIcon(new ImageIcon(((new ImageIcon(fichier)).getImage()).getScaledInstance(150, 300, java.awt.Image.SCALE_SMOOTH)));
                 button.setFont(fonte);
                 button.setText("<HTML><body>Badge : "+rs.getString("BADGE")+"<br>Nom : "+rs.getString("NOM")+"<br>Prénom : "+rs.getString("PRENOM")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
@@ -156,8 +156,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
         this.initialiserEnqueteurs();
-        this.setSize(this.getWidth()+1, this.getHeight()+1);
-        this.setSize(this.getWidth()-1, this.getHeight()-1);
+        this.repaint();
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**

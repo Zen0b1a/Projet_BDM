@@ -126,7 +126,7 @@ public class Personne implements SQLData {
     
     public void setTelephone(int indice, String telephone)
     {
-        this.telephones[indice] = telephone;
+        this.telephones[indice-1] = telephone;
     }
     
     public Personne chargerPersonne(int id)
@@ -148,6 +148,29 @@ public class Personne implements SQLData {
             Logger.getLogger(Personne.class.getName()).log(Level.SEVERE, null, ex);
         }
         return pers;
+    }
+    
+    public boolean majTelephone(int indice, String nouveauTelephone)
+    {
+        if(indice>0 && indice<3)
+            this.setTelephone(indice, nouveauTelephone);
+        else
+            return false;
+        try 
+        {
+            CallableStatement stmt = ConnexionUtils.getInstance().prepareCall("{call majPersonneTelephone(?, ?, ?)}");
+            stmt.setInt(1, this.id);
+            stmt.setInt(2, indice);
+            stmt.setString(3, nouveauTelephone);
+            stmt.execute();
+            stmt.close();
+            return true;
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Personne.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
     
     public boolean majAdresse(int nouveauNumeroRue, String nouvelleRue, String nouvelleVille)

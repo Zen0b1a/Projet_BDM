@@ -6,16 +6,9 @@
 package interfaces;
 
 import java.awt.*;
-import java.io.IOException;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import mapping.Personne;
-import oracle.jdbc.*;
-import oracle.ord.im.OrdImage;
-import utils.ConnexionUtils;
 
 /**
  *
@@ -38,8 +31,18 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
 
     private void affichePhoto()
     {
-        Graphics g = this.Photo.getGraphics();
-        g.drawImage(this.photo, 0, 0, this.Photo.getWidth(), this.Photo.getHeight(), this);
+        Graphics2D g = (Graphics2D)this.Photo.getGraphics();
+        Double scaleWidth = this.Photo.getWidth()/(double)this.photo.getWidth(null);
+	Double scaleHeight = this.Photo.getHeight()/(double)this.photo.getHeight(null);
+        if (scaleWidth>scaleHeight)
+            scaleWidth = scaleHeight;
+        else
+            scaleHeight = scaleWidth;
+        int x = (int)((this.Photo.getWidth() - (this.photo.getWidth(null)*scaleWidth)) / 2);
+        int y = (int)((this.Photo.getHeight() - (this.photo.getHeight(null)*scaleHeight)) / 2);
+        g.translate(x, y);
+        g.scale(scaleWidth, scaleHeight);
+        g.drawImage(this.photo, 0, 0, null);
     }
     
     public void paint(Graphics g)

@@ -9,16 +9,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.sql.CallableStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import mapping.Personne;
-import utils.ConnexionUtils;
 
 /**
  *
@@ -50,7 +45,7 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         this.Telephone1.setText(this.personne.getTelephone1());
         this.Telephone2.setText(this.personne.getTelephone2());
         this.photo = this.Photo.getToolkit().getImage(this.personne.getCheminPhoto());
-        this.repaint();
+        this.affichePhoto();
     }
     
     private void affichePhoto()
@@ -262,7 +257,10 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         JTextField ville = new JTextField();
         ville.setSize(100,20);
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(3,3));
+        jp.setLayout(new GridLayout(4,2));
+        JLabel message = new JLabel("Modifier l'adresse : ");
+        jp.add(message);
+        jp.add(new JLabel(""));
         jp.add(new JLabel("Numero :"));
         jp.add(num);
         jp.add(new JLabel("Rue :"));
@@ -271,45 +269,52 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         jp.add(ville);
         JOptionPane jop = new JOptionPane();
         int adresse;
+        int numeroRue = -1;
         //Vérification adresse
         boolean continuer = true;
-        boolean valide = true;
-        int numeroRue = -1;
-        String mes = "Modifier adresse: ";
         while(continuer)
         {
-            adresse = jop.showConfirmDialog(null, jp, mes, JOptionPane.OK_CANCEL_OPTION);
+            boolean valide = true;
+            adresse = jop.showConfirmDialog(null, jp, "Modifier l'adresse", JOptionPane.OK_CANCEL_OPTION);
+            message.setText("Erreur :");
             if(adresse==JOptionPane.CANCEL_OPTION || adresse==JOptionPane.CLOSED_OPTION)
             {
                 continuer=false;
             }
-            else if(num.getText().equals("") || rue.getText().equals("") || ville.getText().equals(""))
-            {
-                mes="Veuillez entrer une adresse valide";
-                valide=false;
-            }
             else
             {
+                if(num.getText().equals("") || rue.getText().equals("") || ville.getText().equals(""))
+                {
+                    message.setText(message.getText()+" Veuillez remplir tous les champs.");
+                    valide=false;
+                }
+                if(rue.getText().length()>50 || ville.getText().length()>50)
+                {
+                    message.setText(message.getText()+" La rue et la ville ne doivent pas contenir plus de 50 caractères.");
+                    valide = false;
+                }
                 try
                 {
                     numeroRue = Integer.parseInt(num.getText());
                     if(numeroRue<0)
                     {
-                        valide = false;
-                        mes="Veuillez entrer un numéro valide";
+                        message.setText(message.getText()+" Veuillez entrer un numéro de rue positif.");
+                        valide=false;
                     }
                 }
                 catch(NumberFormatException e)
                 {
-                    mes="Veuillez entrer un numéro valide";
-                    valide=false;
+                    message.setText(message.getText()+" Veuillez entrer un numéro de rue valide.");
+                    valide = false;      
                 }
                 if(valide)
-                {
+                { 
                     this.personne.majAdresse(numeroRue, rue.getText(), ville.getText());
-                    this.initialiserPersonne();
                     continuer = false;
-                }
+                    this.NumeroRue.setText(""+this.personne.getNumeroRue());
+                    this.NomRue.setText(this.personne.getNomRue());
+                    this.Ville.setText(this.personne.getVille());
+                } 
             }
         }
     }//GEN-LAST:event_ModifierAdresseActionPerformed
@@ -320,50 +325,39 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         String telephone1;
         //Vérification numéro
         boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 1 : ";
+        String mes = "Modifier le numéro de téléphone 1 : ";
         while(continuer)
         {
+            boolean valide = true;
             telephone1 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
             if(telephone1==null)
-            {
                 continuer=false;
-            }
-            else if(!telephone1.equals(""))
+            else 
             {
-                try{
-                    Long.parseLong(telephone1);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
+                if(telephone1.length()<=0 || telephone1.length()>10)
                 {
-                    mes="Veuillez entrer un numéro de téléphone valide";
-                    valide=false;
-
+                    valide = false;
+                    mes = "Le numéro de téléphone doit comprendre de 1 à 10 chiffres.";
                 }
-                if(valide && Long.parseLong(telephone1)>=0)
+                else
                 {
-
-                    try {
-                        String sql = "{call majPersonneTelephone(?, ?, ?)}";
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 1);
-                        stmt.setString(3, telephone1);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone1.setText(telephone1);
-                        continuer=false;                }
-                    catch (SQLException ex)
+                    try
                     {
-                        Logger.getLogger(DlgAffichePersonne.class.getName()).log(Level.SEVERE, null, ex);
+                        Long.parseLong(telephone1);
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        mes="Veuillez rentrer un numéro de téléphone valide";
+                        valide=false;  
+                    }
+                    if(valide)
+                    {
+                        this.personne.majTelephone(1, telephone1);
+                        this.Telephone1.setText(this.personne.getTelephone1());
+                        continuer = false;
                     }
                 }
             }
-
         }
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
@@ -373,50 +367,41 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         String telephone2;
         //Vérification numéro
         boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 2 : ";
+        String mes = "Modifier le numéro de téléphone 2 : ";
         while(continuer)
         {
+            boolean valide = true;
             telephone2 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
             if(telephone2==null)
             {
                 continuer=false;
             }
-            else if(!telephone2.equals(""))
+            else 
             {
-                try{
-                    Long.parseLong(telephone2);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
+                if(telephone2.length()<=0 || telephone2.length()>10)
                 {
-                    mes="Veuillez rentrer un numéro de téléphone valide";
-                    valide=false;
-
+                    valide = false;
+                    mes = "Le numéro de téléphone doit comprendre de 1 à 10 chiffres.";
                 }
-                if(valide && Long.parseLong(telephone2)>=0)
+                else
                 {
-
-                    try {
-                        String sql = "{call majPersonneTelephone(?, ?, ?)}";
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 2);
-                        stmt.setString(3, telephone2);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone2.setText(telephone2);
-                        continuer=false;                }
-                    catch (SQLException ex)
+                    try
                     {
-                        Logger.getLogger(DlgAffichePersonne.class.getName()).log(Level.SEVERE, null, ex);
+                        Long.parseLong(telephone2);
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        mes="Veuillez rentrer un numéro de téléphone valide";
+                        valide=false;  
+                    }
+                    if(valide)
+                    {
+                        this.personne.majTelephone(2, telephone2);
+                        this.Telephone2.setText(this.personne.getTelephone2());
+                        continuer = false;
                     }
                 }
             }
-
         }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 

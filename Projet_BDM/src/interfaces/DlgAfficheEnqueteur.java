@@ -11,7 +11,6 @@ import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -34,7 +33,6 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         initComponents();
         this.id = id;
         this.initialiserEnqueteur();
-        this.repaint();
     }
 
     private void initialiserEnqueteur()
@@ -65,9 +63,9 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             String fichier = "temp/enqueteur/"+this.id;
             img.getDataInFile(fichier);
             this.photo = this.Photo.getToolkit().getImage(fichier);
-            affichePhoto();
             rs.close();
             stmt.close();
+            this.affichePhoto();
         } 
         catch (SQLException | IOException ex) 
         {
@@ -310,8 +308,12 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
     private void SupprimerEnqueteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerEnqueteurActionPerformed
         try 
         {
-            //Supression
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id=?");
+            //Suppression de bdm_enqueteur_enquete
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur_enquete WHERE DEREF(enqueteurEE).id=?");
+            stmt.setInt(1, this.id);
+            stmt.executeQuery();
+            //Suppression de bdm_enqueteur
+            stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("DELETE FROM bdm_enqueteur WHERE id=?");
             stmt.setInt(1, this.id);
             stmt.executeQuery();
             stmt.close();
@@ -329,48 +331,54 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         String telephone2;
         //Vérification numéro
         boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 2 : ";
+        String mes = "Modifier le numéro de téléphone 2 : ";
         while(continuer)
         {
+            boolean valide = true;
             telephone2 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
             if(telephone2==null)
             {
                 continuer=false;
             }
-            else if(!telephone2.equals(""))
+            else 
             {
-                try{
-                    Long.parseLong(telephone2);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
+                if(telephone2.length()<=0 || telephone2.length()>10)
                 {
-                    mes="Veuillez rentrer un numéro de téléphone valide";
-                    valide=false;  
+                    valide = false;
+                    mes = "Le numéro de téléphone doit comprendre de 1 à 10 chiffres.";
                 }
-                if(valide && Long.parseLong(telephone2)>=0)
-                {  
-                    try {
-                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 2);
-                        stmt.setString(3, telephone2);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone2.setText(telephone2);
-                        continuer=false;
-                    } 
-                    catch (SQLException ex) 
+                else
+                {
+                    try
                     {
-                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                        Long.parseLong(telephone2);
                     }
+                    catch(NumberFormatException e)
+                    {
+                        mes="Veuillez rentrer un numéro de téléphone valide";
+                        valide=false;  
+                    }
+                    if(valide)
+                    {  
+                        try 
+                        {
+                            String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                            CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                            stmt.setInt(1, this.id);
+                            stmt.setInt(2, 2);
+                            stmt.setString(3, telephone2);
+                            stmt.execute();
+                            stmt.close();
+                            Telephone2.setText(telephone2);
+                            continuer=false;
+                        } 
+                        catch (SQLException ex) 
+                        {
+                            Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } 
                 } 
-            }                
+            }
         }
     }//GEN-LAST:event_ModifierTelephone2ActionPerformed
 
@@ -380,47 +388,54 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         String telephone1;
         //Vérification numéro
         boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier Téléphone 1 : ";
+        String mes = "Modifier le numéro de téléphone 1 : ";
         while(continuer)
         {
+            boolean valide = true;
             telephone1 = jop.showInputDialog(null, mes, "Modifier", JOptionPane.QUESTION_MESSAGE);
             if(telephone1==null)
             {
                 continuer=false;
             }
-            else if(!telephone1.equals(""))
+            else 
             {
-                try{
-                    Long.parseLong(telephone1);
-                    valide=true;
-                }
-                catch(NumberFormatException e)
+                if(telephone1.length()<=0 || telephone1.length()>10)
                 {
-                    mes="Veuillez entrer un numéro de téléphone valide";
-                    valide=false;   
+                    valide = false;
+                    mes = "Le numéro de téléphone doit comprendre de 1 à 10 chiffres.";
                 }
-                if(valide && Long.parseLong(telephone1)>=0)
+                else
                 {
-                    try {
-                        String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
-                        CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
-                        stmt.setInt(1, this.id);
-                        stmt.setInt(2, 1);
-                        stmt.setString(3, telephone1);
-                        stmt.execute();
-                        ConnexionUtils.getInstance().commit();
-                        stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
-                        Telephone1.setText(telephone1);
-                        continuer=false;                } 
-                    catch (SQLException ex) 
+                    try
                     {
-                        Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                        Long.parseLong(telephone1);
                     }
+                    catch(NumberFormatException e)
+                    {
+                        mes="Veuillez rentrer un numéro de téléphone valide";
+                        valide=false;  
+                    }
+                    if(valide)
+                    {  
+                        try 
+                        {
+                            String sql = "{call majEnqueteurTelephone(?, ?, ?)}"; 
+                            CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
+                            stmt.setInt(1, this.id);
+                            stmt.setInt(2, 1);
+                            stmt.setString(3, telephone1);
+                            stmt.execute();
+                            stmt.close();
+                            Telephone1.setText(telephone1);
+                            continuer=false;
+                        } 
+                        catch (SQLException ex) 
+                        {
+                            Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } 
                 } 
-            }                   
+            }
         }
     }//GEN-LAST:event_ModifierTelephone1ActionPerformed
 
@@ -433,7 +448,10 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         JTextField ville = new JTextField();
         ville.setSize(100,20);
         JPanel jp = new JPanel();
-        jp.setLayout(new GridLayout(3,3));
+        jp.setLayout(new GridLayout(4,2));
+        JLabel message = new JLabel("Modifier l'adresse : ");
+        jp.add(message);
+        jp.add(new JLabel(""));
         jp.add(new JLabel("Numero :"));
         jp.add(num);
         jp.add(new JLabel("Rue :"));
@@ -445,59 +463,64 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
         int numeroRue;
         //Vérification adresse
         boolean continuer = true;
-        boolean valide = true;
-        String mes = "Modifier adresse: ";
         while(continuer)
         {
-            adresse = jop.showConfirmDialog(null, jp, mes, JOptionPane.OK_CANCEL_OPTION);
+            boolean valide = true;
+            adresse = jop.showConfirmDialog(null, jp, "Modifier l'adresse", JOptionPane.OK_CANCEL_OPTION);
+            message.setText("Erreur :");
             if(adresse==JOptionPane.CANCEL_OPTION || adresse==JOptionPane.CLOSED_OPTION)
             {
                 continuer=false;
             }
-            else if(num.getText().equals("") || rue.getText().equals("") || ville.getText().equals(""))
+            else
             {
-                mes="Veuillez entrer une adresse valide";
-                valide=false;
-            }
-            else 
-            {
-                
-                try{
+                if(num.getText().equals("") || rue.getText().equals("") || ville.getText().equals(""))
+                {
+                    message.setText(message.getText()+" Veuillez remplir tous les champs.");
+                    valide=false;
+                }
+                if(rue.getText().length()>50 || ville.getText().length()>50)
+                {
+                    message.setText(message.getText()+" La rue et la ville ne doivent pas contenir plus de 50 caractères.");
+                    valide = false;
+                }
+                try
+                {
                     numeroRue = Integer.parseInt(num.getText());
                     if(numeroRue<0)
                     {
-                        mes="Veuillez entrer un numéro valide";
+                        message.setText(message.getText()+" Veuillez entrer un numéro de rue positif.");
                         valide=false;
                     }
                 }
                 catch(NumberFormatException e)
                 {
-                    mes="Veuillez entrer un numéro valide";
-                    valide=false;      
+                    message.setText(message.getText()+" Veuillez entrer un numéro de rue valide.");
+                    valide = false;      
                 }
                 if(valide)
                 { 
-                    try {
+                    try 
+                    {
                         String sql = "{call majEnqueteurAdresse(?, ?, ?, ?)}"; 
                         CallableStatement stmt = ConnexionUtils.getInstance().prepareCall(sql);
-                        ConnexionUtils.getInstance().setAutoCommit(false);
                         stmt.setInt(1, this.id);
                         stmt.setInt(2, Integer.parseInt(num.getText()));
                         stmt.setString(3, rue.getText());
                         stmt.setString(4, ville.getText());
                         stmt.execute();
-                        ConnexionUtils.getInstance().commit();
                         stmt.close();
-                        ConnexionUtils.getInstance().setAutoCommit(true);
                         NumeroRue.setText(num.getText());
                         NomRue.setText(rue.getText());
                         Ville.setText(ville.getText());
                         continuer=false; 
-                    } catch (SQLException ex) {
+                    } 
+                    catch (SQLException ex) 
+                    {
                         Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } 
-            }                      
+            }
         }
     }//GEN-LAST:event_ModifierAdresseActionPerformed
 

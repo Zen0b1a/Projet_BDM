@@ -68,8 +68,7 @@ public class DlgAjoutEnquete extends javax.swing.JFrame
             this.Enqueteurs.add(jl);
             this.Enqueteurs.add(jb);
         }
-        this.setSize(this.getWidth()+1, this.getHeight()+1);
-        this.setSize(this.getWidth()-1, this.getHeight()-1);
+        this.repaint();
     }
     
     private void initialisationCbEnqueteurs()

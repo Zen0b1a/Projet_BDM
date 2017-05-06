@@ -100,8 +100,8 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private void afficheImagePreuve()
     {
         Graphics2D g = (Graphics2D)this.ImagePreuve.getGraphics();
-        Double scaleWidth = this.ImagePreuve.getWidth()/new Double(this.imagePreuve.getWidth(null));
-	Double scaleHeight = this.ImagePreuve.getHeight()/new Double(this.imagePreuve.getHeight(null));
+        Double scaleWidth = this.ImagePreuve.getWidth()/(double)this.imagePreuve.getWidth(null);
+	Double scaleHeight = this.ImagePreuve.getHeight()/(double)this.imagePreuve.getHeight(null);
         if (scaleWidth>scaleHeight)
             scaleWidth = scaleHeight;
         else
@@ -116,8 +116,8 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private void afficheImagePersonne()
     {
         Graphics2D g = (Graphics2D)this.ImagePersonne.getGraphics();
-        Double scaleWidth = this.ImagePersonne.getWidth()/new Double(this.imagePersonne.getWidth(null));
-	Double scaleHeight = this.ImagePersonne.getHeight()/new Double(this.imagePersonne.getHeight(null));
+        Double scaleWidth = this.ImagePersonne.getWidth()/(double)this.imagePersonne.getWidth(null);
+	Double scaleHeight = this.ImagePersonne.getHeight()/(double)this.imagePersonne.getHeight(null);
         if(scaleWidth>scaleHeight)
             scaleWidth = scaleHeight;
         else

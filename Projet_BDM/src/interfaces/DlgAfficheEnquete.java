@@ -8,7 +8,6 @@ package interfaces;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +49,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             rs.next();
             //Récupération des informations de l'enquête
             this.Nom.setText(rs.getString("NOM"));
-            if (rs.getString("ETAT").equals("en-cours"))
+            if(rs.getString("ETAT").equals("en-cours"))
             {
                 encours.setSelected(true);
             }
@@ -60,8 +59,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 AjoutSuspect.setEnabled(false);
                 AjoutPreuve.setEnabled(false);
                 AjoutCrime.setEnabled(false);
-                AjoutEnqueteur.setEnabled(false);
-                
+                AjoutEnqueteur.setEnabled(false);    
             }
             rs.close();
             stmt.close();
@@ -363,7 +361,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             } 
             catch (SQLException | IOException ex) 
             {
-                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         //Pour afficher une preuve vidéo
@@ -392,16 +390,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             } 
             catch (SQLException | IOException ex) 
             {
-                Logger.getLogger(DlgAfficheEnqueteur.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DlgAfficheEnquete.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(!fichier.equals(""))
-            {
-                
-                //DlgAffichePreuveVideo dlg = new DlgAffichePreuveVideo(fichier);
-                //dlg.setVisible(true);
-            }
-            else
-                System.out.println("Erreur lors du chargement de la vidéo.");
         }
     }
     
@@ -741,7 +731,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             int selection = JOptionPane.showOptionDialog(null, combo, "Ajouter un suspect", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
             //Récupération de la sélection
-            if(selection<=0) 
+            if(selection==0) 
             {
                 if(combo.getSelectedIndex()>=0)
                 {
@@ -800,7 +790,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             int selection = JOptionPane.showOptionDialog(null, combo, "Ajouter un enquêteur", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
 
             //Récupération de la sélection
-            if(selection<=0) 
+            if(selection==0) 
             {
                 if(combo.getSelectedIndex()>=0)
                 {
@@ -823,8 +813,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         this.initialiserEnquete();
-        this.setSize(this.getWidth()+1, this.getHeight()+1);
-        this.setSize(this.getWidth()-1, this.getHeight()-1);
+        this.repaint();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void encoursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_encoursActionPerformed

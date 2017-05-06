@@ -54,14 +54,13 @@ public class DlgPersonnes extends javax.swing.JFrame {
             {
                 Personne personne = new Personne().chargerPersonne(rs.getInt("ID"));
                 JButton button = new JButton();
-                button.setLayout(new GridLayout(2, 1));
                 button.setName(""+personne.getId());
                 //Ajout des informations dans le bouton
-                button.setIcon(new ImageIcon(personne.getCheminPhoto()));
+                button.setIcon(new ImageIcon(((new ImageIcon(personne.getCheminPhoto())).getImage()).getScaledInstance(150, 300, java.awt.Image.SCALE_SMOOTH)));
                 button.setFont(fonte);
                 button.setText("<HTML><body>Nom : "+personne.getNom()+"<br>Prénom : "+personne.getPrenom()+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM); 
-                button.setHorizontalTextPosition(SwingConstants.CENTER); 
+                button.setHorizontalTextPosition(SwingConstants.CENTER);
                 
                 //Ajout du listener
                 button.addActionListener(new java.awt.event.ActionListener() 
@@ -162,8 +161,6 @@ public class DlgPersonnes extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         this.initialiserPersonnes();
-        this.setSize(this.getHeight()-1, this.getWidth()-1);
-        this.setSize(this.getHeight()+1, this.getWidth()+1);
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
