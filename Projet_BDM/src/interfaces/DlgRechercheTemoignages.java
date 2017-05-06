@@ -5,21 +5,42 @@
  */
 package interfaces;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Annabelle
  */
 public class DlgRechercheTemoignages extends javax.swing.JFrame
 {
-
+    private String recherche;
+    private int regroupement;
+    private int regroupementEnAttente;
     /**
      * Creates new form DlgRechercheTemoignages
      */
     public DlgRechercheTemoignages()
     {
         initComponents();
+        this.recherche = "";
+        this.regroupement = 0;
+        this.regroupementEnAttente = 0;
+        this.initialiser();
     }
 
+    private void initialiser()
+    {
+        this.Ponderation.setValue(1);
+        this.MotRecherche.setText("");
+        this.Et.setSelected(true);
+        this.MotExact.setSelected(true);
+        this.NonSensibleCasse.setSelected(true);
+        this.Recherche.setText(this.recherche);
+        if(!this.recherche.equals(""))
+            this.MotLiaisonInvisible.setVisible(true);
+        else
+            this.MotLiaisonInvisible.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,16 +51,43 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     private void initComponents()
     {
 
+        TypeRecherche = new javax.swing.ButtonGroup();
+        MotLiaison = new javax.swing.ButtonGroup();
+        Casse = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         Annuler = new javax.swing.JButton();
         Valider = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        MotsRecherches = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
+        CommencerRegroupement = new javax.swing.JButton();
+        FinirRegroupement = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Recherche = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        MotRecherche = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        Ponderation = new javax.swing.JSpinner();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        SensibleCasse = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        NonSensibleCasse = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        MotExact = new javax.swing.JRadioButton();
+        Racine = new javax.swing.JRadioButton();
+        ProcheOrtho = new javax.swing.JRadioButton();
+        ProcheSonorite = new javax.swing.JRadioButton();
+        MotLiaisonInvisible = new javax.swing.JPanel();
+        Et = new javax.swing.JRadioButton();
+        Ou = new javax.swing.JRadioButton();
+        Pres = new javax.swing.JRadioButton();
+        Accumulation = new javax.swing.JRadioButton();
+        Soustraction = new javax.swing.JRadioButton();
+        AjoutMot = new javax.swing.JButton();
 
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -54,36 +102,140 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
         jPanel1.add(Annuler);
 
         Valider.setText("Lancer la recherche");
+        Valider.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                ValiderActionPerformed(evt);
+            }
+        });
         jPanel1.add(Valider);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
         jPanel2.setLayout(new java.awt.GridLayout(1, 2));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
-        );
+        MotsRecherches.setLayout(new java.awt.BorderLayout());
 
-        jPanel2.add(jPanel3);
+        jPanel3.setLayout(new java.awt.GridLayout(1, 2));
 
-        jPanel4.setLayout(new java.awt.GridLayout(3, 4));
+        CommencerRegroupement.setText("Commencer un regroupement");
+        CommencerRegroupement.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                CommencerRegroupementActionPerformed(evt);
+            }
+        });
+        jPanel3.add(CommencerRegroupement);
 
-        jLabel1.setText("Ajouter un mot");
-        jPanel4.add(jLabel1);
-        jPanel4.add(jLabel2);
+        FinirRegroupement.setText("Finir un regroupement");
+        FinirRegroupement.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                FinirRegroupementActionPerformed(evt);
+            }
+        });
+        jPanel3.add(FinirRegroupement);
 
-        jLabel3.setText("jLabel3");
+        MotsRecherches.add(jPanel3, java.awt.BorderLayout.PAGE_END);
+
+        Recherche.setColumns(20);
+        Recherche.setRows(5);
+        Recherche.setEnabled(false);
+        jScrollPane1.setViewportView(Recherche);
+
+        MotsRecherches.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel2.add(MotsRecherches);
+
+        jPanel4.setLayout(new java.awt.GridLayout(4, 4));
+
+        jLabel3.setText("Mot à rechercher :");
         jPanel4.add(jLabel3);
+        jPanel4.add(MotRecherche);
 
-        jTextField1.setText("jTextField1");
-        jPanel4.add(jTextField1);
+        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel1.setText("Pondération :");
+        jPanel6.add(jLabel1);
+        jPanel6.add(Ponderation);
+
+        jPanel4.add(jPanel6);
+
+        jPanel7.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel2.setText("Sensible à la casse :");
+        jPanel7.add(jLabel2);
+
+        Casse.add(SensibleCasse);
+        SensibleCasse.setText("Oui");
+        jPanel7.add(SensibleCasse);
+        jPanel7.add(jLabel5);
+
+        Casse.add(NonSensibleCasse);
+        NonSensibleCasse.setText("Non");
+        jPanel7.add(NonSensibleCasse);
+
+        jPanel4.add(jPanel7);
+
+        jLabel4.setText("Type de recherche :");
+        jPanel4.add(jLabel4);
+
+        jPanel5.setLayout(new java.awt.GridLayout(4, 1));
+
+        TypeRecherche.add(MotExact);
+        MotExact.setText("Mot exact");
+        jPanel5.add(MotExact);
+
+        TypeRecherche.add(Racine);
+        Racine.setText("Racine");
+        jPanel5.add(Racine);
+
+        TypeRecherche.add(ProcheOrtho);
+        ProcheOrtho.setText("Proche orthographiquement");
+        jPanel5.add(ProcheOrtho);
+
+        TypeRecherche.add(ProcheSonorite);
+        ProcheSonorite.setText("Sonorité proche");
+        jPanel5.add(ProcheSonorite);
+
+        jPanel4.add(jPanel5);
+
+        MotLiaisonInvisible.setLayout(new java.awt.GridLayout(5, 1));
+
+        MotLiaison.add(Et);
+        Et.setText("Et");
+        MotLiaisonInvisible.add(Et);
+
+        MotLiaison.add(Ou);
+        Ou.setText("Ou");
+        MotLiaisonInvisible.add(Ou);
+
+        MotLiaison.add(Pres);
+        Pres.setText("Près de");
+        MotLiaisonInvisible.add(Pres);
+
+        MotLiaison.add(Accumulation);
+        Accumulation.setText("Accumulation");
+        MotLiaisonInvisible.add(Accumulation);
+
+        MotLiaison.add(Soustraction);
+        Soustraction.setText("Soustraction");
+        MotLiaisonInvisible.add(Soustraction);
+
+        jPanel4.add(MotLiaisonInvisible);
+
+        AjoutMot.setText("Ajouter ce mot");
+        AjoutMot.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                AjoutMotActionPerformed(evt);
+            }
+        });
+        jPanel4.add(AjoutMot);
 
         jPanel2.add(jPanel4);
 
@@ -96,6 +248,101 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     {//GEN-HEADEREND:event_AnnulerActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_AnnulerActionPerformed
+
+    private void CommencerRegroupementActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_CommencerRegroupementActionPerformed
+    {//GEN-HEADEREND:event_CommencerRegroupementActionPerformed
+        this.regroupementEnAttente++;
+        this.Recherche.append(" (");
+    }//GEN-LAST:event_CommencerRegroupementActionPerformed
+
+    private void FinirRegroupementActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_FinirRegroupementActionPerformed
+    {//GEN-HEADEREND:event_FinirRegroupementActionPerformed
+        if(this.regroupement>0)
+        {
+            this.recherche += ")";
+            this.Recherche.append(")");
+            this.regroupement--;
+        }
+        else
+            JOptionPane.showMessageDialog(null, "Il faut qu'un regroupement soit commencé et qu'au moins un mot "
+                    + "soit placé depuis le début du regroupement pour pouvoir le fermer.", "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_FinirRegroupementActionPerformed
+
+    private void AjoutMotActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_AjoutMotActionPerformed
+    {//GEN-HEADEREND:event_AjoutMotActionPerformed
+        boolean valide = true;
+        String message = "Erreur :";
+        if((int)this.Ponderation.getValue()<1)
+        {
+            valide = false;
+            message += "\nLa pondération doit être un entier positif non nul";
+        }
+        if(this.MotRecherche.getText().equals(""))
+        {
+            valide = false;
+            message += "\nIl faut entrer un mot à rechercher";
+        }
+        if(this.MotRecherche.getText().contains(" "))
+        {
+            valide = false;
+            message += "\nLe mot à rechercher ne doit pas comporter d'espace";
+        }
+        if(valide)
+        {
+            String mot = this.MotRecherche.getText();
+            //Ajout du mot de liaison
+            if(!this.recherche.equals(""))
+            {
+                if(this.Et.isSelected())
+                    this.recherche += " AND ";
+                if(this.Ou.isSelected())
+                    this.recherche += " OR ";
+                if(this.Pres.isSelected())
+                    this.recherche += " NEAR ";
+                if(this.Accumulation.isSelected())
+                    this.recherche += " ACCUM ";
+                if(this.Soustraction.isSelected())
+                    this.recherche += " MINUS ";
+            }
+            while(this.regroupementEnAttente>0)
+            {
+                this.recherche += "(";
+                this.regroupementEnAttente--;
+                this.regroupement++;
+            }
+            //Ajout du type de recheche
+            if(this.Racine.isSelected())
+                this.recherche += "$";
+            if(this.ProcheOrtho.isSelected())
+                this.recherche += "?";
+            if(this.ProcheSonorite.isSelected())
+                this.recherche += "!";
+            //Si la casse doit être prise en compte, ou si le mot est un mot de liaison
+            if(this.SensibleCasse.isSelected())
+                mot = "{"+mot+"}";
+            if(mot.equalsIgnoreCase("and") || mot.equalsIgnoreCase("or") || mot.equalsIgnoreCase("near") || 
+                    mot.equalsIgnoreCase("accum") || mot.equalsIgnoreCase("minus"))
+                mot = "{"+mot+"}";
+            //Ajout du mot
+            this.recherche += mot;
+            //Ajout de la pondération
+            if((int)this.Ponderation.getValue()>1)
+                this.recherche += "*"+this.Ponderation.getValue();
+            this.initialiser();
+        }
+        else
+            JOptionPane.showMessageDialog(null, message, "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
+    }//GEN-LAST:event_AjoutMotActionPerformed
+
+    private void ValiderActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_ValiderActionPerformed
+    {//GEN-HEADEREND:event_ValiderActionPerformed
+        if(this.regroupement>0)
+            JOptionPane.showMessageDialog(null, "Il faut terminer le regroupement avant de lancer la recherche.", "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
+        else
+        {
+            System.out.println(this.recherche);
+        }
+    }//GEN-LAST:event_ValiderActionPerformed
 
     /**
      * @param args the command line arguments
@@ -143,15 +390,42 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Accumulation;
+    private javax.swing.JButton AjoutMot;
     private javax.swing.JButton Annuler;
+    private javax.swing.ButtonGroup Casse;
+    private javax.swing.JButton CommencerRegroupement;
+    private javax.swing.JRadioButton Et;
+    private javax.swing.JButton FinirRegroupement;
+    private javax.swing.JRadioButton MotExact;
+    private javax.swing.ButtonGroup MotLiaison;
+    private javax.swing.JPanel MotLiaisonInvisible;
+    private javax.swing.JTextField MotRecherche;
+    private javax.swing.JPanel MotsRecherches;
+    private javax.swing.JRadioButton NonSensibleCasse;
+    private javax.swing.JRadioButton Ou;
+    private javax.swing.JSpinner Ponderation;
+    private javax.swing.JRadioButton Pres;
+    private javax.swing.JRadioButton ProcheOrtho;
+    private javax.swing.JRadioButton ProcheSonorite;
+    private javax.swing.JRadioButton Racine;
+    private javax.swing.JTextArea Recherche;
+    private javax.swing.JRadioButton SensibleCasse;
+    private javax.swing.JRadioButton Soustraction;
+    private javax.swing.ButtonGroup TypeRecherche;
     private javax.swing.JButton Valider;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

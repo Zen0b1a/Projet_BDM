@@ -407,7 +407,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -419,7 +420,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         encours = new javax.swing.JRadioButton();
         resolue = new javax.swing.JRadioButton();
         jPanel5 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -442,11 +443,14 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         Enqueteurs = new javax.swing.JPanel();
 
         setTitle("Enquête");
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(5, 1));
@@ -490,8 +494,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         encours.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         encours.setText("en-cours");
         encours.setPreferredSize(new java.awt.Dimension(80, 23));
-        encours.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        encours.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 encoursActionPerformed(evt);
             }
         });
@@ -502,8 +508,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         resolue.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         resolue.setText("résolue");
         resolue.setPreferredSize(new java.awt.Dimension(80, 23));
-        resolue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        resolue.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 resolueActionPerformed(evt);
             }
         });
@@ -512,26 +520,17 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel1.add(jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel5.setLayout(new java.awt.GridLayout());
 
-        jLabel7.setBackground(new java.awt.Color(226, 220, 207));
-        jLabel7.setText("BOUTONS POUR FAIRE DES TRUCS ICI (comparer images...)");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(74, 74, 74)
-                .addComponent(jLabel7)
-                .addContainerGap(595, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addComponent(jLabel7)
-                .addContainerGap(57, Short.MAX_VALUE))
-        );
+        jButton1.setText("Rechercher des témoignages");
+        jButton1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(jButton1);
 
         jPanel1.add(jPanel5);
 
@@ -549,8 +548,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutSuspect.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutSuspect.setText("Ajouter un suspect");
-        AjoutSuspect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutSuspect.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutSuspectActionPerformed(evt);
             }
         });
@@ -588,8 +589,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutPreuve.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutPreuve.setText("Ajouter une preuve");
-        AjoutPreuve.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutPreuve.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutPreuveActionPerformed(evt);
             }
         });
@@ -627,8 +630,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutCrime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutCrime.setText("Ajouter un crime");
-        AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutCrimeActionPerformed(evt);
             }
         });
@@ -666,8 +671,10 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutEnqueteur.setText("Ajouter un enquêteur");
-        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutEnqueteurActionPerformed(evt);
             }
         });
@@ -852,6 +859,12 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         }
     }//GEN-LAST:event_resolueActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
+    {//GEN-HEADEREND:event_jButton1ActionPerformed
+        DlgRechercheTemoignages dlg = new DlgRechercheTemoignages();
+        dlg.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -900,13 +913,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     private javax.swing.JPanel Suspects;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton encours;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
