@@ -187,7 +187,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.setName("image "+idPreuve);
                 //Ajout des informations dans le bouton
                 button.setFont(fonte);
-                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setText("<HTML><body>Type : image<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
@@ -214,7 +214,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.setName("audio "+idPreuve);
                 //Ajout des informations dans le bouton
                 button.setFont(fonte);
-                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setText("<HTML><body>Type : audio<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);
@@ -241,7 +241,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.setName("video "+idPreuve);
                 //Ajout des informations dans le bouton
                 button.setFont(fonte);
-                button.setText("<HTML><body>Id : "+idPreuve+"<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
+                button.setText("<HTML><body>Type : vidéo<br>Description : "+rs.getString("DESCRIPTION")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 
                 button.setSize(50, 50);

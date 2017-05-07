@@ -154,6 +154,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
     }//GEN-LAST:event_AjouterActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        initComponents();
         this.initialiserPersonnes();
     }//GEN-LAST:event_formWindowGainedFocus
 

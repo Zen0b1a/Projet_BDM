@@ -108,6 +108,7 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
         setTitle("Liste des enquêteurs");
         setMinimumSize(new java.awt.Dimension(500, 500));
+        setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener()
         {
             public void windowGainedFocus(java.awt.event.WindowEvent evt)
@@ -161,8 +162,8 @@ public class DlgEnqueteurs extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_formWindowGainedFocus
     {//GEN-HEADEREND:event_formWindowGainedFocus
+        initComponents();
         this.initialiserEnqueteurs();
-        this.repaint();
     }//GEN-LAST:event_formWindowGainedFocus
 
     /**
