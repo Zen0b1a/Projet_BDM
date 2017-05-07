@@ -126,25 +126,38 @@ public class DlgResultatRechercheTemoignages extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         NomEnquete = new javax.swing.JLabel();
         Temoignages = new javax.swing.JPanel();
 
+        setBackground(new java.awt.Color(226, 220, 207));
+
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel1.setLayout(new java.awt.GridLayout());
+
+        NomEnquete.setBackground(new java.awt.Color(226, 220, 207));
+        NomEnquete.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         NomEnquete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NomEnquete.setText("NomEnquete");
-        getContentPane().add(NomEnquete, java.awt.BorderLayout.PAGE_START);
+        NomEnquete.setPreferredSize(new java.awt.Dimension(110, 40));
+        jPanel1.add(NomEnquete);
+
+        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_START);
+
+        Temoignages.setBackground(new java.awt.Color(226, 220, 207));
+        Temoignages.setPreferredSize(new java.awt.Dimension(500, 400));
 
         javax.swing.GroupLayout TemoignagesLayout = new javax.swing.GroupLayout(Temoignages);
         Temoignages.setLayout(TemoignagesLayout);
         TemoignagesLayout.setHorizontalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 734, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         TemoignagesLayout.setVerticalGroup(
             TemoignagesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         getContentPane().add(Temoignages, java.awt.BorderLayout.CENTER);
@@ -191,5 +204,6 @@ public class DlgResultatRechercheTemoignages extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel NomEnquete;
     private javax.swing.JPanel Temoignages;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

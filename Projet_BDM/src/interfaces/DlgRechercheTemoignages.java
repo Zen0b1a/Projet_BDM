@@ -50,8 +50,7 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         TypeRecherche = new javax.swing.ButtonGroup();
         MotLiaison = new javax.swing.ButtonGroup();
@@ -74,8 +73,8 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
         Ponderation = new javax.swing.JSpinner();
         jPanel7 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
         SensibleCasse = new javax.swing.JRadioButton();
-        jLabel5 = new javax.swing.JLabel();
         NonSensibleCasse = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
@@ -91,23 +90,23 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
         Soustraction = new javax.swing.JRadioButton();
         AjoutMot = new javax.swing.JButton();
 
+        jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.setPreferredSize(new java.awt.Dimension(109, 40));
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
         jPanel1.add(Annuler);
 
+        Valider.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Valider.setText("Lancer la recherche");
-        Valider.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ValiderActionPerformed(evt);
             }
         });
@@ -115,27 +114,29 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
         jPanel2.setLayout(new java.awt.GridLayout(1, 2));
 
+        MotsRecherches.setBackground(new java.awt.Color(226, 220, 207));
         MotsRecherches.setLayout(new java.awt.BorderLayout());
 
+        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
         jPanel3.setLayout(new java.awt.GridLayout(1, 2));
 
+        CommencerRegroupement.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         CommencerRegroupement.setText("Commencer un regroupement");
-        CommencerRegroupement.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        CommencerRegroupement.setPreferredSize(new java.awt.Dimension(307, 40));
+        CommencerRegroupement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CommencerRegroupementActionPerformed(evt);
             }
         });
         jPanel3.add(CommencerRegroupement);
 
+        FinirRegroupement.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         FinirRegroupement.setText("Finir un regroupement");
-        FinirRegroupement.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        FinirRegroupement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FinirRegroupementActionPerformed(evt);
             }
         });
@@ -144,6 +145,7 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
         MotsRecherches.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
         Recherche.setColumns(20);
+        Recherche.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Recherche.setRows(5);
         Recherche.setEnabled(false);
         jScrollPane1.setViewportView(Recherche);
@@ -152,88 +154,127 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
 
         jPanel2.add(MotsRecherches);
 
+        jPanel4.setBackground(new java.awt.Color(226, 220, 207));
         jPanel4.setLayout(new java.awt.GridLayout(4, 4));
 
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setText("Mot à rechercher :");
         jPanel4.add(jLabel3);
+
+        MotRecherche.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel4.add(MotRecherche);
 
+        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
         jPanel6.setLayout(new java.awt.GridLayout(2, 1));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Pondération :");
         jPanel6.add(jLabel1);
+
+        Ponderation.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jPanel6.add(Ponderation);
 
         jPanel4.add(jPanel6);
 
+        jPanel7.setBackground(new java.awt.Color(226, 220, 207));
         jPanel7.setLayout(new java.awt.GridLayout(2, 1));
 
+        jLabel2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel2.setText("Sensible à la casse :");
         jPanel7.add(jLabel2);
 
-        Casse.add(SensibleCasse);
-        SensibleCasse.setText("Oui");
-        jPanel7.add(SensibleCasse);
-        jPanel7.add(jLabel5);
+        jPanel8.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel8.setLayout(new java.awt.GridLayout(1, 2));
 
+        SensibleCasse.setBackground(new java.awt.Color(226, 220, 207));
+        Casse.add(SensibleCasse);
+        SensibleCasse.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        SensibleCasse.setText("Oui");
+        SensibleCasse.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel8.add(SensibleCasse);
+
+        NonSensibleCasse.setBackground(new java.awt.Color(226, 220, 207));
         Casse.add(NonSensibleCasse);
+        NonSensibleCasse.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         NonSensibleCasse.setText("Non");
-        jPanel7.add(NonSensibleCasse);
+        jPanel8.add(NonSensibleCasse);
+
+        jPanel7.add(jPanel8);
 
         jPanel4.add(jPanel7);
 
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel4.setText("Type de recherche :");
         jPanel4.add(jLabel4);
 
+        jPanel5.setBackground(new java.awt.Color(226, 220, 207));
         jPanel5.setLayout(new java.awt.GridLayout(4, 1));
 
+        MotExact.setBackground(new java.awt.Color(226, 220, 207));
         TypeRecherche.add(MotExact);
+        MotExact.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         MotExact.setText("Mot exact");
         jPanel5.add(MotExact);
 
+        Racine.setBackground(new java.awt.Color(226, 220, 207));
         TypeRecherche.add(Racine);
+        Racine.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Racine.setText("Racine");
         jPanel5.add(Racine);
 
+        ProcheOrtho.setBackground(new java.awt.Color(226, 220, 207));
         TypeRecherche.add(ProcheOrtho);
+        ProcheOrtho.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         ProcheOrtho.setText("Proche orthographiquement");
         jPanel5.add(ProcheOrtho);
 
+        ProcheSonorite.setBackground(new java.awt.Color(226, 220, 207));
         TypeRecherche.add(ProcheSonorite);
+        ProcheSonorite.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         ProcheSonorite.setText("Sonorité proche");
         jPanel5.add(ProcheSonorite);
 
         jPanel4.add(jPanel5);
 
+        MotLiaisonInvisible.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaisonInvisible.setLayout(new java.awt.GridLayout(5, 1));
 
+        Et.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaison.add(Et);
+        Et.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Et.setText("Et");
         MotLiaisonInvisible.add(Et);
 
+        Ou.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaison.add(Ou);
+        Ou.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Ou.setText("Ou");
         MotLiaisonInvisible.add(Ou);
 
+        Pres.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaison.add(Pres);
+        Pres.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Pres.setText("Près de");
         MotLiaisonInvisible.add(Pres);
 
+        Accumulation.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaison.add(Accumulation);
+        Accumulation.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Accumulation.setText("Accumulation");
         MotLiaisonInvisible.add(Accumulation);
 
+        Soustraction.setBackground(new java.awt.Color(226, 220, 207));
         MotLiaison.add(Soustraction);
+        Soustraction.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         Soustraction.setText("Soustraction");
         MotLiaisonInvisible.add(Soustraction);
 
         jPanel4.add(MotLiaisonInvisible);
 
+        AjoutMot.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutMot.setText("Ajouter ce mot");
-        AjoutMot.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutMot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutMotActionPerformed(evt);
             }
         });
@@ -413,7 +454,6 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -421,6 +461,7 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

@@ -175,16 +175,22 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
 
+        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
         jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
+        jPanel9.setBackground(new java.awt.Color(226, 220, 207));
         jPanel9.setLayout(new java.awt.GridLayout(1, 2));
 
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setText("Etat :");
         jPanel9.add(jLabel1);
 
+        jPanel10.setBackground(new java.awt.Color(226, 220, 207));
         jPanel10.setLayout(new java.awt.GridLayout(3, 1));
 
+        Coupable.setBackground(new java.awt.Color(226, 220, 207));
         Etat.add(Coupable);
+        Coupable.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Coupable.setText("Coupable");
         Coupable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -193,7 +199,9 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         });
         jPanel10.add(Coupable);
 
+        NonDefini.setBackground(new java.awt.Color(226, 220, 207));
         Etat.add(NonDefini);
+        NonDefini.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         NonDefini.setText("Non défini");
         NonDefini.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,7 +210,9 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         });
         jPanel10.add(NonDefini);
 
+        Disculpe.setBackground(new java.awt.Color(226, 220, 207));
         Etat.add(Disculpe);
+        Disculpe.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Disculpe.setText("Disculpé");
         Disculpe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,13 +225,17 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
 
         jPanel6.add(jPanel9);
 
+        PanelAlibi.setBackground(new java.awt.Color(226, 220, 207));
         PanelAlibi.setLayout(new java.awt.BorderLayout());
 
+        PanelAlibi1.setBackground(new java.awt.Color(226, 220, 207));
         PanelAlibi1.setLayout(new java.awt.GridLayout(2, 1));
 
+        jLabel8.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel8.setText("Alibi :");
         PanelAlibi1.add(jLabel8);
 
+        AjoutAlibi.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         AjoutAlibi.setText("Ajouter un alibi");
         AjoutAlibi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

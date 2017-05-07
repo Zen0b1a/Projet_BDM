@@ -146,8 +146,7 @@ public class DlgAjoutCrime extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -178,14 +177,11 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
         setTitle("Ajout d'un crime");
         setPreferredSize(new java.awt.Dimension(700, 600));
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(9, 1));
@@ -246,10 +242,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
         CreerEnquete.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         CreerEnquete.setText("Créer une nouvelle enquête");
-        CreerEnquete.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        CreerEnquete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CreerEnqueteActionPerformed(evt);
             }
         });
@@ -309,10 +303,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
         AjouterVictime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjouterVictime.setText("Ajouter victime");
-        AjouterVictime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjouterVictime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterVictimeActionPerformed(evt);
             }
         });
@@ -325,10 +317,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
         Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AnnulerActionPerformed(evt);
             }
         });
@@ -336,10 +326,8 @@ public class DlgAjoutCrime extends javax.swing.JFrame
 
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
