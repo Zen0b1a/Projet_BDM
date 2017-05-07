@@ -16,15 +16,17 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
     private String recherche;
     private int regroupement;
     private int regroupementEnAttente;
+    private int idE;
     /**
      * Creates new form DlgRechercheTemoignages
      */
-    public DlgRechercheTemoignages()
+    public DlgRechercheTemoignages(int idE)
     {
         initComponents();
         this.recherche = "";
         this.regroupement = 0;
         this.regroupementEnAttente = 0;
+        this.idE = idE;
         this.initialiser();
     }
 
@@ -340,7 +342,9 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
             JOptionPane.showMessageDialog(null, "Il faut terminer le regroupement avant de lancer la recherche.", "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
         else
         {
-            System.out.println(this.recherche);
+            DlgResultatRechercheTemoignages dlg = new DlgResultatRechercheTemoignages(this.idE, this.recherche);
+            dlg.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_ValiderActionPerformed
 
@@ -378,15 +382,6 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
             java.util.logging.Logger.getLogger(DlgRechercheTemoignages.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                new DlgRechercheTemoignages().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
