@@ -17,15 +17,13 @@ import utils.ConnexionUtils;
  *
  * @author Annabelle
  */
-public class Personne implements SQLData {
+public class Personne implements SQLData 
+{
     private String sql_type;
     private int id;
     private String nom;
     private String prenom;
-    private STRUCT adresse;
-    private int numeroRue;
-    private String rue;
-    private String ville;
+    private Adresse adresse;
     private ARRAY telephone;
     private String[] telephones;
     private OrdImage photo;
@@ -40,9 +38,7 @@ public class Personne implements SQLData {
         this.id = 0;
         this.nom = nom;
         this.prenom = prenom;
-        this.numeroRue = numeroRue;
-        this.rue = rue;
-        this.ville = ville;
+        this.adresse = new Adresse(numeroRue, rue, ville);
         this.telephones = new String[2];
         this.telephones[0] = telephone1;
         this.telephones[1] = telephone2;
@@ -71,17 +67,17 @@ public class Personne implements SQLData {
     
     public int getNumeroRue()
     {
-        return this.numeroRue;
+        return this.adresse.getNumeroRue();
     }
     
     public String getNomRue()
     {
-        return this.rue;
+        return this.adresse.getRue();
     }
     
     public String getVille()
     {
-        return this.ville;
+        return this.adresse.getVille();
     }
     
     public String getTelephone1()
@@ -111,17 +107,17 @@ public class Personne implements SQLData {
     
     public void setNumeroRue(int numeroRue)
     {
-        this.numeroRue = numeroRue;
+        this.adresse.setNumeroRue(numeroRue);
     }
     
     public void setRue(String rue)
     {
-        this.rue = rue;
+        this.adresse.setRue(rue);
     }
     
     public void setVille(String ville)
     {
-        this.ville = ville;
+        this.adresse.setVille(ville);
     }
     
     public void setTelephone(int indice, String telephone)
@@ -135,6 +131,7 @@ public class Personne implements SQLData {
         try 
         {
             java.util.Map maMap = ConnexionUtils.getInstance().getTypeMap();
+            maMap.put("AG092850.BDM_ADRESSE_TYPE",Class.forName("mapping.Adresse"));
             maMap.put("AG092850.BDM_PERSONNE_TYPE",Class.forName("mapping.Personne"));
             OracleStatement stmt = (OracleStatement) ConnexionUtils.getInstance().createStatement();
             OracleResultSet rs = (OracleResultSet) stmt.executeQuery("SELECT VALUE(p) FROM bdm_personne p WHERE id="+id);
@@ -208,15 +205,13 @@ public class Personne implements SQLData {
             ConnexionUtils.getInstance().setAutoCommit(false);
             //Insertion
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_personne VALUES(?, ?, ?, "
-                + "bdm_adresse_type(?, ?, ?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
+                + "bdm_adresse_type(?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
             stmt.setInt(1, this.id);
             stmt.setString(2, this.nom);
-            stmt.setString(3, prenom);
-            stmt.setInt(4, this.numeroRue);
-            stmt.setString(5, this.rue);
-            stmt.setString(6, this.ville);
-            stmt.setString(7, this.telephones[0]);
-            stmt.setString(8, this.telephones[1]);
+            stmt.setString(3, this.prenom);
+            stmt.setObject(4, this.adresse);
+            stmt.setString(5, this.telephones[0]);
+            stmt.setString(6, this.telephones[1]);
             stmt.executeQuery();
             //Ajout de la photo
             Statement ps = (Statement)ConnexionUtils.getInstance().createStatement();
@@ -258,14 +253,11 @@ public class Personne implements SQLData {
             this.id = stream.readInt();
             this.nom = stream.readString();
             this.prenom = stream.readString();
-            this.adresse = (STRUCT)stream.readObject();
+            this.adresse = (Adresse)stream.readObject();
             this.telephone = (ARRAY)stream.readArray();
             this.photo = (OrdImage)((STRUCT)stream.readObject()).toClass(OrdImage.class);
             this.cheminPhoto = "temp/personne/"+this.id;
             this.photo.getDataInFile(this.cheminPhoto);
-            this.numeroRue = Integer.parseInt(this.adresse.getAttributes()[0].toString());
-            this.rue = this.adresse.getAttributes()[1].toString();
-            this.ville = this.adresse.getAttributes()[2].toString();
             this.telephones = new String[2];
             Object[] tel = (Object[])this.telephone.getArray();
             this.telephones[0] = ((STRUCT)tel[0]).getAttributes()[0].toString();
