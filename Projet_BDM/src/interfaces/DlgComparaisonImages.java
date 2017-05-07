@@ -8,6 +8,7 @@ package interfaces;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
@@ -41,6 +42,11 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         initComponents();
         this.idPr = idPr;
         this.imagePreuve = imagePreuve;
+        //On vérifie que l'image est chargée
+        MediaTracker tracker=new MediaTracker(this);
+        tracker.addImage(this.imagePreuve, 0);
+        try {tracker.waitForID(0);}
+        catch(InterruptedException e) {}
         this.resultat = new ArrayList<>();
         this.indice = 0;
         this.Invisible.setVisible(false);
@@ -60,7 +66,14 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
                 OrdImage img = (OrdImage)rs.getORAData("PHOTO", OrdImage.getORADataFactory());
                 String fichier = "temp/personne/"+this.resultat.get(this.indice).getKey();
                 img.getDataInFile(fichier);
+                this.imagePersonne = null;
+                this.repaint();
                 this.imagePersonne = this.ImagePersonne.getToolkit().getImage(fichier);
+                //On vérifie que l'image est chargée
+                MediaTracker tracker=new MediaTracker(this);
+                tracker.addImage(this.imagePersonne, 0);
+                try {tracker.waitForID(0);}
+                catch(InterruptedException e) {}
                 afficheImagePersonne();
                 rs.close();
                 stmt.close();
@@ -504,7 +517,6 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
             {
                 this.Invisible.setVisible(true);
                 this.choixImagePersonne();
-                this.repaint();
             }
             else
                 this.Invisible.setVisible(false);

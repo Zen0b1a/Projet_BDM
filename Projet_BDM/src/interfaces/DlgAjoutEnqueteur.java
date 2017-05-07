@@ -245,6 +245,11 @@ public class DlgAjoutEnqueteur extends javax.swing.JFrame {
             //Récupération de l'image
             this.cheminPhoto = fileChooser.getSelectedFile().getAbsolutePath();
             this.photo = Toolkit.getDefaultToolkit().getImage(this.cheminPhoto);
+            //On vérifie que l'image est chargée
+            MediaTracker tracker=new MediaTracker(this);
+            tracker.addImage(this.photo, 0);
+            try {tracker.waitForID(0);}
+            catch(InterruptedException e) {}
             this.affichePhoto();
         }
     }//GEN-LAST:event_ParcourirActionPerformed

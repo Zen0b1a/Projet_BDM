@@ -65,6 +65,11 @@ public class DlgAfficheEnqueteur extends javax.swing.JFrame {
             this.photo = this.Photo.getToolkit().getImage(fichier);
             rs.close();
             stmt.close();
+            //On vérifie que l'image est chargée
+            MediaTracker tracker=new MediaTracker(this);
+            tracker.addImage(this.photo, 0);
+            try {tracker.waitForID(0);}
+            catch(InterruptedException e) {}
             this.affichePhoto();
         } 
         catch (SQLException | IOException ex) 

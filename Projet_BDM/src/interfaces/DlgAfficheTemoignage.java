@@ -25,6 +25,7 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
     public DlgAfficheTemoignage(int id)
     {
         initComponents();
+        this.Contenu.setEditable(false);
         this.id = id;
         try 
         {
@@ -53,7 +54,8 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         Personne = new javax.swing.JLabel();
@@ -88,7 +90,6 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
         Contenu.setColumns(20);
         Contenu.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Contenu.setRows(5);
-        Contenu.setEnabled(false);
         jScrollPane1.setViewportView(Contenu);
 
         jPanel2.add(jScrollPane1);

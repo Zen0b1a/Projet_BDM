@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -45,6 +46,11 @@ public class DlgAffichePersonne extends javax.swing.JFrame {
         this.Telephone1.setText(this.personne.getTelephone1());
         this.Telephone2.setText(this.personne.getTelephone2());
         this.photo = this.Photo.getToolkit().getImage(this.personne.getCheminPhoto());
+        //On vérifie que l'image est chargée
+        MediaTracker tracker=new MediaTracker(this);
+        tracker.addImage(this.photo, 0);
+        try {tracker.waitForID(0);}
+        catch(InterruptedException e) {}
         this.affichePhoto();
     }
     

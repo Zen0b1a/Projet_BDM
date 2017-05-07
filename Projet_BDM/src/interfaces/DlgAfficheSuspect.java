@@ -9,7 +9,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
-import static java.lang.Thread.sleep;
+import java.awt.MediaTracker;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -94,6 +94,11 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
             this.photo = this.Photo.getToolkit().getImage(this.personne.getCheminPhoto());
             rs.close();
             stmt.close();
+            //On vérifie que l'image est chargée
+            MediaTracker tracker=new MediaTracker(this);
+            tracker.addImage(this.photo, 0);
+            try {tracker.waitForID(0);}
+            catch(InterruptedException e) {}
             this.affichePhoto();
         } 
         catch (SQLException ex)

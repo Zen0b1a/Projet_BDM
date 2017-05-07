@@ -213,7 +213,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         this.indice = (this.indice-1)%this.preuves.size();
         if(this.indice<0)
             this.indice = -this.indice;
-        this.image.flush();
+        this.image = null;
+        repaint();
         this.image = this.preuves.get(this.indice);
         //On vérifie que l'image est chargée
         MediaTracker tracker=new MediaTracker(this);
@@ -226,7 +227,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
     private void SuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuivantActionPerformed
         this.indice = (this.indice+1)%this.preuves.size();
-        this.image.flush();
+        this.image = null;
+        repaint();
         this.image = this.preuves.get(this.indice);
         //On vérifie que l'image est chargée
         MediaTracker tracker=new MediaTracker(this);
