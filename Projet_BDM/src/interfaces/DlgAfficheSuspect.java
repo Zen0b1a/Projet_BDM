@@ -41,6 +41,7 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         this.idS = idS;
         this.initialiserPersonne();
         this.initialiserSuspect();
+        this.Alibi.setEditable(false);
     }
 
     private void initialiserSuspect()
@@ -137,7 +138,8 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         Etat = new javax.swing.ButtonGroup();
         jPanel6 = new javax.swing.JPanel();
@@ -199,8 +201,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Etat.add(Coupable);
         Coupable.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Coupable.setText("Coupable");
-        Coupable.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Coupable.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 CoupableActionPerformed(evt);
             }
         });
@@ -210,8 +214,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Etat.add(NonDefini);
         NonDefini.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         NonDefini.setText("Non défini");
-        NonDefini.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        NonDefini.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 NonDefiniActionPerformed(evt);
             }
         });
@@ -221,8 +227,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Etat.add(Disculpe);
         Disculpe.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Disculpe.setText("Disculpé");
-        Disculpe.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Disculpe.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 DisculpeActionPerformed(evt);
             }
         });
@@ -245,8 +253,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
 
         AjoutAlibi.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         AjoutAlibi.setText("Ajouter un alibi");
-        AjoutAlibi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        AjoutAlibi.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjoutAlibiActionPerformed(evt);
             }
         });
@@ -257,7 +267,6 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Alibi.setColumns(20);
         Alibi.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Alibi.setRows(5);
-        Alibi.setEnabled(false);
         jScrollPane1.setViewportView(Alibi);
 
         PanelAlibi.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -294,8 +303,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
 
         ModifierAdresse.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierAdresse.setText("Modifier");
-        ModifierAdresse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierAdresse.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierAdresseActionPerformed(evt);
             }
         });
@@ -370,8 +381,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         ModifierTelephone1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone1.setText("Modifier");
         ModifierTelephone1.setPreferredSize(new java.awt.Dimension(121, 40));
-        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone1.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone1ActionPerformed(evt);
             }
         });
@@ -391,8 +404,10 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
 
         ModifierTelephone2.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         ModifierTelephone2.setText("Modifier");
-        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        ModifierTelephone2.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ModifierTelephone2ActionPerformed(evt);
             }
         });
