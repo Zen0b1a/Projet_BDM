@@ -354,7 +354,22 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 if(!fichier.equals(""))
                 {
                     Runtime runtime = Runtime.getRuntime();
-                    runtime.exec("vlc " + fichier);
+                    try
+                    { 
+                        runtime.exec("vlc "+fichier);
+                    }
+                    catch (IOException ex) 
+                    {
+                        try
+                        {
+                            runtime.exec("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe "+fichier);
+                        }
+                        catch (IOException e) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Il faut que vlc soit installé dans son répertoire "
+                                    + "par défaut pour utiliser cette fonctionnalité.", "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
+                        }
+                    }
                 }
             } 
             catch (SQLException | IOException ex) 
@@ -383,7 +398,22 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 if(!fichier.equals(""))
                 {
                     Runtime runtime = Runtime.getRuntime();
-                    runtime.exec("vlc " + fichier);
+                    try
+                    { 
+                        runtime.exec("vlc "+fichier);
+                    }
+                    catch (IOException ex) 
+                    {
+                        try
+                        {
+                            runtime.exec("C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe "+fichier);
+                        }
+                        catch (IOException e) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Il faut que vlc soit installé dans son répertoire "
+                                    + "par défaut pour utiliser cette fonctionnalité.", "Erreur", JOptionPane.INFORMATION_MESSAGE, null);
+                        }
+                    }
                 }
             } 
             catch (SQLException | IOException ex) 
