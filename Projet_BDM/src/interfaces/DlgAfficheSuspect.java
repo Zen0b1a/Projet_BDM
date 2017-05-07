@@ -180,6 +180,8 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         Telephone2 = new javax.swing.JLabel();
         ModifierTelephone2 = new javax.swing.JButton();
 
+        setTitle("Suspect");
+
         jPanel6.setBackground(new java.awt.Color(226, 220, 207));
         jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
@@ -237,6 +239,7 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         PanelAlibi1.setLayout(new java.awt.GridLayout(2, 1));
 
         jLabel8.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Alibi :");
         PanelAlibi1.add(jLabel8);
 
@@ -252,6 +255,7 @@ public class DlgAfficheSuspect extends javax.swing.JFrame {
         PanelAlibi.add(PanelAlibi1, java.awt.BorderLayout.LINE_START);
 
         Alibi.setColumns(20);
+        Alibi.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         Alibi.setRows(5);
         Alibi.setEnabled(false);
         jScrollPane1.setViewportView(Alibi);

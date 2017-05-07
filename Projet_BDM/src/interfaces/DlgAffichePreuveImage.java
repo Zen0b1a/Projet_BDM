@@ -112,11 +112,11 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        Precedent = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
         CompareImages = new javax.swing.JButton();
-        Annuler = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        Precedent = new javax.swing.JButton();
         Suivant = new javax.swing.JButton();
+        Annuler = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         Image = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -126,7 +126,19 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         setTitle("Preuve image");
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel1.setLayout(new java.awt.GridLayout(3, 0));
+
+        CompareImages.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        CompareImages.setText("Chercher une correspondance");
+        CompareImages.setPreferredSize(new java.awt.Dimension(329, 40));
+        CompareImages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompareImagesActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CompareImages);
+
+        jPanel4.setLayout(new java.awt.GridLayout(1, 2));
 
         Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
@@ -135,29 +147,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
                 PrecedentActionPerformed(evt);
             }
         });
-        jPanel1.add(Precedent);
-
-        jPanel4.setLayout(new java.awt.GridLayout(2, 1));
-
-        CompareImages.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        CompareImages.setText("Chercher une correspondance");
-        CompareImages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CompareImagesActionPerformed(evt);
-            }
-        });
-        jPanel4.add(CompareImages);
-
-        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        Annuler.setText("Retour");
-        Annuler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AnnulerActionPerformed(evt);
-            }
-        });
-        jPanel4.add(Annuler);
-
-        jPanel1.add(jPanel4);
+        jPanel4.add(Precedent);
 
         Suivant.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Suivant.setText(">");
@@ -166,7 +156,18 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
                 SuivantActionPerformed(evt);
             }
         });
-        jPanel1.add(Suivant);
+        jPanel4.add(Suivant);
+
+        jPanel1.add(jPanel4);
+
+        Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        Annuler.setText("Retour");
+        Annuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AnnulerActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Annuler);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
@@ -174,6 +175,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         Image.setBackground(new java.awt.Color(226, 220, 207));
+        Image.setPreferredSize(new java.awt.Dimension(500, 400));
 
         javax.swing.GroupLayout ImageLayout = new javax.swing.GroupLayout(Image);
         Image.setLayout(ImageLayout);
@@ -183,7 +185,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         );
         ImageLayout.setVerticalGroup(
             ImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 197, Short.MAX_VALUE)
+            .addGap(0, 108, Short.MAX_VALUE)
         );
 
         jPanel2.add(Image, java.awt.BorderLayout.CENTER);
@@ -200,7 +202,7 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

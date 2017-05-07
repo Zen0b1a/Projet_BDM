@@ -159,17 +159,19 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        CompareImage = new javax.swing.JButton();
-        Invisible = new javax.swing.JPanel();
-        Precedent = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        Score = new javax.swing.JLabel();
-        Suivant = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
         ImagePreuve = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        ImagePersonne = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        Invisible = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        Precedent = new javax.swing.JButton();
+        Suivant = new javax.swing.JButton();
+        Score = new javax.swing.JLabel();
+        CompareImage = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -187,37 +189,62 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         PondTextureS = new javax.swing.JSlider();
         PondTextureJTF = new javax.swing.JTextField();
-        ImagePersonne = new javax.swing.JPanel();
+
+        setTitle("Comparaison d'images");
+        setPreferredSize(new java.awt.Dimension(800, 800));
+
+        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.setLayout(new java.awt.BorderLayout());
+
+        jPanel7.setLayout(new java.awt.GridLayout(1, 2));
+
+        ImagePreuve.setBackground(new java.awt.Color(226, 220, 207));
+        ImagePreuve.setPreferredSize(new java.awt.Dimension(400, 400));
+
+        javax.swing.GroupLayout ImagePreuveLayout = new javax.swing.GroupLayout(ImagePreuve);
+        ImagePreuve.setLayout(ImagePreuveLayout);
+        ImagePreuveLayout.setHorizontalGroup(
+            ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2016, Short.MAX_VALUE)
+        );
+        ImagePreuveLayout.setVerticalGroup(
+            ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 219, Short.MAX_VALUE)
+        );
+
+        jPanel7.add(ImagePreuve);
+
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        ImagePersonne.setBackground(new java.awt.Color(226, 220, 207));
+        ImagePersonne.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        javax.swing.GroupLayout ImagePersonneLayout = new javax.swing.GroupLayout(ImagePersonne);
+        ImagePersonne.setLayout(ImagePersonneLayout);
+        ImagePersonneLayout.setHorizontalGroup(
+            ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2016, Short.MAX_VALUE)
+        );
+        ImagePersonneLayout.setVerticalGroup(
+            ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(ImagePersonne, java.awt.BorderLayout.CENTER);
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 3));
 
-        jPanel3.setBackground(new java.awt.Color(226, 220, 207));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 924, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel3);
-
-        CompareImage.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        CompareImage.setText("Chercher une correspondance dans les personnes");
-        CompareImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CompareImageActionPerformed(evt);
-            }
-        });
-        jPanel1.add(CompareImage);
-
         Invisible.setBackground(new java.awt.Color(226, 220, 207));
-        Invisible.setLayout(new java.awt.GridLayout(1, 0));
+        Invisible.setLayout(new java.awt.GridLayout(3, 1));
+
+        jLabel9.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Taux de similarité :");
+        Invisible.add(jLabel9);
+
+        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
 
         Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
@@ -226,20 +253,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
                 PrecedentActionPerformed(evt);
             }
         });
-        Invisible.add(Precedent);
-
-        jPanel6.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
-
-        jLabel9.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Taux de similarité :");
-        jPanel6.add(jLabel9);
-
-        Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel6.add(Score);
-
-        Invisible.add(jPanel6);
+        jPanel6.add(Precedent);
 
         Suivant.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Suivant.setText(">");
@@ -248,34 +262,37 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
                 SuivantActionPerformed(evt);
             }
         });
-        Invisible.add(Suivant);
+        jPanel6.add(Suivant);
+
+        Invisible.add(jPanel6);
+
+        Score.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Invisible.add(Score);
 
         jPanel1.add(Invisible);
 
-        getContentPane().add(jPanel1, java.awt.BorderLayout.PAGE_END);
+        jPanel5.add(jPanel1, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel2.setLayout(new java.awt.GridLayout(1, 3));
+        jPanel7.add(jPanel5);
 
-        ImagePreuve.setBackground(new java.awt.Color(226, 220, 207));
+        jPanel2.add(jPanel7, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout ImagePreuveLayout = new javax.swing.GroupLayout(ImagePreuve);
-        ImagePreuve.setLayout(ImagePreuveLayout);
-        ImagePreuveLayout.setHorizontalGroup(
-            ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 924, Short.MAX_VALUE)
-        );
-        ImagePreuveLayout.setVerticalGroup(
-            ImagePreuveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 282, Short.MAX_VALUE)
-        );
+        CompareImage.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        CompareImage.setText("Chercher une correspondance dans les personnes");
+        CompareImage.setPreferredSize(new java.awt.Dimension(539, 40));
+        CompareImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompareImageActionPerformed(evt);
+            }
+        });
+        jPanel2.add(CompareImage, java.awt.BorderLayout.PAGE_END);
 
-        jPanel2.add(ImagePreuve);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         jPanel4.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel4.setLayout(new java.awt.GridLayout(8, 2));
+        jPanel4.setLayout(new java.awt.GridLayout(9, 2));
 
-        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel1.setText("Pondération de la couleur moyenne :");
         jPanel4.add(jLabel1);
         jPanel4.add(jLabel2);
@@ -298,7 +315,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondAvgColorJTF);
 
-        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel3.setText("Pondération de l'histogramme de couleurs :");
         jPanel4.add(jLabel3);
         jPanel4.add(jLabel4);
@@ -321,7 +338,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondColorHistoJTF);
 
-        jLabel5.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel5.setText("Pondération de la couleur positionnelle :");
         jPanel4.add(jLabel5);
         jPanel4.add(jLabel6);
@@ -344,7 +361,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondPosColorJTF);
 
-        jLabel7.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         jLabel7.setText("Pondération de la texture :");
         jPanel4.add(jLabel7);
         jPanel4.add(jLabel8);
@@ -367,24 +384,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         });
         jPanel4.add(PondTextureJTF);
 
-        jPanel2.add(jPanel4);
-
-        ImagePersonne.setBackground(new java.awt.Color(226, 220, 207));
-
-        javax.swing.GroupLayout ImagePersonneLayout = new javax.swing.GroupLayout(ImagePersonne);
-        ImagePersonne.setLayout(ImagePersonneLayout);
-        ImagePersonneLayout.setHorizontalGroup(
-            ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 924, Short.MAX_VALUE)
-        );
-        ImagePersonneLayout.setVerticalGroup(
-            ImagePersonneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 282, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(ImagePersonne);
-
-        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
+        getContentPane().add(jPanel4, java.awt.BorderLayout.PAGE_END);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -595,8 +595,9 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     // End of variables declaration//GEN-END:variables
 }
