@@ -205,7 +205,7 @@ public class Personne implements SQLData
             ConnexionUtils.getInstance().setAutoCommit(false);
             //Insertion
             stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("INSERT INTO bdm_personne VALUES(?, ?, ?, "
-                + "bdm_adresse_type(?), bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
+                + "?, bdm_telephones_type(bdm_telephone_type(?), bdm_telephone_type(?)), ORDSYS.ORDImage.init())");
             stmt.setInt(1, this.id);
             stmt.setString(2, this.nom);
             stmt.setString(3, this.prenom);

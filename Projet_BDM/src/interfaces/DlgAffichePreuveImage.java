@@ -8,6 +8,7 @@ package interfaces;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -63,6 +64,11 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
             }
             this.indice = 0;
             this.image = this.preuves.get(this.indice);
+            //On vérifie que l'image est chargée
+            MediaTracker tracker=new MediaTracker(this);
+            tracker.addImage(this.image,0);
+            try {tracker.waitForID(0);}
+            catch(InterruptedException e) {}
             this.Description.setText(this.descriptions.get(this.indice));
             afficheImage();
             rs.close();
@@ -207,14 +213,26 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
         this.indice = (this.indice-1)%this.preuves.size();
         if(this.indice<0)
             this.indice = -this.indice;
+        this.image.flush();
         this.image = this.preuves.get(this.indice);
+        //On vérifie que l'image est chargée
+        MediaTracker tracker=new MediaTracker(this);
+        tracker.addImage(this.image,0);
+        try {tracker.waitForID(0);}
+        catch(InterruptedException e) {}
         this.Description.setText(this.descriptions.get(this.indice));
         this.afficheImage();
     }//GEN-LAST:event_PrecedentActionPerformed
 
     private void SuivantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuivantActionPerformed
         this.indice = (this.indice+1)%this.preuves.size();
+        this.image.flush();
         this.image = this.preuves.get(this.indice);
+        //On vérifie que l'image est chargée
+        MediaTracker tracker=new MediaTracker(this);
+        tracker.addImage(this.image,0);
+        try {tracker.waitForID(0);}
+        catch(InterruptedException e) {}
         this.Description.setText(this.descriptions.get(this.indice));
         this.afficheImage();
     }//GEN-LAST:event_SuivantActionPerformed

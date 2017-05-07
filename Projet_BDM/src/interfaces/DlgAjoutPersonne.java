@@ -6,6 +6,9 @@
 package interfaces;
 
 import java.awt.*;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import mapping.Personne;
@@ -59,7 +62,8 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -161,24 +165,15 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
         jPanel3.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
         Photo.setBackground(new java.awt.Color(226, 220, 207));
-
-        javax.swing.GroupLayout PhotoLayout = new javax.swing.GroupLayout(Photo);
-        Photo.setLayout(PhotoLayout);
-        PhotoLayout.setHorizontalGroup(
-            PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 330, Short.MAX_VALUE)
-        );
-        PhotoLayout.setVerticalGroup(
-            PhotoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 208, Short.MAX_VALUE)
-        );
-
+        Photo.setLayout(new java.awt.GridLayout(1, 1));
         jPanel3.add(Photo, java.awt.BorderLayout.CENTER);
 
         Parcourir.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         Parcourir.setText("Pacourir");
-        Parcourir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Parcourir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 ParcourirActionPerformed(evt);
             }
         });
@@ -193,8 +188,10 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
 
         Annuler.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Annuler.setText("Annuler");
-        Annuler.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Annuler.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AnnulerActionPerformed(evt);
             }
         });
@@ -203,8 +200,10 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
         Ajouter.setPreferredSize(new java.awt.Dimension(111, 40));
-        Ajouter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Ajouter.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 AjouterActionPerformed(evt);
             }
         });
@@ -229,6 +228,11 @@ public class DlgAjoutPersonne extends javax.swing.JFrame
             //Récupération de l'image
             this.cheminPhoto = fileChooser.getSelectedFile().getAbsolutePath();
             this.photo = Toolkit.getDefaultToolkit().getImage(this.cheminPhoto);
+            //On vérifie que l'image est chargée
+            MediaTracker tracker=new MediaTracker(this);
+            tracker.addImage(this.photo,0);
+            try {tracker.waitForID(0);}
+            catch(InterruptedException e) {}
             this.affichePhoto();
         }
     }//GEN-LAST:event_ParcourirActionPerformed
