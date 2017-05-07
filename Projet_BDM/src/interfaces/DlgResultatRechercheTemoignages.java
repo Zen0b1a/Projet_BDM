@@ -132,10 +132,11 @@ public class DlgResultatRechercheTemoignages extends javax.swing.JFrame
         NomEnquete = new javax.swing.JLabel();
         Temoignages = new javax.swing.JPanel();
 
+        setTitle("Résultat témoignages communs");
         setBackground(new java.awt.Color(226, 220, 207));
 
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        jPanel1.setLayout(new java.awt.GridLayout(1, 0));
 
         NomEnquete.setBackground(new java.awt.Color(226, 220, 207));
         NomEnquete.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N

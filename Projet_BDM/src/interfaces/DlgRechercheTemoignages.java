@@ -90,6 +90,8 @@ public class DlgRechercheTemoignages extends javax.swing.JFrame
         Soustraction = new javax.swing.JRadioButton();
         AjoutMot = new javax.swing.JButton();
 
+        setTitle("Recherche de témoignages");
+
         jPanel1.setBackground(new java.awt.Color(226, 220, 207));
         jPanel1.setLayout(new java.awt.GridLayout(1, 2));
 

@@ -437,8 +437,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -473,14 +472,11 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         Enqueteurs = new javax.swing.JPanel();
 
         setTitle("Enquête");
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
         getContentPane().setLayout(new java.awt.GridLayout(5, 1));
@@ -524,10 +520,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         encours.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         encours.setText("en-cours");
         encours.setPreferredSize(new java.awt.Dimension(80, 23));
-        encours.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        encours.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 encoursActionPerformed(evt);
             }
         });
@@ -538,10 +532,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         resolue.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
         resolue.setText("résolue");
         resolue.setPreferredSize(new java.awt.Dimension(80, 23));
-        resolue.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        resolue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resolueActionPerformed(evt);
             }
         });
@@ -550,13 +542,12 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
         jPanel1.add(jPanel4);
 
         jPanel5.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel5.setLayout(new java.awt.GridLayout());
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
+        jButton1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jButton1.setText("Rechercher des témoignages");
-        jButton1.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
@@ -578,10 +569,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutSuspect.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutSuspect.setText("Ajouter un suspect");
-        AjoutSuspect.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutSuspect.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutSuspectActionPerformed(evt);
             }
         });
@@ -619,10 +608,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutPreuve.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutPreuve.setText("Ajouter une preuve");
-        AjoutPreuve.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutPreuve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutPreuveActionPerformed(evt);
             }
         });
@@ -660,10 +647,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutCrime.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutCrime.setText("Ajouter un crime");
-        AjoutCrime.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutCrime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutCrimeActionPerformed(evt);
             }
         });
@@ -701,10 +686,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
 
         AjoutEnqueteur.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         AjoutEnqueteur.setText("Ajouter un enquêteur");
-        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        AjoutEnqueteur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjoutEnqueteurActionPerformed(evt);
             }
         });

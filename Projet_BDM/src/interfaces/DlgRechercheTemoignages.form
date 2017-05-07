@@ -9,6 +9,9 @@
     <Component class="javax.swing.ButtonGroup" name="Casse">
     </Component>
   </NonVisualComponents>
+  <Properties>
+    <Property name="title" type="java.lang.String" value="Recherche de t&#xe9;moignages"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>

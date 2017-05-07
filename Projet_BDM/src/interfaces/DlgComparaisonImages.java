@@ -244,7 +244,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         Invisible.add(jLabel9);
 
         jPanel6.setBackground(new java.awt.Color(226, 220, 207));
-        jPanel6.setLayout(new java.awt.GridLayout(2, 1));
+        jPanel6.setLayout(new java.awt.GridLayout(1, 2));
 
         Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
