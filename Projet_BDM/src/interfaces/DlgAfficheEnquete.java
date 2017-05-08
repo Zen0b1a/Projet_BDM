@@ -329,11 +329,11 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
     {
         JButton jb = (JButton)evt.getSource();
         String[] split = jb.getName().split(" "); //split[0] -> image, audio ou video
-        int id = Integer.parseInt(split[1]);
+        int idP = Integer.parseInt(split[1]);
         //Pour afficher une preuve image
         if(split[0].equals("image"))
         {
-            DlgAffichePreuveImage dlg = new DlgAffichePreuveImage(this.id);
+            DlgAffichePreuveImage dlg = new DlgAffichePreuveImage(this.id, idP);
             dlg.setVisible(true);
         }
         //Pour afficher une preuve audio
@@ -343,12 +343,12 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             try 
             {
                 OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT audio FROM bdm_preuve_audio WHERE id=?");
-                stmt.setInt(1, id);
+                stmt.setInt(1, idP);
                 OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
                 rs.next();
                 //Récupération de la video
                 OrdAudio aud = (OrdAudio)rs.getORAData("AUDIO", OrdAudio.getORADataFactory());
-                fichier = "temp/audio/"+id;
+                fichier = "temp/audio/"+idP;
                 aud.getDataInFile(fichier);
                 rs.close();
                 stmt.close();
@@ -385,13 +385,13 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             try 
             {
                 OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT video FROM bdm_preuve_video WHERE id=?");
-                stmt.setInt(1, id);
+                stmt.setInt(1, idP);
                 OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
                 while(rs.next())
                 {
                     //Récupération de la video
                     OrdVideo vid = (OrdVideo)rs.getORAData("VIDEO", OrdVideo.getORADataFactory());
-                    fichier = "temp/video/"+id;
+                    fichier = "temp/video/"+idP;
                     vid.getDataInFile(fichier);
                 }
                 rs.close();

@@ -26,6 +26,7 @@ import utils.ConnexionUtils;
  */
 public class DlgAffichePreuveImage extends javax.swing.JFrame {
     private int idE;
+    private int idP;
     private Image image;
     private int indice;
     private List<Integer> id;
@@ -34,9 +35,11 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
     /**
      * Creates new form DlgAffichePreuveImage
      */
-    public DlgAffichePreuveImage(int idE) {
+    public DlgAffichePreuveImage(int idE, int idP) {
         initComponents();
         this.idE = idE;
+        this.idP = idP;
+        this.indice = 0;
         this.preuves = new ArrayList<>();
         this.descriptions = new ArrayList<>();
         this.id = new ArrayList<>();
@@ -55,6 +58,8 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
             {
                 //Récupération de la description et de l'id
                 this.id.add(rs.getInt("ID"));
+                if(this.idP==rs.getInt("ID"))
+                    this.indice = this.id.size()-1;
                 this.descriptions.add(rs.getString("DESCRIPTION"));
                 //Récupération de la photo
                 OrdImage img = (OrdImage)rs.getORAData("IMAGE", OrdImage.getORADataFactory());
@@ -62,7 +67,6 @@ public class DlgAffichePreuveImage extends javax.swing.JFrame {
                 img.getDataInFile(fichier);
                 this.preuves.add(this.Image.getToolkit().getImage(fichier));
             }
-            this.indice = 0;
             this.image = this.preuves.get(this.indice);
             //On vérifie que l'image est chargée
             MediaTracker tracker=new MediaTracker(this);
