@@ -77,7 +77,7 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
                 afficheImagePersonne();
                 rs.close();
                 stmt.close();
-                this.Score.setText(""+(100-this.resultat.get(this.indice).getValue()));
+                this.Score.setText(""+(100-this.resultat.get(this.indice).getValue()+"%"));
             } 
             catch (SQLException | IOException ex) 
             {
@@ -157,7 +157,8 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents()
+    {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -248,8 +249,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         Precedent.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Precedent.setText("<");
-        Precedent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Precedent.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 PrecedentActionPerformed(evt);
             }
         });
@@ -257,8 +260,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         Suivant.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Suivant.setText(">");
-        Suivant.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Suivant.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 SuivantActionPerformed(evt);
             }
         });
@@ -280,8 +285,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
         CompareImage.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         CompareImage.setText("Chercher une correspondance dans les personnes");
         CompareImage.setPreferredSize(new java.awt.Dimension(539, 40));
-        CompareImage.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        CompareImage.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
                 CompareImageActionPerformed(evt);
             }
         });
@@ -299,8 +306,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondAvgColorS.setBackground(new java.awt.Color(226, 220, 207));
         PondAvgColorS.setValue(100);
-        PondAvgColorS.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        PondAvgColorS.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 PondAvgColorSStateChanged(evt);
             }
         });
@@ -308,8 +317,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondAvgColorJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondAvgColorJTF.setText("1.0");
-        PondAvgColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        PondAvgColorJTF.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 PondAvgColorJTFKeyReleased(evt);
             }
         });
@@ -322,8 +333,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondColorHistoS.setBackground(new java.awt.Color(226, 220, 207));
         PondColorHistoS.setValue(100);
-        PondColorHistoS.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        PondColorHistoS.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 PondColorHistoSStateChanged(evt);
             }
         });
@@ -331,8 +344,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondColorHistoJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondColorHistoJTF.setText("1.0");
-        PondColorHistoJTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        PondColorHistoJTF.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 PondColorHistoJTFKeyReleased(evt);
             }
         });
@@ -345,8 +360,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondPosColorS.setBackground(new java.awt.Color(226, 220, 207));
         PondPosColorS.setValue(100);
-        PondPosColorS.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        PondPosColorS.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 PondPosColorSStateChanged(evt);
             }
         });
@@ -354,8 +371,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondPosColorJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondPosColorJTF.setText("1.0");
-        PondPosColorJTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        PondPosColorJTF.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 PondPosColorJTFKeyReleased(evt);
             }
         });
@@ -368,8 +387,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondTextureS.setBackground(new java.awt.Color(226, 220, 207));
         PondTextureS.setValue(100);
-        PondTextureS.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+        PondTextureS.addChangeListener(new javax.swing.event.ChangeListener()
+        {
+            public void stateChanged(javax.swing.event.ChangeEvent evt)
+            {
                 PondTextureSStateChanged(evt);
             }
         });
@@ -377,8 +398,10 @@ public class DlgComparaisonImages extends javax.swing.JFrame {
 
         PondTextureJTF.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         PondTextureJTF.setText("1.0");
-        PondTextureJTF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
+        PondTextureJTF.addKeyListener(new java.awt.event.KeyAdapter()
+        {
+            public void keyReleased(java.awt.event.KeyEvent evt)
+            {
                 PondTextureJTFKeyReleased(evt);
             }
         });
