@@ -120,7 +120,7 @@ public class DlgAjoutPreuve extends javax.swing.JFrame
             fileChooser.setDialogTitle("Choisir une photo");
             FileNameExtensionFilter filterImage = new FileNameExtensionFilter("Images", "bmp", "jpg", "jpeg", "png");
             FileNameExtensionFilter filterAudio = new FileNameExtensionFilter("Audios", "mp3", "midi", "wav", "flac");
-            FileNameExtensionFilter filterVideo = new FileNameExtensionFilter("Videos", "mp4", "avi", "mkv");
+            FileNameExtensionFilter filterVideo = new FileNameExtensionFilter("Videos", "avi", "mkv");
             FileNameExtensionFilter filter = null;
             switch(this.ListeTypes.getSelectedItem().toString())
             {
