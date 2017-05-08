@@ -400,6 +400,12 @@ public class DlgAjoutCrime extends javax.swing.JFrame
             message += "\nIl faut sélectionner une enquête.";
             valide = false;
         }
+        //Vérification du nombre de victimes
+        if(this.personnesVictimes.size()<=0)
+        {
+            message += "\nIl doit y avoir au moins une victime";
+            valide = false;
+        }
         
         if(valide)
         {
