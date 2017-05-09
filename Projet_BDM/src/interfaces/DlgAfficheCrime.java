@@ -32,13 +32,13 @@ public class DlgAfficheCrime extends javax.swing.JFrame
         this.id = id;
         try 
         {
-            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT fait, dateC, lieu FROM bdm_crime WHERE id=?");
+            OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT fait, TO_CHAR(dateC,'DD/MM/YYYY'), lieu FROM bdm_crime WHERE id=?");
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             rs.next();
             //Récupération des informations de l'enquête
             this.Fait.setText(rs.getString("FAIT"));
-            this.Date.setText(rs.getString("DATEC"));
+            this.Date.setText(rs.getString("TO_CHAR(dateC,'DD/MM/YYYY')"));
             this.Lieu.setText(rs.getString("LIEU"));
             rs.close();
             stmt.close();

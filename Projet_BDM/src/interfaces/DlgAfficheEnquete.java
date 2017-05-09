@@ -131,7 +131,8 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
             this.Crimes.removeAll();
             this.Crimes.setLayout(new GridLayout());
             OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT DEREF(crimeR).id, DEREF(crimeR).fait, "
-                    + "DEREF(crimeR).dateC, DEREF(crimeR).lieu FROM THE(SELECT crimes FROM bdm_enquete WHERE id=?) ORDER BY DEREF(crimeR).dateC");
+                    + "TO_CHAR(DEREF(crimeR).dateC,'DD/MM/YYYY'), DEREF(crimeR).lieu FROM THE(SELECT crimes FROM bdm_enquete WHERE id=?) ORDER BY DEREF(crimeR).dateC");
+            //DEREF(crimeR).dateC
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             int idCrime;
@@ -143,7 +144,7 @@ public class DlgAfficheEnquete extends javax.swing.JFrame
                 button.setName(""+idCrime);
                 //Ajout des informations dans le bouton
                 button.setFont(fonte);
-                button.setText("<HTML><body>Fait : "+rs.getString("DEREF(crimeR).FAIT")+"<br>Date : "+rs.getString("DEREF(crimeR).DATEC")+"<br>Lieu : "
+                button.setText("<HTML><body>Fait : "+rs.getString("DEREF(crimeR).FAIT")+"<br>Date : "+rs.getString("TO_CHAR(DEREF(crimeR).dateC,'DD/MM/YYYY')")+"<br>Lieu : "
                         +rs.getString("DEREF(crimeR).LIEU")+"</HTML></body>");
                 button.setVerticalTextPosition(SwingConstants.BOTTOM);
                 button.setHorizontalTextPosition(SwingConstants.CENTER); 

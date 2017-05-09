@@ -30,7 +30,6 @@ public class DlgPersonnes extends javax.swing.JFrame {
     public DlgPersonnes() {
         initComponents();
         this.initialiserPersonnes();
-        this.repaint();
     }
 
     private void initialiserPersonnes()
@@ -96,8 +95,7 @@ public class DlgPersonnes extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents()
-    {
+    private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -109,14 +107,11 @@ public class DlgPersonnes extends javax.swing.JFrame {
         setTitle("Liste des personnes");
         setPreferredSize(new java.awt.Dimension(792, 500));
         setResizable(false);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener()
-        {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt)
-            {
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
             }
-            public void windowLostFocus(java.awt.event.WindowEvent evt)
-            {
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
 
@@ -133,10 +128,8 @@ public class DlgPersonnes extends javax.swing.JFrame {
         Ajouter.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         Ajouter.setText("Ajouter");
         Ajouter.setPreferredSize(new java.awt.Dimension(109, 40));
-        Ajouter.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
+        Ajouter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AjouterActionPerformed(evt);
             }
         });
@@ -161,7 +154,6 @@ public class DlgPersonnes extends javax.swing.JFrame {
     }//GEN-LAST:event_AjouterActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        initComponents();
         this.initialiserPersonnes();
     }//GEN-LAST:event_formWindowGainedFocus
 

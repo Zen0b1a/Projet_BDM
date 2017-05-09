@@ -30,13 +30,13 @@ public class DlgAfficheTemoignage extends javax.swing.JFrame
         try 
         {
             OraclePreparedStatement stmt = (OraclePreparedStatement)ConnexionUtils.getInstance().prepareStatement("SELECT DEREF(personneT).nom, DEREF(personneT).prenom, "
-                    + "dateT, contenu FROM bdm_temoignage WHERE id=?");
+                    + "TO_CHAR(dateT,'DD/MM/YYYY HH24:MI'), contenu FROM bdm_temoignage WHERE id=?");
             stmt.setInt(1, this.id);
             OracleResultSet rs = (OracleResultSet)stmt.executeQuery();
             rs.next();
             //Récupération des informations de l'enquête
             this.Personne.setText(rs.getString("DEREF(personneT).nom")+" "+rs.getString("DEREF(personneT).prenom"));
-            this.DateT.setText(rs.getString("DATET"));
+            this.DateT.setText(rs.getString(3));
             this.Contenu.setText(rs.getString("CONTENU"));
             rs.close();
             stmt.close();
